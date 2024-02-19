@@ -13,7 +13,7 @@
     "migrations:make": "drizzle-kit generate:sqlite"
   },
   "dependencies": {
-    "@libsql/client": "0.4.3",
+    "@libsql/client": "0.5.1",
     "@nuxt/ui": "^2.13.0",
     "better-sqlite3": "^9.4.1",
     "drizzle-orm": "^0.29.3"
@@ -23,8 +23,8 @@
     "drizzle-kit": "^0.20.14",
     "eslint": "^8.56.0",
     "eslint-plugin-drizzle": "^0.2.3",
-    "nuxt": "^3.10.1",
-    "nuxt-auth-utils": "^0.0.16",
+    "nuxt": "^3.10.2",
+    "nuxt-auth-utils": "^0.0.18",
     "vue": "^3.4.19",
     "vue-router": "^4.2.5"
   }

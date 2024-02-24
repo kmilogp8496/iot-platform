@@ -13,6 +13,7 @@
     "migrations:make": "drizzle-kit generate:sqlite"
   },
   "dependencies": {
+    "@influxdata/influxdb-client": "^1.33.2",
     "@libsql/client": "0.5.1",
     "@nuxt/ui": "^2.14.1",
     "better-sqlite3": "^9.4.3",
@@ -20,7 +21,6 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.4",
-    "@influxdata/influxdb3-client": "^0.6.0",
     "drizzle-kit": "^0.20.14",
     "eslint": "^8.57.0",
     "eslint-plugin-drizzle": "^0.2.3",

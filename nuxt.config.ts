@@ -1,7 +1,9 @@
-// const host = process.env.DEV_HOST ?? 'localhost'
-
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  runtimeConfig: {
+    influxHost: '',
+    influxToken: '',
+    influxDatabase: '',
+  },
   devtools: { enabled: true },
   modules: [
     '@nuxt/ui',

@@ -2,9 +2,9 @@
 
 - [x] Add Github authentication
 - [x] Add influx DB client
-- [ ] Setup influxDB CLient
-    - [ ] Write data function
-    - [ ] Read data function
+- [x] Setup influxDB CLient
+    - [x] Write data function
+    - [x] Read data function
 - [ ] Integrate Influx graphics in APP
 - [ ] Add notifications to external channels
 - [ ] Add authorization to routes

@@ -14,18 +14,19 @@
   },
   "dependencies": {
     "@libsql/client": "0.5.1",
-    "@nuxt/ui": "^2.13.0",
-    "better-sqlite3": "^9.4.1",
-    "drizzle-orm": "^0.29.3"
+    "@nuxt/ui": "^2.14.1",
+    "better-sqlite3": "^9.4.3",
+    "drizzle-orm": "^0.29.4"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.4",
+    "@influxdata/influxdb3-client": "^0.6.0",
     "drizzle-kit": "^0.20.14",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "eslint-plugin-drizzle": "^0.2.3",
-    "nuxt": "^3.10.2",
-    "nuxt-auth-utils": "^0.0.18",
+    "nuxt": "^3.10.3",
+    "nuxt-auth-utils": "^0.0.19",
     "vue": "^3.4.19",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.3.0"
   }
 }

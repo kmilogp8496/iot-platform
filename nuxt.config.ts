@@ -3,6 +3,7 @@ export default defineNuxtConfig({
     influxHost: '',
     influxToken: '',
     influxDatabase: '',
+    influxOrganization: '',
   },
   devtools: { enabled: true },
   modules: [

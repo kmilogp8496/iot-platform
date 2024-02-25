@@ -1,0 +1,1 @@
+ALTER TABLE users ADD `role` text DEFAULT 'GUEST' NOT NULL;

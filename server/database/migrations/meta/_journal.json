@@ -1,19 +1,19 @@
 {
   "version": "5",
-  "dialect": "sqlite",
+  "dialect": "pg",
   "entries": [
     {
       "idx": 0,
       "version": "5",
-      "when": 1705685182747,
-      "tag": "0000_polite_miracleman",
+      "when": 1708889674341,
+      "tag": "0000_married_anthem",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "5",
-      "when": 1708874327929,
-      "tag": "0001_luxuriant_luke_cage",
+      "when": 1708896555751,
+      "tag": "0001_vengeful_maestro",
       "breakpoints": true
     }
   ]

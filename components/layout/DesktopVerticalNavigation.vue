@@ -10,11 +10,6 @@ const links = [
     icon: 'i-heroicons-chart-bar',
     to: '#',
   },
-  {
-    label: 'Organización',
-    icon: 'i-codicon-organization',
-    to: '#',
-  },
 ]
 </script>
 

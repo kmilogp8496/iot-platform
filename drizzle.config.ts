@@ -4,8 +4,8 @@ import { defineConfig } from 'drizzle-kit'
 export default defineConfig({
   out: 'server/database/migrations',
   schema: ['./server/database/**/*.schema.ts'],
-  driver: 'better-sqlite',
+  driver: 'pg',
   dbCredentials: {
-    url: join(process.cwd(), './db.sqlite'),
+    connectionString: process.env.NUXT_DB_URL ?? '',
   },
 })

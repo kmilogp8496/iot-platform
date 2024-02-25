@@ -13,7 +13,7 @@ useHead({
 
 <template>
   <div class="container h-svh flex flex-col mx-auto">
-    <nav class="py-2 border-b border-b-gray-200">
+    <nav class="py-2">
       <ul class="flex items-center justify-end gap-4">
         <li>
           <UButton variant="link" to="/home">

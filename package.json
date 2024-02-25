@@ -10,14 +10,16 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "migrations:make": "drizzle-kit generate:sqlite"
+    "migrations:make": "drizzle-kit generate:pg",
+    "migrations:push": "drizzle-kit migrate:pg"
   },
   "dependencies": {
     "@influxdata/influxdb-client": "^1.33.2",
     "@libsql/client": "0.5.1",
     "@nuxt/ui": "^2.14.1",
     "better-sqlite3": "^9.4.3",
-    "drizzle-orm": "^0.29.4"
+    "drizzle-orm": "^0.29.4",
+    "postgres": "^3.4.3"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.4",

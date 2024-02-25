@@ -19,7 +19,10 @@ dependencies:
     version: 9.4.3
   drizzle-orm:
     specifier: ^0.29.4
-    version: 0.29.4(@libsql/client@0.5.1)(better-sqlite3@9.4.3)
+    version: 0.29.4(@libsql/client@0.5.1)(better-sqlite3@9.4.3)(postgres@3.4.3)
+  postgres:
+    specifier: ^3.4.3
+    version: 3.4.3
 
 devDependencies:
   '@antfu/eslint-config':
@@ -3950,7 +3953,7 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.29.4(@libsql/client@0.5.1)(better-sqlite3@9.4.3):
+  /drizzle-orm@0.29.4(@libsql/client@0.5.1)(better-sqlite3@9.4.3)(postgres@3.4.3):
     resolution: {integrity: sha512-ZnSM8TAxFhzH7p1s3+w3pRE/eKaOeNkH9SKitm717pubDVVcV2I0BCDBPGKV+pe02+wMfw37ntlTcCyo2rA3IA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -4023,6 +4026,7 @@ packages:
     dependencies:
       '@libsql/client': 0.5.1
       better-sqlite3: 9.4.3
+      postgres: 3.4.3
     dev: false
 
   /duplexer@0.1.2:
@@ -7335,6 +7339,11 @@ packages:
       nanoid: 3.3.7
       picocolors: 1.0.0
       source-map-js: 1.0.2
+
+  /postgres@3.4.3:
+    resolution: {integrity: sha512-iHJn4+M9vbTdHSdDzNkC0crHq+1CUdFhx+YqCE+SqWxPjm+Zu63jq7yZborOBF64c8pc58O5uMudyL1FQcHacA==}
+    engines: {node: '>=12'}
+    dev: false
 
   /prebuild-install@7.1.1:
     resolution: {integrity: sha512-jAXscXWMcCK8GgCoHOfIr0ODh5ai8mj63L2nWrjuAgXE6tDyYGnx4/8o/rCgU+B4JSyZBKbeZqzhtwtC3ovxjw==}

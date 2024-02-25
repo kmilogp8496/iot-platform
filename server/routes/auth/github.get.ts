@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm'
-import type { InsertUser } from '~/server/database/user/users.schema'
-import { users } from '~/server/database/user/users.schema'
+import type { InsertUser } from '~/server/database/schemas/users.schema'
+import { users } from '~/server/database/schemas/users.schema'
 
 interface GithubUserSession {
   login: string // username
@@ -47,7 +47,6 @@ export default oauth.githubEventHandler({
   config: {
     emailRequired: true,
   },
-  // @ts-expect-error expected error for miss typing
   async onSuccess(event, { user }: { user: GithubUserSession, tokens: GithubTokensSession }) {
     const db = useDB()
     let dbUser = await db.select().from(users).where(eq(users.email, user.email)).get()
@@ -56,6 +55,7 @@ export default oauth.githubEventHandler({
       const newUser: InsertUser = {
         email: user.email,
         firstName: user.name,
+        role: 'GUEST',
       }
 
       dbUser = await db.insert(users).values(newUser).returning().get()
@@ -67,7 +67,6 @@ export default oauth.githubEventHandler({
     })
     return sendRedirect(event, '/')
   },
-  // Optional, will return a json error and 401 status code by default
   onError(event, error) {
     console.error('Github OAuth error:', error)
     return sendRedirect(event, '/')

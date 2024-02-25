@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm'
-import type { InsertUser } from '~/server/database/user/users.schema'
-import { users } from '~/server/database/user/users.schema'
+import type { InsertUser } from '~/server/database/schemas/users.schema'
+import { users } from '~/server/database/schemas/users.schema'
 
 interface GoogleTokensSession {
   access_token: string

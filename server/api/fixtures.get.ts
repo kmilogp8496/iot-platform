@@ -3,9 +3,9 @@ import { useInfluxReadClient } from '../utils/influxDB'
 export default defineEventHandler(async () => {
   const readClient = useInfluxReadClient()
 
-  const fluxQuery = /*  */`from(bucket: "casa")
- |> range(start: -10m)
- |> filter(fn: (r) => r._measurement == "temperatura")`
+  const fluxQuery = /* sql */ `from(bucket: "iot-platform")
+                                  |> range(start: -10m)
+                                  |> filter(fn: (r) => r._measurement == "temperatura")`
 
   const rows = readClient.iterateRows(fluxQuery)
 

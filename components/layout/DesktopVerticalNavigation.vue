@@ -8,7 +8,7 @@ const links = [
   {
     label: 'Proyectos',
     icon: 'i-heroicons-chart-bar',
-    to: '#',
+    to: '/projects',
   },
 ]
 </script>

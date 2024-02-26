@@ -2,8 +2,6 @@ import { pgTable, serial, text } from 'drizzle-orm/pg-core'
 
 export const USER_ROLES = ['ADMIN', 'USER', 'GUEST'] as const
 
-export type UserRoles = typeof USER_ROLES[number]
-
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
   email: text('email').notNull().unique(),

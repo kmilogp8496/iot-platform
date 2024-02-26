@@ -23,7 +23,7 @@ const transformableColumns = computed(() => props.columns.filter(column => Boole
   </div>
   <UTable :rows="rows" :columns="columns" :loading="loading">
     <template v-for="column in transformableColumns" :key="`transformed-${column.key}`" #[`${column.key}-data`]="{ row }">
-      {{ column.transform!(row) }}
+      {{ column.transform?.(row) }}
     </template>
 
     <template v-for="(_, name) in $slots" :key="`slot-${name}`" #[name]="{ row }">

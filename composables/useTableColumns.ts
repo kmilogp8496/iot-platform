@@ -8,6 +8,8 @@ export interface TableColumn<T extends Record<string, any>> {
   direction?: 'asc' | 'desc'
   class?: string
   label: string
+  hidden?: MaybeRef<boolean>
+  transform?: (row: T) => string
 }
 
 export function useTableColumns<T extends Record<string, any>>(columns: TableColumn<T>[]) {

@@ -15,6 +15,27 @@
       "when": 1708896555751,
       "tag": "0001_vengeful_maestro",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1708971875404,
+      "tag": "0002_dry_karen_page",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1708972996034,
+      "tag": "0003_great_morgan_stark",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1708976634153,
+      "tag": "0004_absent_slayback",
+      "breakpoints": true
     }
   ]
 }

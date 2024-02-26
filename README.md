@@ -7,10 +7,20 @@
     - [x] Read data function
 - [ ] Integrate Influx graphics in APP
 - [ ] Add notifications to external channels
-- [ ] Add authorization to routes
+- [x] Add authorization to routes
 - [ ] Database
-    - [ ] Add Users table
-    - [ ] Add Projects table
-    - [ ] Add sensors tables
+    - [x] Add Users table
+    - [x] Add Projects table
+    - [x] Add sensors tables
+    - [x] Add locations tables
+    - [x] Add variables tables
     - [ ] Add tags table
-    - [ ] Setup TursoDB
+    - [x] Setup Supabase
+    - [ ] Migrations
+- [ ] Cruds
+    - [ ] Users
+    - [x] Projects
+    - [ ] Sensors
+    - [ ] Locations
+    - [ ] Variables
+    - [ ] Tags

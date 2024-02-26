@@ -49,7 +49,7 @@ export default oauth.githubEventHandler({
   },
   async onSuccess(event, { user }: { user: GithubUserSession, tokens: GithubTokensSession }) {
     const db = useDB()
-    let dbUser = await db.select().from(users).where(eq(users.email, user.email)).get()
+    let dbUser = (await db.select().from(users).where(eq(users.email, user.email))).at(0)
 
     if (!dbUser) {
       const newUser: InsertUser = {
@@ -58,17 +58,17 @@ export default oauth.githubEventHandler({
         role: 'GUEST',
       }
 
-      dbUser = await db.insert(users).values(newUser).returning().get()
+      dbUser = (await db.insert(users).values(newUser).returning()).at(0)
     }
 
     await setUserSession(event, {
       user: dbUser,
-      loggedInAt: new Date().toISOString(),
+      loggedAt: new Date(),
     })
-    return sendRedirect(event, '/')
+    return sendRedirect(event, '/dashboard')
   },
   onError(event, error) {
     console.error('Github OAuth error:', error)
-    return sendRedirect(event, '/')
+    return sendRedirect(event, '/home?error=github-oauth-failed')
   },
 })

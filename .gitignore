@@ -25,3 +25,5 @@ logs
 
 *.pem
 db.sqlite
+# Local Netlify folder
+.netlify

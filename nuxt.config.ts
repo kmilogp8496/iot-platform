@@ -5,7 +5,6 @@ export default defineNuxtConfig({
     influxDatabase: '',
     influxOrganization: '',
     dbUrl: '',
-    supabaseProjectUrl: '',
   },
   devtools: { enabled: true },
   modules: [

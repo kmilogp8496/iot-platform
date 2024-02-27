@@ -2,6 +2,10 @@
 useHead({
   title: 'Iniciar sesión',
 })
+
+definePageMeta({
+  layout: 'auth',
+})
 </script>
 
 <template>

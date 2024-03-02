@@ -1,4 +1,5 @@
 import { projects, projectsInsertSchema } from '~/server/database/schemas/projects.schema'
+import { usersToProjects } from '~/server/database/schemas/usersToProjects.schema'
 import { getUserFromEvent } from '~/server/utils/api'
 
 export default defineEventHandler(async (event) => {
@@ -16,5 +17,12 @@ export default defineEventHandler(async (event) => {
 
   const db = useDB()
 
-  return (await db.insert(projects).values(insertProject).returning()).at(0)!
+  const createdProject = (await db.insert(projects).values(insertProject).returning()).at(0)!
+
+  await db.insert(usersToProjects).values({
+    userId: user.id,
+    projectId: createdProject.id,
+  })
+
+  return createdProject
 })

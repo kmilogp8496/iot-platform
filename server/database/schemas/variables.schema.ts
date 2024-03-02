@@ -1,4 +1,5 @@
 import { pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core'
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 
 export const variables = pgTable('variables', {
   id: serial('id').primaryKey(),
@@ -12,3 +13,7 @@ export const variables = pgTable('variables', {
 
 export type InsertVariable = typeof variables.$inferInsert
 export type Variable = typeof variables.$inferSelect
+
+export const variablesInsertSchema = createInsertSchema(variables)
+export const variablesSelectSchema = createSelectSchema(variables)
+export const variablesUpdateSchema = variablesInsertSchema.omit({ id: true })

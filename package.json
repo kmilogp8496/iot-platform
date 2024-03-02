@@ -15,9 +15,7 @@
   },
   "dependencies": {
     "@influxdata/influxdb-client": "^1.33.2",
-    "@libsql/client": "0.5.1",
     "@nuxt/ui": "^2.14.1",
-    "better-sqlite3": "^9.4.3",
     "drizzle-orm": "^0.29.4",
     "drizzle-zod": "^0.5.1",
     "postgres": "^3.4.3"
@@ -28,8 +26,8 @@
     "eslint": "^8.57.0",
     "eslint-plugin-drizzle": "^0.2.3",
     "nuxt": "^3.10.3",
-    "nuxt-auth-utils": "^0.0.19",
-    "vue": "^3.4.19",
+    "nuxt-auth-utils": "^0.0.20",
+    "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   }
 }

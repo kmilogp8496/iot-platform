@@ -14,6 +14,7 @@ export default defineEventHandler(async (event) => {
   const db = useDB()
 
   const projectsQb = db.select({
+    id: projects.id,
     name: projects.name,
     createdAt: projects.createdAt,
     description: projects.description,
@@ -26,7 +27,7 @@ export default defineEventHandler(async (event) => {
     .offset(query.offset)
     .$dynamic()
 
-  const totalQb = db.select({ total: sql<number>`count(*)` }).from(projects).where(eq(projects.createdBy, user!.id)).$dynamic()
+  const totalQb = db.select({ total: sql`count(*)` }).from(projects).where(eq(projects.createdBy, user!.id)).$dynamic()
 
   if (query.search) {
     totalQb.where(like(projects.name, `${query.search}%`))
@@ -35,5 +36,5 @@ export default defineEventHandler(async (event) => {
 
   const [{ total }] = await totalQb
 
-  return createPaginatedResponse(total, await projectsQb)
+  return createPaginatedResponse(Number(total), await projectsQb)
 })

@@ -10,6 +10,16 @@ const links = [
     icon: 'i-heroicons-chart-bar',
     to: '/projects',
   },
+  {
+    label: 'Sensores',
+    icon: 'i-cbi-motion-sensor-temperature',
+    to: '/sensors',
+  },
+  {
+    label: 'Variables',
+    icon: 'mdi:variable',
+    to: '/variables',
+  },
 ]
 </script>
 

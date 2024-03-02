@@ -42,7 +42,7 @@ useHead({
       <main class="relative flex-grow">
         <slot />
       </main>
-      <div class="hidden lg:inline-flex w-40" />
     </div>
+    <UNotifications />
   </div>
 </template>

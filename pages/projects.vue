@@ -4,9 +4,9 @@ import type { InferPaginationItem } from '~/utils/typing.ts'
 
 const { user } = useUserSession()
 
-const achievements = useFetch('/api/projects')
+const projects = useFetch('/api/projects')
 
-const columns = useTableColumns<InferPaginationItem<typeof achievements>>([
+const columns = useTableColumns<InferPaginationItem<typeof projects>>([
   {
     key: 'name',
     label: 'Nombre',
@@ -22,16 +22,20 @@ const columns = useTableColumns<InferPaginationItem<typeof achievements>>([
   },
   {
     key: 'createdByEmail',
-    label: 'Created By',
+    label: 'Creado por',
     hidden: user.value!.role !== RolesDefinition.ADMIN,
   },
 ])
 </script>
 
 <template>
-  <PageTitle title="Proyectos" />
-  <div class="flex justify-end items-center">
-    <ProjectsCreateDialog />
+  <div class="flex gap-4 items-center">
+    <PageTitle title="Proyectos" />
+    <BaseSpacer />
+    <UButton icon="material-symbols:sync-rounded" :loading="projects.status.value === 'pending'" @click="projects.refresh()">
+      Actualizar
+    </UButton>
+    <ProjectsCreateDialog @created="projects.refresh()" />
   </div>
-  <AsyncTable :total="achievements.data.value?.total ?? 0" :loading="achievements.pending.value" :rows="achievements.data.value?.results ?? []" :columns="columns" />
+  <AsyncTable :total="projects.data.value?.total ?? 0" :loading="projects.pending.value" :rows="projects.data.value?.results ?? []" :columns="columns" />
 </template>

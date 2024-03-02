@@ -7,6 +7,10 @@ const emit = defineEmits<{
   created: [InferResponse<typeof createProject>]
 }>()
 
+const model = defineModel({
+  default: false,
+})
+
 const state = ref({
   name: '',
   description: '',
@@ -17,10 +21,6 @@ const createProject = useFetch('/api/projects', {
   body: state,
   immediate: false,
   watch: false,
-})
-
-const model = defineModel({
-  default: false,
 })
 
 const schema = z.object({
@@ -34,6 +34,7 @@ async function onSubmit() {
     return displayErrorFromApi(createProject.error)
 
   emit('created', createProject.data.value)
+  model.value = false
 }
 </script>
 
@@ -41,7 +42,7 @@ async function onSubmit() {
   <FormDialog v-model="model" title="Crear proyecto" :state="state" :schema="schema" @submit="onSubmit">
     <template #activator="{ on }">
       <UButton icon="i-heroicons-plus" v-bind="on">
-        Create
+        Crear
       </UButton>
     </template>
     <UFormGroup label="Nombre" name="title">

@@ -42,3 +42,9 @@ export interface PaginatedResponse<T> {
 }
 
 export const createPaginatedResponse = <T>(total: number, results: T[]): PaginatedResponse<T> => ({ total, results })
+
+export async function getNumericIdFromRouteParams(event: H3Event) {
+  return (await getValidatedRouterParams(event, z.object({
+    id: z.preprocess(Number, z.number()),
+  }).parse)).id
+}

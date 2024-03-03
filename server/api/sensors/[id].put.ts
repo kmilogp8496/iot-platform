@@ -5,7 +5,7 @@ import { getSensorById } from '~/server/database/repositories/sensorsRepository'
 import { projects } from '~/server/database/schemas/projects.schema'
 import { sensors, sensorsUpdateSchema } from '~/server/database/schemas/sensors.schema'
 import { sensorsToVariables } from '~/server/database/schemas/sensorsToVariables.schema'
-import { getUserFromEvent } from '~/server/utils/api'
+import { getNumericIdFromRouteParams, getUserFromEvent } from '~/server/utils/api'
 
 export default defineEventHandler(async (event) => {
   const user = await getUserFromEvent(event)
@@ -16,9 +16,7 @@ export default defineEventHandler(async (event) => {
 
   const userProjects = await getUserProjects(db, user.id, { id: projects.id })
 
-  const { id: sensorId } = await getValidatedRouterParams(event, z.object({
-    id: z.preprocess(Number, z.number()),
-  }).parse)
+  const sensorId = await getNumericIdFromRouteParams(event)
 
   const body = await readValidatedBody(event, sensorsUpdateSchema.pick({
     name: true,

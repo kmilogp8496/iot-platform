@@ -1,10 +1,23 @@
-<script lang="ts" setup generic="T extends Record<string, any>">
+<script lang="ts" setup generic="T extends Record<string, any>, C extends TableColumn<T>">
 const props = defineProps<{
   rows: T[]
-  columns: TableColumn<T>[]
+  columns: C[]
   loading?: boolean
   total: number
 }>()
+
+defineSlots<Slots>()
+type DataSlots = `${C[number]['key']}-data`
+type HeaderSlots = `${C[number]['key']}-header`
+
+type Slots = {
+  [key in HeaderSlots]: (props: { header: Headers }) => any
+} & {
+  [key in DataSlots]: (props: { row: T }) => any
+} & {
+  header: () => any
+  [key: string]: (props: { header: Headers }) => any
+}
 
 const page = defineModel('page', {
   default: 1,
@@ -23,8 +36,8 @@ const transformableColumns = computed(() => props.columns.filter(column => Boole
 
 <template>
   <slot name="header" />
-  <UTable :rows="rows" :columns="computedColumns" :loading="loading">
-    <template v-for="column in transformableColumns" :key="`transformed-${column.key}`" #[`${column.key}-data`]="{ row }">
+  <UTable class="border-primary-200 rounded border-[1px]" :rows="rows" :columns="computedColumns" :loading="loading">
+    <template v-for="column in transformableColumns" :key="`transformed-${column.key.toString()}`" #[`${column.key.toString()}-data`]="{ row }">
       {{ column.transform?.(row) }}
     </template>
 

@@ -4,14 +4,22 @@ import type { InferPaginationItem } from '~/utils/typing.ts'
 
 const sensors = useFetch('/api/sensors')
 
-const columns = useTableColumns<InferPaginationItem<typeof sensors>>([
+type Sensor = InferPaginationItem<typeof sensors>
+
+const columns = useTableColumns<Sensor>([
   {
-    key: 'projectName',
+    key: 'project.name',
     label: 'Proyecto',
   },
   {
     key: 'name',
     label: 'Nombre',
+  },
+  {
+    key: 'variables',
+    label: 'Variables',
+    transform: value => value.variables.map(value => value.name).join(', '),
+    class: 'w-12 truncate',
   },
   {
     key: 'description',
@@ -26,11 +34,15 @@ const columns = useTableColumns<InferPaginationItem<typeof sensors>>([
     key: 'createdByEmail',
     label: 'Creado por',
   },
+  {
+    key: 'actions',
+    label: 'Acciones',
+  },
 ])
 </script>
 
 <template>
-  <div class="flex gap-4 items-center">
+  <div class="flex pb-4 gap-4 items-center">
     <PageTitle title="Sensores" />
     <BaseSpacer />
     <UButton icon="material-symbols:sync-rounded" :loading="sensors.status.value === 'pending'" @click="sensors.refresh()">
@@ -38,5 +50,10 @@ const columns = useTableColumns<InferPaginationItem<typeof sensors>>([
     </UButton>
     <SensorsCreateDialog @created="sensors.refresh()" />
   </div>
-  <AsyncTable :total="sensors.data.value?.total ?? 0" :loading="sensors.pending.value" :rows="sensors.data.value?.results ?? []" :columns="columns" />
+  <AsyncTable :total="sensors.data.value?.total ?? 0" :loading="sensors.pending.value" :rows="sensors.data.value?.results ?? []" :columns="columns">
+    <template #actions-data="{ row }">
+      <SensorsEditDialog :item="row" @edited="sensors.refresh()" />
+      <SensorsDeleteButton :sensor="row" @deleted="sensors.refresh()" />
+    </template>
+  </AsyncTable>
 </template>

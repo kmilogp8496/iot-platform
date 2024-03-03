@@ -18,16 +18,26 @@ const model = defineModel({
   default: false,
 })
 
+const form = ref<InstanceType<typeof UForm> | null>(null)
+
 function onClick() {
   model.value = !model.value
 }
+
+function clearForm() {
+  form.value?.clear()
+}
+
+defineExpose({
+  clearForm,
+})
 </script>
 
 <template>
   <slot name="activator" :on="{ onClick }" />
 
-  <UModal v-model="model">
-    <UForm v-bind="{ state, schema }" @submit="emit('submit', $event)">
+  <UModal v-model="model" :ui="{ base: 'overflow-visible' }">
+    <UForm ref="form" v-bind="{ state, schema }" @submit="emit('submit', $event)">
       <UCard>
         <template #header>
           <slot name="title">

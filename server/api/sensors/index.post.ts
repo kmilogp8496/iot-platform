@@ -25,6 +25,9 @@ export default defineEventHandler(async (event) => {
 
   const returningValue = (await db.insert(sensors).values(insertSensor).returning()).at(0)!
 
+  if (!body.variables.length)
+    return returningValue
+
   await db.insert(sensorsToVariables).values(body.variables.map(variableId => ({
     sensorId: returningValue.id,
     variableId,

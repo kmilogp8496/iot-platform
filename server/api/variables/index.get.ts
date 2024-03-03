@@ -27,8 +27,8 @@ export default defineEventHandler(async (event) => {
     .$dynamic()
 
   if (query.search) {
-    totalQb.where(like(sensors.name, `${query.search}%`))
-    variablesQB.where(like(sensors.name, `${query.search}%`))
+    totalQb.where(like(variables.name, `${query.search}%`))
+    variablesQB.where(like(variables.name, `${query.search}%`))
   }
 
   const [{ total }] = await totalQb

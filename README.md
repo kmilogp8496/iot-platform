@@ -8,19 +8,17 @@
 - [ ] Integrate Influx graphics in APP
 - [ ] Add notifications to external channels
 - [x] Add authorization to routes
-- [ ] Database
+- [x] Database
     - [x] Add Users table
     - [x] Add Projects table
     - [x] Add sensors tables
     - [x] Add locations tables
     - [x] Add variables tables
-    - [ ] Add tags table
     - [x] Setup Supabase
-    - [ ] Migrations
-- [ ] Cruds
-    - [ ] Users
+    - [x] Migrations
+- [x] Cruds
+    - [x] Users
     - [x] Projects
-    - [ ] Sensors
-    - [ ] Locations
-    - [ ] Variables
-    - [ ] Tags
+    - [x] Sensors
+    - [x] Locations
+    - [x] Variables

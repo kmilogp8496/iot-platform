@@ -12,3 +12,6 @@ export function useDB() {
   }
   return _db
 }
+
+export type DB = ReturnType<typeof useDB>
+export type SelectFields = Exclude<Parameters<DB['select']>[0], undefined>

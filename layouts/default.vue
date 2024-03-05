@@ -1,5 +1,10 @@
 <script lang="ts" setup>
+import { breakpointsTailwind } from '@vueuse/core'
+import Spacer from '~/components/base/Spacer.vue'
+
 const { loggedIn, clear } = useUserSession()
+
+const { lg } = useBreakpoints(breakpointsTailwind)
 
 function onLogout() {
   clear()
@@ -12,16 +17,20 @@ useHead({
 </script>
 
 <template>
-  <div class="container h-svh flex flex-col mx-auto">
+  <div class="container px-4 h-svh flex flex-col mx-auto">
     <nav class="py-2">
-      <ul class="flex items-center justify-end gap-4">
+      <ul class="flex items-center gap-4">
+        <ClientOnly>
+          <LayoutMobileVerticalNavigation v-if="!lg" />
+        </ClientOnly>
+        <Spacer />
         <li>
-          <UButton variant="link" to="/home">
+          <UButton v-if="!loggedIn" variant="link" to="/home">
             Inicio
           </UButton>
         </li>
         <li>
-          <UButton v-if="loggedIn" variant="link" @click="onLogout">
+          <UButton v-if="loggedIn" trailing-icon="i-mdi-logout" variant="link" @click="onLogout">
             Cerrar sesión
           </UButton>
           <UButton v-else variant="link" to="/auth/login">
@@ -30,15 +39,12 @@ useHead({
         </li>
       </ul>
     </nav>
-    <nav class="py-2">
-      <ul class="flex items-center justify-center gap-4">
-        <li />
-      </ul>
-    </nav>
-    <div class="inline-flex gap-4 flex-grow pt-4">
-      <div class="max-w-40">
-        <LayoutDesktopVerticalNavigation />
-      </div>
+    <div class="md:inline-flex md:gap-4 md:flex-grow pt-4">
+      <ClientOnly>
+        <div v-if="lg" class="max-w-40">
+          <LayoutDesktopVerticalNavigation />
+        </div>
+      </ClientOnly>
       <main class="relative flex-grow">
         <slot />
       </main>

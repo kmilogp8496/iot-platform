@@ -51,7 +51,7 @@ watch(() => props.item, () => {
 </script>
 
 <template>
-  <FormDialog ref="formDialog" v-model="model" title="Crear sensor" :state="state" :schema="schema" @submit="onSubmit">
+  <FormDialog ref="formDialog" v-model="model" title="Editar sensor" :state="state" :schema="schema" @submit="onSubmit">
     <template #activator="{ on }">
       <UButton icon="i-heroicons-pencil" v-bind="on" size="xs" color="orange" />
     </template>

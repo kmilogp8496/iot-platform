@@ -42,7 +42,7 @@ const columns = useTableColumns<Sensor>([
 </script>
 
 <template>
-  <div class="flex pb-4 gap-4 items-center">
+  <div class="flex mb-4 gap-4 items-center">
     <PageTitle title="Sensores" />
     <BaseSpacer />
     <UButton icon="material-symbols:sync-rounded" :loading="sensors.status.value === 'pending'" @click="sensors.refresh()">

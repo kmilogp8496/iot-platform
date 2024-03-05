@@ -29,7 +29,7 @@ const columns = useTableColumns<InferPaginationItem<typeof projects>>([
 </script>
 
 <template>
-  <div class="flex gap-4 items-center">
+  <div class="flex mb-4 gap-4 items-center">
     <PageTitle title="Proyectos" />
     <BaseSpacer />
     <UButton icon="material-symbols:sync-rounded" :loading="projects.status.value === 'pending'" @click="projects.refresh()">

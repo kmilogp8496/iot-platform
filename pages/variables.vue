@@ -26,7 +26,7 @@ const columns = useTableColumns<InferPaginationItem<typeof variables>>([
 </script>
 
 <template>
-  <div class="flex gap-4 items-center">
+  <div class="flex mb-4 gap-4 items-center">
     <PageTitle title="Variables" />
     <BaseSpacer />
     <UButton icon="material-symbols:sync-rounded" :loading="variables.status.value === 'pending'" @click="variables.refresh()">

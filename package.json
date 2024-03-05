@@ -15,13 +15,13 @@
   },
   "dependencies": {
     "@influxdata/influxdb-client": "^1.33.2",
-    "@nuxt/ui": "^2.14.1",
+    "@nuxt/ui": "^2.14.2",
     "drizzle-orm": "^0.29.4",
     "drizzle-zod": "^0.5.1",
     "postgres": "^3.4.3"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.6.4",
+    "@antfu/eslint-config": "^2.8.0",
     "@vueuse/core": "^10.9.0",
     "@vueuse/nuxt": "^10.9.0",
     "drizzle-kit": "^0.20.14",

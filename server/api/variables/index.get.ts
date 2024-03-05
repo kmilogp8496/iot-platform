@@ -1,6 +1,5 @@
 import { like, sql } from 'drizzle-orm'
 import { z } from 'zod'
-import { sensors } from '~/server/database/schemas/sensors.schema'
 import { variables } from '~/server/database/schemas/variables.schema'
 import { createPaginatedResponse, useValidatedPaginatedQuery } from '~/server/utils/api'
 

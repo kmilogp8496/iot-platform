@@ -6,8 +6,8 @@ const { loggedIn, clear } = useUserSession()
 
 const { lg } = useBreakpoints(breakpointsTailwind)
 
-function onLogout() {
-  clear()
+async function onLogout() {
+  await clear()
   navigateTo('/home')
 }
 

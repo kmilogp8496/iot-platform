@@ -18,14 +18,14 @@ export default defineEventHandler(async (event) => {
 
   if (!sensor) {
     throw createError({
-      status: 404,
+      statusCode: 404,
       message: 'Sensor no encontrado',
     })
   }
 
   if (sensor.createdBy !== user.id) {
     throw createError({
-      status: 403,
+      statusCode: 403,
       message: 'No tienes permisos para eliminar este sensor',
     })
   }

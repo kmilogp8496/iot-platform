@@ -1,10 +1,14 @@
 <script lang="ts" setup>
-import { useTableColumns } from '../composables/useTableColumns'
+import { usePermissions } from '~/shared/permissions'
 import type { InferPaginationItem } from '~/utils/typing.ts'
 
 const sensors = useFetch('/api/sensors')
 
 type Sensor = InferPaginationItem<typeof sensors>
+
+const session = useUserSession()
+
+const permissions = usePermissions(session)
 
 const columns = useTableColumns<Sensor>([
   {
@@ -37,6 +41,7 @@ const columns = useTableColumns<Sensor>([
   {
     key: 'actions',
     label: 'Acciones',
+    hidden: !permissions.canUpdate('sensors') && !permissions.canDelete('sensors'),
   },
 ])
 </script>
@@ -52,8 +57,8 @@ const columns = useTableColumns<Sensor>([
   </div>
   <AsyncTable :total="sensors.data.value?.total ?? 0" :loading="sensors.pending.value" :rows="sensors.data.value?.results ?? []" :columns="columns">
     <template #actions-data="{ row }">
-      <SensorsEditDialog :item="row" @edited="sensors.refresh()" />
-      <SensorsDeleteButton :sensor="row" @deleted="sensors.refresh()" />
+      <LazySensorsEditDialog v-if="permissions.canUpdate('sensors')" :item="row" @edited="sensors.refresh()" />
+      <LazySensorsDeleteButton v-if="permissions.canDelete('sensors')" :sensor="row" @deleted="sensors.refresh()" />
     </template>
   </AsyncTable>
 </template>

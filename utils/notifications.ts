@@ -34,7 +34,14 @@ export function displaySuccessNotification(options: Partial<Notification>) {
 
 // TODO: Add a type for the error
 export function displayErrorFromApi(error: ReturnType<typeof useFetch<''>>['error']) {
+  const unwrapperError = unref(error)
+  if (!unwrapperError) {
+    displayErrorNotification({
+      description: 'La operación no se pudo realizar',
+    })
+    return
+  }
   displayErrorNotification({
-    description: error.value?.data.message ?? 'La operación no se pudo realizar',
+    description: unwrapperError.data.message ?? 'La operación no se pudo realizar',
   })
 }

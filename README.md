@@ -23,3 +23,6 @@
     - [x] Locations
     - [x] Variables
 - [x] Landing page
+- [ ] Sensors
+    - [x] Connect first sensor
+    - [ ] Add authentication to sensors

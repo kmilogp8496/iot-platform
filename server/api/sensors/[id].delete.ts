@@ -5,7 +5,15 @@ import { sensors } from '~/server/database/schemas/sensors.schema'
 import { sensorsToVariables } from '~/server/database/schemas/sensorsToVariables.schema'
 import { getUserFromEvent } from '~/server/utils/api'
 
+import { requireEventPermission } from '~/server/utils/permissions'
+
+import { PERMISSIONS_DEFINITION } from '~/shared/permissions'
+
 export default defineEventHandler(async (event) => {
+  await requireEventPermission(event, [
+    ['DELETE', PERMISSIONS_DEFINITION.SENSORS],
+  ])
+
   const user = await getUserFromEvent(event)
 
   const db = useDB()

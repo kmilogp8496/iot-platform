@@ -8,6 +8,9 @@ import { sensorsToVariables } from '~/server/database/schemas/sensorsToVariables
 import { getNumericIdFromRouteParams, getUserFromEvent } from '~/server/utils/api'
 
 export default defineEventHandler(async (event) => {
+  await requireEventPermission(event, [
+    ['UPDATE', 'sensors'],
+  ])
   const user = await getUserFromEvent(event)
   const variablesSchema = z.object({
     variables: z.array(z.number()),

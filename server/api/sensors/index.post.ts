@@ -4,6 +4,10 @@ import { sensorsToVariables } from '~/server/database/schemas/sensorsToVariables
 import { getUserFromEvent } from '~/server/utils/api'
 
 export default defineEventHandler(async (event) => {
+  await requireEventPermission(event, [
+    ['CREATE', 'sensors'],
+  ])
+
   const user = await getUserFromEvent(event)
   const variablesSchema = z.object({
     variables: z.array(z.number()),

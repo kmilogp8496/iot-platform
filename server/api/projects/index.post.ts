@@ -3,6 +3,10 @@ import { usersToProjects } from '~/server/database/schemas/usersToProjects.schem
 import { getUserFromEvent } from '~/server/utils/api'
 
 export default defineEventHandler(async (event) => {
+  await requireEventPermission(event, [
+    ['CREATE', 'projects'],
+  ])
+
   const user = await getUserFromEvent(event)
 
   const body = await readValidatedBody(event, projectsInsertSchema.pick({

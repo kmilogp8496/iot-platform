@@ -11,5 +11,6 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     'nuxt-auth-utils',
     '@vueuse/nuxt',
+    '@nuxt/fonts',
   ],
 })

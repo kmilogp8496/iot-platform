@@ -1,9 +1,7 @@
 <template>
-  <div class="flex flex-col min-h-[100dvh]">
-    <LayoutHomeHeader />
-    <main class="flex-1">
+  <div class="min-h-[100dvh]">
+    <main>
       <slot />
     </main>
-    <LayoutHomeFooter />
   </div>
 </template>

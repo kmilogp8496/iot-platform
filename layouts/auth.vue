@@ -1,13 +1,13 @@
 <template>
   <div class="container h-svh flex flex-col mx-auto">
-    <nav class="py-2">
-      <ul class="flex items-center justify-end gap-4">
-        <li>
-          <UButton variant="link" to="/home">
-            Inicio
-          </UButton>
-        </li>
-      </ul>
+    <nav class="px-4 py-2 flex gap-4 items-center container mx-auto">
+      <Logo /> <ULink to="/home" class="ml-2 text-lg font-semibold">
+        IoT platform
+      </ULink>
+
+      <BaseSpacer />
+
+      <BaseColorModeButton />
     </nav>
     <nav class="py-2">
       <ul class="flex items-center justify-center gap-4">
@@ -17,5 +17,8 @@
     <main class="h-full">
       <slot />
     </main>
+    <section>
+      <LayoutFooter />
+    </section>
   </div>
 </template>

@@ -30,6 +30,9 @@ useHead({
           </UButton>
         </li>
         <li>
+          <BaseColorModeButton />
+        </li>
+        <li>
           <UButton v-if="loggedIn" trailing-icon="i-mdi-logout" variant="link" @click="onLogout">
             Cerrar sesión
           </UButton>

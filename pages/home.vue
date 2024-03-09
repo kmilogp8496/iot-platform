@@ -2,282 +2,112 @@
 definePageMeta({
   layout: 'empty',
 })
+
+useHead({
+  titleTemplate: 'IoT Platform',
+})
 </script>
 
 <template>
-  <section class="w-full pt-12 md:pt-24 lg:pt-32 border-y">
-    <div class="px-4 md:px-6 space-y-10 xl:space-y-16">
-      <div class="grid max-w-[1300px] mx-auto gap-4 px-4 sm:px-6 md:px-10 md:grid-cols-2 md:gap-16">
-        <div>
-          <h1
-            class="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]"
-          >
-            The complete platform for building the Web
-          </h1>
-        </div>
-        <div class="flex flex-col items-start space-y-4">
-          <p class="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-            Beautifully designed components that you can copy and paste
-            into your apps. Accessible. Customizable. Open Source.
-          </p>
-          <div class="space-x-4">
-            <UButton
-              size="lg"
-              href="#"
-            >
-              Get Started
-            </UButton>
-            <UButton
-              href="#"
-              size="lg"
-              variant="ghost"
-            >
-              Button
-            </UButton>
-          </div>
-        </div>
-      </div><img
-        src="/placeholder.svg" width="1270" height="300" alt="Hero"
-        class="mx-auto aspect-[3/1] overflow-hidden rounded-t-xl object-cover"
-      >
+  <nav class="px-4 py-2 flex items-center container mx-auto">
+    <Logo /> <ULink to="/home" class="ml-2 text-lg font-semibold">
+      IoT platform
+    </ULink>
+
+    <BaseSpacer />
+    <div class="px-4 flex gap-4 items-end rounded-full text-sm">
+      <UButton variant="ghost" to="#technologies">
+        Tecnologías
+      </UButton>
+      <UButton variant="ghost" to="#getting-started">
+        Comenzar
+      </UButton>
+    </div>
+    <BaseSpacer />
+
+    <ULink class="font-semibold" to="/auth/login">
+      Iniciar sesión <UIcon name="i-mdi-login" />
+    </ULink>
+  </nav>
+  <section class="px-4 min-h-[33svh] flex flex-col gap-4 items-center justify-center py-10 text-center">
+    <UBadge variant="soft">
+      Manejo de dispositivos IoT
+    </UBadge>
+    <h1 class="font-extrabold text-5xl">
+      Crea tu propia plataforma IoT en minutos
+    </h1>
+    <p class="text-gray-700 dark:text-gray-100">
+      Conecta tus dispositivos y visualiza sus datos en tiempo real a través de nuestra plataforma. Maneja todos tus dispositivos IoT desde un solo lugar.
+    </p>
+    <div class="inline-flex gap-4">
+      <UButton :ui="{ rounded: 'rounded-full' }" size="lg">
+        Comenzar <UIcon class="text-xl" name="i-mdi-arrow-right" />
+      </UButton>
+      <UButton :ui="{ rounded: 'rounded-full' }" class="shadow" variant="outline" size="lg">
+        Saber más
+      </UButton>
     </div>
   </section>
-  <section class="w-full py-12 md:py-24 lg:py-32">
-    <UContainer class="space-y-12 px-4 md:px-6">
-      <div class="flex flex-col items-center justify-center space-y-4 text-center">
-        <div class="space-y-2">
-          <UBadge variant="subtle">
-            New Features
-          </UBadge>
-          <h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
-            Faster iteration. More innovation.
-          </h2>
-          <p
-            class="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400"
-          >
-            The platform for rapid progress. Let your team focus on
-            shipping features instead of managing infrastructure with
-            automated CI/CD, built-in testing, and integrated
-            collaboration.
-          </p>
-        </div>
-      </div>
-      <div
-        class="mx-auto grid max-w-5xl items-start gap-6 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-3"
-      >
-        <div class="grid gap-1">
-          <h3 class="text-lg font-bold">
-            Infinite scalability, zero config
-          </h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400">
-            Enable code to run on-demand without needing to manage your
-            own infrastructure or upgrade hardware.
-          </p>
-        </div>
-        <div class="grid gap-1">
-          <h3 class="text-lg font-bold">
-            Real-time insights and controls
-          </h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400">
-            Get granular, first-party, real-user metrics on site
-            performance per deployment.
-          </p>
-        </div>
-        <div class="grid gap-1">
-          <h3 class="text-lg font-bold">
-            Personalization at the edge
-          </h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400">
-            Deliver dynamic, personalized content, while ensuring users
-            only see the best version of your site.
-          </p>
-        </div>
-        <div class="grid gap-1">
-          <h3 class="text-lg font-bold">
-            Real-time insights and controls
-          </h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400">
-            Get granular, first-party, real-user metrics on site
-            performance per deployment.
-          </p>
-        </div>
-        <div class="grid gap-1">
-          <h3 class="text-lg font-bold">
-            Personalization at the edge
-          </h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400">
-            Deliver dynamic, personalized content, while ensuring users
-            only see the best version of your site.
-          </p>
-        </div>
-        <div class="grid gap-1">
-          <h3 class="text-lg font-bold">
-            Infinite scalability, zero config
-          </h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400">
-            Enable code to run on-demand without needing to manage your
-            own infrastructure or upgrade hardware.
-          </p>
-        </div>
-      </div>
-      <div class="flex justify-center flex-col sm:flex-row items-start gap-4">
-        <UButton
-          size="lg"
-          href="#"
-        >
-          Contact Sales
-        </UButton>
-        <UButton
-          size="lg"
-          variant="ghost"
-          href="#"
-        >
-          Tour the Platform
-        </UButton>
-      </div>
-    </UContainer>
+  <section id="technologies" class="container mx-auto px-4 max-w-6xl">
+    <div class="flex justify-center py-10">
+      <UBadge variant="soft" class="mx-auto">
+        Tecnologías
+      </UBadge>
+    </div>
+    <div class="flex gap-8 flex-wrap justify-center items-stretch">
+      <LandingCard
+        class="max-w-[400px]"
+        title="InfluxDB"
+        description="Almacena y visualiza los datos recogidos por tus sensores en tiempo real con InfluxDB."
+        icon="i-simple-icons:influxdb"
+        href="https://www.influxdata.com/"
+      />
+      <LandingCard
+        class="max-w-100"
+        title="Supabase"
+        description="Supabase ayuda al menejo de los usuarios de tus aplicaciones, así como con sus configuraciones."
+        icon="i-skill-icons:supabase-dark"
+        href="https://supabase.com/"
+      />
+      <LandingCard
+        class="max-w-100"
+        title="Nuxt"
+        description="Nuxt maneja el código de tu aplicación, así como su despliegue y manejo de rutas."
+        icon="i-skill-icons:nuxtjs-dark"
+        href="https://nuxt.com/"
+      />
+      <LandingCard
+        class="max-w-100"
+        title="OAuth 2.0"
+        description="OAuth para el manejo de la autenticación de tus usuarios."
+        icon="i-devicon:oauth"
+        href="https://oauth.net/2/"
+      />
+    </div>
   </section>
-  <section class="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
-    <UContainer class="grid items-center justify-center gap-4 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
-      <div class="space-y-2">
-        <h2 class="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-          Experience the workflow the best frontend teams love.
-        </h2>
-        <p
-          class="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400"
-        >
-          Let your team focus on shipping features instead of managing
-          infrastructure with automated CI/CD.
-        </p>
-      </div>
-      <div class="mx-auto w-full max-w-sm space-y-2">
-        <form class="flex space-x-2">
-          <UInput
-            class="w-full"
-            placeholder="Enter your email" type="email"
-          />
-          <UButton
-            type="submit"
-          >
-            Sign Up
-          </UButton>
-        </form>
-        <p class="text-xs text-gray-500 dark:text-gray-400">
-          Sign up to get notified when we launch.
-          <a class="underline underline-offset-2" href="#">
-            Terms &amp; Conditions
-          </a>
-        </p>
-      </div>
-    </UContainer>
+  <section id="getting-started" class="mt-10 md:mt-20 gap-10 flex items-center flex-col justify-center py-10 bg-primary-50 dark:bg-primary-950 min-h-[33svh]">
+    <UBadge variant="soft" class="mx-auto">
+      Inicio rápido
+    </UBadge>
+    <h2 class="font-bold text-3xl">
+      Comienza ahora mismo
+    </h2>
+    <p class="text-gray-600 dark:text-gray-100">
+      Inicia sesión con una cuenta de github y comienza a manejar tus dispositivos IoT.
+    </p>
+    <div>
+      <UButton :ui="{ rounded: 'rounded-full' }" size="lg">
+        Comenzar <UIcon class="text-xl" name="i-mdi-arrow-right" />
+      </UButton>
+    </div>
   </section>
-  <section class="w-full py-12 md:py-24 lg:py-32">
-    <UContainer class="grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-10">
-      <div class="space-y-3">
-        <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-          Meet our Customers
-        </h2>
-        <p
-          class="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400"
-        >
-          Trusted by the best teams in the world. We help teams of all
-          sizes.
-        </p>
-      </div>
-      <div class="divide-y rounded-lg border">
-        <div class="grid w-full grid-cols-3 items-stretch justify-center divide-x md:grid-cols-3">
-          <div class="mx-auto flex w-full items-center justify-center p-4 sm:p-8">
-            <img
-              src="/placeholder.svg" width="140" height="70" alt="Logo"
-              class="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
-            >
-          </div>
-          <div class="mx-auto flex w-full items-center justify-center p-4 sm:p-8">
-            <img
-              src="/placeholder.svg" width="140" height="70" alt="Logo"
-              class="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
-            >
-          </div>
-          <div class="mx-auto flex w-full items-center justify-center p-8">
-            <img
-              src="/placeholder.svg" width="140" height="70" alt="Logo"
-              class="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
-            >
-          </div>
-        </div>
-        <div class="grid w-full grid-cols-3 items-stretch justify-center divide-x md:grid-cols-3">
-          <div class="mx-auto flex w-full items-center justify-center p-4 sm:p-8">
-            <img
-              src="/placeholder.svg" width="140" height="70" alt="Logo"
-              class="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
-            >
-          </div>
-          <div class="mx-auto flex w-full items-center justify-center p-4 sm:p-8">
-            <img
-              src="/placeholder.svg" width="140" height="70" alt="Logo"
-              class="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
-            >
-          </div>
-          <div class="mx-auto flex w-full items-center justify-center p-4 sm:p-8">
-            <img
-              src="/placeholder.svg" width="140" height="70" alt="Logo"
-              class="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
-            >
-          </div>
-        </div>
-      </div>
-      <div class="flex justify-center space-x-4">
-        <UButton
-          size="lg"
-          href="#"
-        >
-          Contact Sales
-        </UButton>
-        <UButton
-          href="#"
-          size="lg"
-          variant="ghost"
-        >
-          Learn more
-        </UButton>
-      </div>
-    </UContainer>
-  </section>
-  <section class="w-full py-12 md:py-24 lg:py-32 border-t">
-    <UContainer class="px-4 md:px-6">
-      <div class="grid gap-10 px-10 md:gap-16 lg:grid-cols-2">
-        <div class="space-y-4">
-          <UBadge variant="subtle">
-            Performance
-          </UBadge>
-          <h2
-            class="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]"
-          >
-            Traffic spikes should be exciting, not scary.
-          </h2><UButton
-            size="lg"
-            href="#"
-          >
-            Get Started
-          </UButton>
-        </div>
-        <div class="flex flex-col items-start space-y-4">
-          <UBadge variant="subtle">
-            Security
-          </UBadge>
-          <p class="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed dark:text-gray-400">
-            Infraestructura totalmente gestionada diseñada para escalar dinámicamente
-            con tu tráfico, un borde global para garantizar que tu sitio sea rápido
-            para cada cliente, y las herramientas para monitorear cada aspecto de
-            tu aplicación.
-          </p><UButton
-            size="lg"
-            href="#"
-          >
-            Contact Sales
-          </UButton>
-        </div>
-      </div>
-    </UContainer>
+  <section>
+    <LayoutFooter />
   </section>
 </template>
+
+<style scoped>
+html {
+  scroll-behavior: smooth;
+}
+</style>

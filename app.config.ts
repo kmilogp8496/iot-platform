@@ -3,6 +3,6 @@ export default defineAppConfig({
     icons: {
       dynamic: true,
     },
-    primary: 'cool',
+    primary: 'jelly-bean',
   },
 })

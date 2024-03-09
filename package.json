@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
+    "build": "nuxi typecheck && nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -30,7 +30,9 @@
     "eslint-plugin-drizzle": "^0.2.3",
     "nuxt": "^3.10.3",
     "nuxt-auth-utils": "^0.0.20",
+    "typescript": "^5.4.2",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue-tsc": "^2.0.6"
   }
 }

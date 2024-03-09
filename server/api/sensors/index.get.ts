@@ -19,6 +19,8 @@ export default defineEventHandler(async (event) => {
   const db = useDB()
 
   const userProjects = await db.select({ id: usersToProjects.projectId }).from(usersToProjects).where(eq(usersToProjects.userId, user.id))
+  if (!userProjects.length)
+    return createPaginatedResponse(0, [])
 
   const sensorsQb = db.select({
     id: sensors.id,

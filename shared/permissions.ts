@@ -5,21 +5,23 @@ export const PERMISSIONS_DEFINITION = {
   SENSORS: 'sensors',
   VARIABLES: 'variables',
   PROJECTS: 'projects',
+  THINGS_DATA: 'thingsData',
 } as const
 
 export const USER_PERMISSIONS = {
   CREATE: {
-    [PERMISSIONS_DEFINITION.SENSORS]: [RolesDefinition.GUEST],
-    [PERMISSIONS_DEFINITION.VARIABLES]: [RolesDefinition.GUEST, RolesDefinition.USER],
-    [PERMISSIONS_DEFINITION.PROJECTS]: [RolesDefinition.GUEST],
+    [PERMISSIONS_DEFINITION.SENSORS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
+    [PERMISSIONS_DEFINITION.VARIABLES]: [RolesDefinition.ADMIN],
+    [PERMISSIONS_DEFINITION.PROJECTS]: [RolesDefinition.ADMIN],
+    [PERMISSIONS_DEFINITION.THINGS_DATA]: [RolesDefinition.SENSOR],
   },
   UPDATE: {
-    [PERMISSIONS_DEFINITION.SENSORS]: [RolesDefinition.GUEST],
-    [PERMISSIONS_DEFINITION.PROJECTS]: [RolesDefinition.GUEST],
+    [PERMISSIONS_DEFINITION.SENSORS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
+    [PERMISSIONS_DEFINITION.PROJECTS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
   },
   DELETE: {
-    [PERMISSIONS_DEFINITION.SENSORS]: [RolesDefinition.GUEST],
-    [PERMISSIONS_DEFINITION.PROJECTS]: [RolesDefinition.GUEST],
+    [PERMISSIONS_DEFINITION.SENSORS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
+    [PERMISSIONS_DEFINITION.PROJECTS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
   },
 } as const
 
@@ -31,12 +33,12 @@ export function usePermissions(session: UserSessionComposable) {
     if (!session.loggedIn.value || !session.user.value?.role)
       return false
 
-    const notAllowedRoles = USER_PERMISSIONS[action][permission]
-    if (!notAllowedRoles)
+    const allowedRoles = USER_PERMISSIONS[action][permission]
+    if (!allowedRoles)
       return false
 
     // @ts-expect-error - TS doesn't understand that notAllowedRoles is a Roles array
-    return !notAllowedRoles.includes(session.user.value.role)
+    return allowedRoles.includes(session.user.value.role)
   }
 
   const canCreate = (permission: Permissions<'CREATE'>) => can('CREATE', permission)

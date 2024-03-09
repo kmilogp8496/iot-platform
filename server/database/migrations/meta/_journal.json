@@ -50,6 +50,13 @@
       "when": 1709419001027,
       "tag": "0006_light_catseye",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1710006161053,
+      "tag": "0007_cooing_falcon",
+      "breakpoints": true
     }
   ]
 }

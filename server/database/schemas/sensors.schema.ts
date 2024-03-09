@@ -9,6 +9,8 @@ export const sensors = pgTable('sensors', {
   createdBy: integer('created_by').notNull().references(() => users.id),
   name: text('name').notNull(),
   description: text('description'),
+  username: text('username').notNull().default(''),
+  password: text('password').notNull().default(''),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow(),
   deletedAt: timestamp('deleted_at'),

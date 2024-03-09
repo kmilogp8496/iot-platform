@@ -6,12 +6,12 @@ function can<T extends UserPermissionsKeys>(session: UserSession, action: T, per
   if (!session.user)
     return false
 
-  const notAllowedRoles = USER_PERMISSIONS[action][permission]
-  if (!notAllowedRoles)
+  const allowedRoles = USER_PERMISSIONS[action][permission]
+  if (!allowedRoles)
     return false
 
   // @ts-expect-error - TS doesn't understand that notAllowedRoles is a Roles array
-  return !notAllowedRoles.includes(session.user.role)
+  return allowedRoles.includes(session.user.role)
 }
 
 export async function useEventPermissions(event: H3Event) {

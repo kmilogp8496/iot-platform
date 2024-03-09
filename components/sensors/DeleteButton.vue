@@ -20,10 +20,7 @@ async function onDeleteSensor() {
     return true
   }
   catch (error: any) {
-    displayErrorNotification({
-      title: error?.title ?? 'Error',
-      description: error?.message ?? 'Ocurrió un error al eliminar el sensor',
-    })
+    displayErrorFromApi(error)
     return false
   }
 }

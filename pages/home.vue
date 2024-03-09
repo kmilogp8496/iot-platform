@@ -29,7 +29,7 @@ useHead({
       Iniciar sesión <UIcon name="i-mdi-login" />
     </ULink>
   </nav>
-  <section class="px-4 min-h-[33svh] flex flex-col gap-4 items-center justify-center py-10 text-center">
+  <section class="px-4 min-h-[33svh] flex flex-col gap-10 items-center justify-center py-10 text-center">
     <UBadge variant="soft">
       Manejo de dispositivos IoT
     </UBadge>

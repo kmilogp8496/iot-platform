@@ -15,7 +15,7 @@ useHead({
     </ULink>
 
     <BaseSpacer />
-    <div class="px-4 flex gap-4 items-end rounded-full text-sm">
+    <div class="hidden md:flex px-4 gap-4 items-end rounded-full text-sm">
       <UButton variant="ghost" to="#technologies">
         Tecnologías
       </UButton>
@@ -23,7 +23,7 @@ useHead({
         Comenzar
       </UButton>
     </div>
-    <BaseSpacer />
+    <BaseSpacer class="hidden md:inline-flex" />
 
     <ULink class="font-semibold" to="/auth/login">
       Iniciar sesión <UIcon name="i-mdi-login" />
@@ -40,7 +40,7 @@ useHead({
       Conecta tus dispositivos y visualiza sus datos en tiempo real a través de nuestra plataforma. Maneja todos tus dispositivos IoT desde un solo lugar.
     </p>
     <div class="inline-flex gap-4">
-      <UButton :ui="{ rounded: 'rounded-full' }" size="lg">
+      <UButton :ui="{ rounded: 'rounded-full' }" size="lg" to="/dashboard">
         Comenzar <UIcon class="text-xl" name="i-mdi-arrow-right" />
       </UButton>
       <UButton :ui="{ rounded: 'rounded-full' }" class="shadow" variant="outline" size="lg">
@@ -92,11 +92,11 @@ useHead({
     <h2 class="font-bold text-3xl">
       Comienza ahora mismo
     </h2>
-    <p class="text-gray-600 dark:text-gray-100">
+    <p class="text-gray-600 dark:text-gray-100 text-center">
       Inicia sesión con una cuenta de github y comienza a manejar tus dispositivos IoT.
     </p>
     <div>
-      <UButton :ui="{ rounded: 'rounded-full' }" size="lg">
+      <UButton :ui="{ rounded: 'rounded-full' }" size="lg" to="/dashboard">
         Comenzar <UIcon class="text-xl" name="i-mdi-arrow-right" />
       </UButton>
     </div>

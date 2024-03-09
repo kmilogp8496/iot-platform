@@ -22,3 +22,4 @@
     - [x] Sensors
     - [x] Locations
     - [x] Variables
+- [x] Landing page

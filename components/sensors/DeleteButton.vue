@@ -1,27 +1,22 @@
 <script setup lang="ts" generic="T extends {id: number, name: string}">
-interface BasicSensor {
-  id: number
-  name: string
-}
-
 const props = defineProps<{
-  sensor: BasicSensor
+  sensor: T
 }>()
 
 const emit = defineEmits<{
   deleted: [T]
 }>()
 
-async function onDeleteSensor(sensor: T) {
+async function onDeleteSensor() {
   try {
-    await $fetch(`/api/sensors/${sensor.id}`, {
+    await $fetch(`/api/sensors/${props.sensor.id}`, {
       method: 'DELETE',
     })
     displaySuccessNotification({
       title: 'Sensor eliminado',
       description: `El sensor ${props.sensor.name} ha sido eliminado correctamente`,
     })
-    emit('deleted', sensor)
+    emit('deleted', props.sensor)
     return true
   }
   catch (error: any) {
@@ -35,7 +30,7 @@ async function onDeleteSensor(sensor: T) {
 </script>
 
 <template>
-  <ConfirmDialog :content="`¿Confirma que desea eliminar el sensor ${sensor.name}?`" :on-success="() => onDeleteSensor(sensor)">
+  <ConfirmDialog :content="`¿Confirma que desea eliminar el sensor ${props.sensor.name}?`" :on-success="onDeleteSensor">
     <template #activator="{ on }">
       <UButton size="xs" icon="i-heroicons-trash" color="red" v-bind="on" />
     </template>

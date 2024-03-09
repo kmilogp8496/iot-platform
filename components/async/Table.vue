@@ -36,7 +36,7 @@ const transformableColumns = computed(() => props.columns.filter(column => Boole
 
 <template>
   <slot name="header" />
-  <UTable class="border-primary-200 rounded border-[1px]" :rows="rows" :columns="computedColumns" :loading="loading">
+  <UTable class="border-gray-200 rounded border-[1px]" :rows="rows" :columns="computedColumns" :loading="loading">
     <template v-for="column in transformableColumns" :key="`transformed-${column.key.toString()}`" #[`${column.key.toString()}-data`]="{ row }">
       {{ column.transform?.(row) }}
     </template>

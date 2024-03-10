@@ -36,4 +36,6 @@ export async function requireEventPermission<T extends UserPermissionsKeys>(even
       })
     }
   }
+
+  return session
 }

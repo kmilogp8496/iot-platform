@@ -1,7 +1,9 @@
 import { z } from 'zod'
+import { subtle } from 'uncrypto'
 import { sensors, sensorsInsertSchema } from '~/server/database/schemas/sensors.schema'
 import { sensorsToVariables } from '~/server/database/schemas/sensorsToVariables.schema'
 import { getUserFromEvent } from '~/server/utils/api'
+import { hashPassword } from '~/server/utils/db'
 
 export default defineEventHandler(async (event) => {
   await requireEventPermission(event, [
@@ -9,20 +11,25 @@ export default defineEventHandler(async (event) => {
   ])
 
   const user = await getUserFromEvent(event)
-  const variablesSchema = z.object({
+  const extraSchema = z.object({
     variables: z.array(z.number()),
+    password: z.string().min(8),
   })
 
   const body = await readValidatedBody(event, sensorsInsertSchema.pick({
     name: true,
     description: true,
     project: true,
-  }).merge(variablesSchema).parse)
+    username: true,
+  }).merge(extraSchema).parse)
+
+  const hashedPassword = await hashPassword(body.password)
 
   const insertSensor = {
     ...body,
     createdBy: user.id,
     variables: undefined,
+    password: hashedPassword,
   }
 
   const db = useDB()

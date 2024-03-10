@@ -3,7 +3,9 @@ import { getNumericIdFromRouteParams } from '~/server/utils/api'
 
 export default defineEventHandler(async (event) => {
   // TODO - validate sensor session
-  
+
+  await requireUserSession(event)
+
   const db = useDB()
 
   const sensorId = await getNumericIdFromRouteParams(event)
@@ -16,5 +18,5 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  return 'Received'
+  return sensor
 })

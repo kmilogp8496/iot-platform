@@ -57,6 +57,13 @@
       "when": 1710006161053,
       "tag": "0007_cooing_falcon",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1710097082393,
+      "tag": "0008_striped_ultimatum",
+      "breakpoints": true
     }
   ]
 }

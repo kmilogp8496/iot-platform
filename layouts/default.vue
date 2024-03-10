@@ -2,7 +2,7 @@
 import { breakpointsTailwind } from '@vueuse/core'
 import Spacer from '~/components/base/Spacer.vue'
 
-const { loggedIn, clear } = useUserSession()
+const { loggedIn, clear, user } = useUserSession()
 
 const { lg } = useBreakpoints(breakpointsTailwind)
 
@@ -29,11 +29,14 @@ useHead({
             Inicio
           </UButton>
         </li>
+        <li class="capitalize">
+          {{ user?.role }}
+        </li>
         <li>
           <BaseColorModeButton />
         </li>
         <li>
-          <UButton v-if="loggedIn" trailing-icon="i-mdi-logout" variant="link" @click="onLogout">
+          <UButton v-if="loggedIn" color="cool" trailing-icon="i-mdi-logout" variant="link" @click="onLogout">
             Cerrar sesión
           </UButton>
           <UButton v-else variant="link" to="/auth/login">

@@ -15,6 +15,8 @@ const model = defineModel({
 const defaultState = {
   name: '',
   description: '',
+  username: '',
+  password: '',
   project: undefined as undefined | WithId,
   variables: [] as WithId[],
 } as const
@@ -50,7 +52,7 @@ async function onSubmit() {
         Crear
       </UButton>
     </template>
-    <SensorsForm v-model:state="state" />
+    <SensorsForm v-model:state="state" show-credentials-inputs />
     <template #actions>
       <UButton label="Cancelar" icon="i-heroicons-x-circle" variant="outline" :loading="createSensor.status.value === 'pending'" @click="model = false" />
       <UButton label="Crear" type="submit" icon="i-heroicons-plus" :loading="createSensor.status.value === 'pending'" />

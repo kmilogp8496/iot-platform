@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { subtle } from 'uncrypto'
 import { sensors, sensorsInsertSchema } from '~/server/database/schemas/sensors.schema'
 import { sensorsToVariables } from '~/server/database/schemas/sensorsToVariables.schema'
 import { getUserFromEvent } from '~/server/utils/api'

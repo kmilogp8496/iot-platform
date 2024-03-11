@@ -19,4 +19,9 @@ export const NAVIGATION_LINKS = [
     icon: 'mdi:variable',
     to: '/variables',
   },
+  {
+    label: 'Ubicaciones',
+    icon: 'mdi:map-marker',
+    to: '/locations',
+  },
 ] as const

@@ -2,10 +2,11 @@ import type { UserSessionComposable } from '#auth-utils'
 import { RolesDefinition } from '~/utils/constants'
 
 export const PERMISSIONS_DEFINITION = {
-  SENSORS: 'sensors',
-  VARIABLES: 'variables',
+  LOCATIONS: 'locations',
   PROJECTS: 'projects',
+  SENSORS: 'sensors',
   THINGS_DATA: 'thingsData',
+  VARIABLES: 'variables',
 } as const
 
 export const USER_PERMISSIONS = {
@@ -14,14 +15,17 @@ export const USER_PERMISSIONS = {
     [PERMISSIONS_DEFINITION.VARIABLES]: [RolesDefinition.ADMIN],
     [PERMISSIONS_DEFINITION.PROJECTS]: [RolesDefinition.ADMIN],
     [PERMISSIONS_DEFINITION.THINGS_DATA]: [RolesDefinition.SENSOR],
+    [PERMISSIONS_DEFINITION.LOCATIONS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
   },
   UPDATE: {
     [PERMISSIONS_DEFINITION.SENSORS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
     [PERMISSIONS_DEFINITION.PROJECTS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
+    [PERMISSIONS_DEFINITION.LOCATIONS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
   },
   DELETE: {
     [PERMISSIONS_DEFINITION.SENSORS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
     [PERMISSIONS_DEFINITION.PROJECTS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
+    [PERMISSIONS_DEFINITION.LOCATIONS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
   },
 } as const
 

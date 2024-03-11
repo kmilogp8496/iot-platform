@@ -1,4 +1,5 @@
 import { foreignKey, integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core'
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { projects } from './projects.schema'
 
 export const locations = pgTable('locations', {
@@ -15,3 +16,7 @@ export const locations = pgTable('locations', {
 
 export type InsertLocation = typeof locations.$inferInsert
 export type Location = typeof locations.$inferSelect
+
+export const locationsInsertSchema = createInsertSchema(locations)
+export const locationsSelectSchema = createSelectSchema(locations)
+export const locationsUpdateSchema = locationsInsertSchema.omit({ id: true })

@@ -3,7 +3,6 @@ import { sensorsConfigurationFormSchema } from './sensorConfiguration.constants'
 import { useCreateDialog } from '~/composables/useCreateDialog'
 import type { SensorConfiguration } from '~/pages/sensors/[id].vue'
 import { displayErrorFromApi } from '~/utils/notifications'
-import type { InferResponse } from '~/utils/typing'
 
 const props = defineProps<{
   item: SensorConfiguration
@@ -11,7 +10,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  edited: [InferResponse<typeof editSensorConfiguration>]
+  edited: []
 }>()
 
 const model = defineModel({
@@ -37,7 +36,7 @@ async function onSubmit() {
   if (editSensorConfiguration.error.value)
     return displayErrorFromApi(editSensorConfiguration.error)
 
-  emit('edited', editSensorConfiguration.data.value)
+  emit('edited')
   model.value = false
 }
 

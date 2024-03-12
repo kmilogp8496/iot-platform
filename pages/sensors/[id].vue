@@ -4,7 +4,7 @@ import type { InferPaginationItem } from '~/utils/typing.ts'
 
 const route = useRoute()
 
-const sensor = useFetch(`/api/sensors/${route.params.id}`)
+const sensor = await useFetch(`/api/sensors/${route.params.id}`)
 
 if (!sensor.data.value)
   await navigateTo('/sensors')

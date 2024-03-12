@@ -2,15 +2,24 @@
 import { usePermissions } from '~/shared/permissions'
 import type { InferPaginationItem } from '~/utils/typing.ts'
 
-const locations = useFetch('/api/locations')
+const route = useRoute()
 
-type Location = InferPaginationItem<typeof locations>
+const sensor = useFetch(`/api/sensors/${route.params.id}`)
+
+if (!sensor.data.value)
+  await navigateTo('/sensors')
+
+const sensorsConfigurations = useFetch('/api/sensorsConfiguration', {
+  query: { sensor: route.params.id },
+})
+
+export type SensorConfiguration = InferPaginationItem<typeof sensorsConfigurations>
 
 const session = useUserSession()
 
 const permissions = usePermissions(session)
 
-const columns = useTableColumns<Location>([
+const columns = useTableColumns<SensorConfiguration>([
   {
     key: 'project.name',
     label: 'Proyecto',
@@ -18,6 +27,15 @@ const columns = useTableColumns<Location>([
   {
     key: 'name',
     label: 'Nombre',
+  },
+  {
+    key: 'variable.name',
+    label: 'Variable',
+    transform: value => `${value.variable.name} (${value.variable.unit})`,
+  },
+  {
+    key: 'location.name',
+    label: 'Ubicación',
   },
   {
     key: 'createdAt',
@@ -34,17 +52,17 @@ const columns = useTableColumns<Location>([
 
 <template>
   <div class="flex mb-4 gap-4 items-center">
-    <PageTitle title="Sensores" />
+    <PageTitle :title="`Configuración de ${sensor.data.value?.name ?? ''}`" />
     <BaseSpacer />
-    <UButton icon="material-symbols:sync-rounded" :loading="locations.status.value === 'pending'" @click="locations.refresh()">
+    <UButton icon="material-symbols:sync-rounded" :loading="sensorsConfigurations.status.value === 'pending'" @click="sensorsConfigurations.refresh()">
       Actualizar
     </UButton>
-    <!-- <SensorsCreateDialog @created="locations.refresh()" /> -->
+    <SensorsConfigurationCreateDialog v-if="sensor.data.value" :sensor-id="sensor.data.value.id" @created="sensorsConfigurations.refresh()" />
   </div>
-  <AsyncTable :total="locations.data.value?.total ?? 0" :loading="locations.pending.value" :rows="locations.data.value?.results ?? []" :columns="columns">
+  <AsyncTable :total="sensorsConfigurations.data.value?.total ?? 0" :loading="sensorsConfigurations.pending.value" :rows="sensorsConfigurations.data.value?.results ?? []" :columns="columns">
     <template #actions-data="{ row }">
-      <!-- <LazySensorsEditDialog v-if="permissions.canUpdate('sensors')" :item="row" @edited="locations.refresh()" />
-      <LazySensorsDeleteButton v-if="permissions.canDelete('sensors')" :sensor="row" @deleted="locations.refresh()" /> -->
+      <LazySensorsConfigurationEditDialog v-if="permissions.canUpdate('sensorConfiguration')" :item="row" :sensor="sensor.data.value!" @edited="sensorsConfigurations.refresh()" />
+      <LazySensorsConfigurationDeleteButton v-if="permissions.canDelete('sensorConfiguration')" :sensor-configuration="row" @deleted="sensorsConfigurations.refresh()" />
     </template>
   </AsyncTable>
 </template>

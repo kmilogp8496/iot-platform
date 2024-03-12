@@ -58,6 +58,7 @@ const columns = useTableColumns<Sensor>([
   <AsyncTable :total="sensors.data.value?.total ?? 0" :loading="sensors.pending.value" :rows="sensors.data.value?.results ?? []" :columns="columns">
     <template #actions-data="{ row }">
       <LazySensorsEditDialog v-if="permissions.canUpdate('sensors')" :item="row" @edited="sensors.refresh()" />
+      <UButton size="xs" icon="i-carbon-settings-edit" :to="`/sensors/${row.id}`" />
       <LazySensorsDeleteButton v-if="permissions.canDelete('sensors')" :sensor="row" @deleted="sensors.refresh()" />
     </template>
   </AsyncTable>

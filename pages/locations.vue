@@ -27,14 +27,14 @@ const columns = useTableColumns<Location>([
   {
     key: 'actions',
     label: 'Acciones',
-    hidden: !permissions.canUpdate('sensors') && !permissions.canDelete('sensors'),
+    hidden: !permissions.canUpdate('locations') && !permissions.canDelete('locations'),
   },
 ])
 </script>
 
 <template>
   <div class="flex mb-4 gap-4 items-center">
-    <PageTitle title="Sensores" />
+    <PageTitle title="Ubicaciones" />
     <BaseSpacer />
     <UButton icon="material-symbols:sync-rounded" :loading="locations.status.value === 'pending'" @click="locations.refresh()">
       Actualizar
@@ -43,8 +43,8 @@ const columns = useTableColumns<Location>([
   </div>
   <AsyncTable :total="locations.data.value?.total ?? 0" :loading="locations.pending.value" :rows="locations.data.value?.results ?? []" :columns="columns">
     <template #actions-data="{ row }">
-      <!-- <LazySensorsEditDialog v-if="permissions.canUpdate('sensors')" :item="row" @edited="locations.refresh()" />
-      <LazySensorsDeleteButton v-if="permissions.canDelete('sensors')" :sensor="row" @deleted="locations.refresh()" /> -->
+      <LazyLocationsEditDialog v-if="permissions.canUpdate('sensors')" :item="row" @edited="locations.refresh()" />
+      <LazyLocationsDeleteButton v-if="permissions.canDelete('sensors')" :location="row" @deleted="locations.refresh()" />
     </template>
   </AsyncTable>
 </template>

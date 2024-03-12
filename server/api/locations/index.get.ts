@@ -15,6 +15,7 @@ export default defineEventHandler(async (event) => {
 
   const locationsQb = db
     .select({
+      id: locations.id,
       name: locations.name,
       createdAt: locations.createdAt,
       updatedAt: locations.updatedAt,

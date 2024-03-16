@@ -51,13 +51,25 @@ const columns = useTableColumns<SensorConfiguration>([
 
 const { copy } = useCopyToClipboard()
 
+const cPlusPlusLize = (text: string) => text.replaceAll(' ', '_').toUpperCase()
+
 async function onCopyToClipboard() {
   const data = sensorsConfigurations.data.value
   if (!data)
     return
 
   const text = data.results.map((item) => {
-    return `#define SENSOR_CONFIGURATION_${item.name.toUpperCase().replaceAll(' ', '_')} ${item.id}`
+    const configurationDefinition = [
+      'SENSOR',
+      cPlusPlusLize(item.name),
+      cPlusPlusLize(item.variable.name ?? ''),
+      cPlusPlusLize(item.variable.unit ?? ''),
+      cPlusPlusLize(item.variable.id.toString()),
+      cPlusPlusLize(item.location.name ?? ''),
+      cPlusPlusLize(item.location.id.toString()),
+    ].join('_')
+
+    return `#define ${configurationDefinition} ${item.id}`
   }).join('\n')
 
   copy(text, {
@@ -74,7 +86,11 @@ async function onCopyToClipboard() {
   <div class="flex mb-4 gap-4 items-center">
     <PageTitle :title="`Configuración de ${sensor.data.value?.name ?? ''}`" />
     <BaseSpacer />
-    <UButton icon="material-symbols:content-copy" @click="onCopyToClipboard()" />
+    <UTooltip
+      text="Copiar sensor.h al portapapeles"
+    >
+      <UButton icon="material-symbols:content-copy" @click="onCopyToClipboard()" />
+    </UTooltip>
     <UButton icon="material-symbols:sync-rounded" :loading="sensorsConfigurations.status.value === 'pending'" @click="sensorsConfigurations.refresh()">
       Actualizar
     </UButton>

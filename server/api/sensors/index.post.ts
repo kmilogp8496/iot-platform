@@ -10,7 +10,6 @@ export default defineEventHandler(async (event) => {
 
   const user = await getUserFromEvent(event)
   const extraSchema = z.object({
-    variables: z.array(z.number()),
     password: z.string().min(8),
   })
 
@@ -33,9 +32,6 @@ export default defineEventHandler(async (event) => {
   const db = useDB()
 
   const returningValue = (await db.insert(sensors).values(insertSensor).returning()).at(0)!
-
-  if (!body.variables.length)
-    return returningValue
 
   return returningValue
 })

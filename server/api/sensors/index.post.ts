@@ -1,6 +1,5 @@
 import { z } from 'zod'
 import { sensors, sensorsInsertSchema } from '~/server/database/schemas/sensors.schema'
-import { sensorsToVariables } from '~/server/database/schemas/sensorsToVariables.schema'
 import { getUserFromEvent } from '~/server/utils/api'
 import { hashPassword } from '~/server/utils/db'
 
@@ -37,11 +36,6 @@ export default defineEventHandler(async (event) => {
 
   if (!body.variables.length)
     return returningValue
-
-  await db.insert(sensorsToVariables).values(body.variables.map(variableId => ({
-    sensorId: returningValue.id,
-    variableId,
-  })))
 
   return returningValue
 })

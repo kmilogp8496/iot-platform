@@ -8,9 +8,4 @@ export const sensorsFormSchema = z.object({
   }, {
     required_error: 'Campo requerido',
   }),
-  variables: z.array(
-    z.object({
-      id: z.number({ required_error: 'Valor incorrecto' }),
-    }),
-  ),
 })

@@ -7,7 +7,6 @@ const state = defineModel<{
   username?: string
   password?: string
   project?: WithId | null
-  variables: WithId[]
 }>('state', {
   required: true,
 })
@@ -27,18 +26,6 @@ async function onSearchProjects(search: string) {
   loading.value.project = false
 
   return projects.results
-}
-
-async function onSearchVariables(search: string) {
-  loading.value.variables = true
-
-  const variables = await $fetch('/api/variables', {
-    params: { search },
-  })
-
-  loading.value.variables = false
-
-  return variables.results
 }
 </script>
 
@@ -60,18 +47,6 @@ async function onSearchVariables(search: string) {
       placeholder="Seleccionar un proyecto..."
       option-attribute="name"
       trailing
-      by="id"
-    />
-  </UFormGroup>
-  <UFormGroup label="Variables" name="variables">
-    <USelectMenu
-      v-model="state.variables"
-      :loading="loading.variables"
-      :searchable="onSearchVariables"
-      placeholder="Selecciona las variables del sensor..."
-      option-attribute="name"
-      trailing
-      multiple
       by="id"
     />
   </UFormGroup>

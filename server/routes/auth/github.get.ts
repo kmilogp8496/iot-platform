@@ -1,6 +1,7 @@
 import { eq } from 'drizzle-orm'
 import type { InsertUser } from '~/server/database/schemas/users.schema'
 import { users } from '~/server/database/schemas/users.schema'
+import { RolesDefinition } from '~/utils/constants'
 
 interface GithubUserSession {
   login: string // username
@@ -55,7 +56,7 @@ export default oauth.githubEventHandler({
       const newUser: InsertUser = {
         email: user.email,
         firstName: user.name,
-        role: 'GUEST',
+        role: RolesDefinition.USER,
       }
 
       dbUser = (await db.insert(users).values(newUser).returning()).at(0)

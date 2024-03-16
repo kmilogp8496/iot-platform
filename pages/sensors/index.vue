@@ -20,12 +20,6 @@ const columns = useTableColumns<Sensor>([
     label: 'Nombre',
   },
   {
-    key: 'variables',
-    label: 'Variables',
-    transform: value => value.variables.map(value => value.name).join(', '),
-    class: 'w-12 truncate',
-  },
-  {
     key: 'description',
     label: 'Descripción',
   },

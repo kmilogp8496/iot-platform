@@ -2,16 +2,14 @@ import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getSensorById } from '~/server/database/repositories/sensorsRepository'
 import { sensors } from '~/server/database/schemas/sensors.schema'
-import { sensorsToVariables } from '~/server/database/schemas/sensorsToVariables.schema'
+import { sensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
 import { getUserFromEvent } from '~/server/utils/api'
 
 import { requireEventPermission } from '~/server/utils/permissions'
 
-import { PERMISSIONS_DEFINITION } from '~/shared/permissions'
-
 export default defineEventHandler(async (event) => {
   await requireEventPermission(event, [
-    ['DELETE', PERMISSIONS_DEFINITION.SENSORS],
+    ['DELETE', 'sensors'],
   ])
 
   const user = await getUserFromEvent(event)
@@ -38,7 +36,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  await db.delete(sensorsToVariables).where(eq(sensorsToVariables.sensorId, sensorId))
+  await db.delete(sensorsConfigurations).where(eq(sensorsConfigurations.sensor, sensorId))
   await db.delete(sensors).where(eq(sensors.id, sensorId))
 
   return null

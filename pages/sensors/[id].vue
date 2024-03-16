@@ -48,12 +48,33 @@ const columns = useTableColumns<SensorConfiguration>([
     hidden: !permissions.canUpdate('sensors') && !permissions.canDelete('sensors'),
   },
 ])
+
+const { copy } = useCopyToClipboard()
+
+async function onCopyToClipboard() {
+  const data = sensorsConfigurations.data.value
+  if (!data)
+    return
+
+  const text = data.results.map((item) => {
+    return `#define SENSOR_CONFIGURATION_${item.name.toUpperCase().replaceAll(' ', '_')} ${item.id}`
+  }).join('\n')
+
+  copy(text, {
+    title: 'Copiado al portapapeles',
+    description: 'Tus configuraciones han sido copiadas al portapapeles',
+  }, {
+    title: 'Error al copiar al portapapeles',
+    description: 'No se ha podido copiar al portapapeles',
+  })
+}
 </script>
 
 <template>
   <div class="flex mb-4 gap-4 items-center">
     <PageTitle :title="`Configuración de ${sensor.data.value?.name ?? ''}`" />
     <BaseSpacer />
+    <UButton icon="material-symbols:content-copy" @click="onCopyToClipboard()" />
     <UButton icon="material-symbols:sync-rounded" :loading="sensorsConfigurations.status.value === 'pending'" @click="sensorsConfigurations.refresh()">
       Actualizar
     </UButton>

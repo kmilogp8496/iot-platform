@@ -35,3 +35,19 @@ export async function validateVariableExists(variableId: number, db: DB) {
     })
   }
 }
+
+export async function validateProjectBelongsToUser(projectId: number, userId: number, db: DB) {
+  const project = (await db.select({ id: projects.id }).from(projects).where(
+    and(
+      eq(projects.id, projectId),
+      eq(projects.createdBy, userId),
+    ),
+  )).at(0)
+
+  if (!project) {
+    throw createError({
+      statusCode: 404,
+      message: 'Proyecto no encontrado',
+    })
+  }
+}

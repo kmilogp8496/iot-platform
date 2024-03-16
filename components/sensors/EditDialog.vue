@@ -10,7 +10,6 @@ const props = defineProps<{
     name: string
     description: string | null
     project: WithId | null
-    variables: WithId[]
   }
 }>()
 
@@ -26,7 +25,7 @@ const state = ref({ ...props.item })
 const { formDialog } = useCreateDialog(model, state, props.item)
 
 const computedBody = computed(() => {
-  return { ...state.value, project: state.value.project?.id, variables: state.value.variables.map(v => v.id) }
+  return { ...state.value, project: state.value.project?.id }
 })
 
 const editSensor = useFetch(`/api/sensors/${props.item.id}`, {

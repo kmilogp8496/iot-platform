@@ -1,4 +1,4 @@
-import { pgTable, primaryKey, serial, text, timestamp } from 'drizzle-orm/pg-core'
+import { pgTable, serial, text, timestamp, unique } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { sensors } from './sensors.schema'
 import { variables } from './variables.schema'
@@ -16,7 +16,9 @@ export const sensorsConfigurations = pgTable('sensorsConfigurations', {
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow(),
   deletedAt: timestamp('deleted_at'),
-})
+}, tb => ({
+  sensorsConfigurationNameIdUnique: unique().on(tb.sensor, tb.name),
+}))
 
 export type InsertSensorsConfiguration = typeof sensorsConfigurations.$inferInsert
 export type SensorsConfiguration = typeof sensorsConfigurations.$inferSelect

@@ -1,0 +1,1 @@
+ALTER TABLE "sensorsConfigurations" ADD CONSTRAINT "sensorsConfigurations_sensor_id_name_location_id_variable_id_unique" UNIQUE("sensor_id","name","location_id","variable_id");

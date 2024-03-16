@@ -17,7 +17,7 @@ export const sensorsConfigurations = pgTable('sensorsConfigurations', {
   updatedAt: timestamp('updated_at').defaultNow(),
   deletedAt: timestamp('deleted_at'),
 }, tb => ({
-  sensorsConfigurationNameIdUnique: unique().on(tb.sensor, tb.name),
+  sensorsConfigurationNameIdUnique: unique().on(tb.sensor, tb.name, tb.location, tb.variable),
 }))
 
 export type InsertSensorsConfiguration = typeof sensorsConfigurations.$inferInsert

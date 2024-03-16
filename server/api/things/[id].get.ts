@@ -2,8 +2,6 @@ import { getSensorById } from '~/server/database/repositories/sensorsRepository'
 import { getNumericIdFromRouteParams } from '~/server/utils/api'
 
 export default defineEventHandler(async (event) => {
-  // TODO - validate sensor session
-
   await requireUserSession(event)
 
   const db = useDB()

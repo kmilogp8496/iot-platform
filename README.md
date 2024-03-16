@@ -25,4 +25,4 @@
 - [x] Landing page
 - [ ] Sensors
     - [x] Connect first sensor
-    - [ ] Add authentication to sensors
+    - [x] Add authentication to sensors

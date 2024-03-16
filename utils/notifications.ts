@@ -32,8 +32,7 @@ export function displaySuccessNotification(options: Partial<Notification>) {
   })
 }
 
-// TODO: Add a type for the error
-export function displayErrorFromApi(error: ReturnType<typeof useFetch<''>>['error']) {
+export function displayErrorFromApi(error: ReturnType<typeof useFetch<unknown, { data: { message: string } }>>['error']) {
   const unwrapperError = unref(error)
   if (!unwrapperError) {
     displayErrorNotification({

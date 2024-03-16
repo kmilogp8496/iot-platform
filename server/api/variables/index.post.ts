@@ -2,24 +2,25 @@ import { variables, variablesInsertSchema } from '~/server/database/schemas/vari
 import { getUserFromEvent } from '~/server/utils/api'
 
 export default defineEventHandler(async (event) => {
-  await requireEventPermission(event, [
+  const { user } = await requireEventPermission(event, [
     ['CREATE', 'variables'],
   ])
-
-  const user = await getUserFromEvent(event)
 
   const body = await readValidatedBody(event, variablesInsertSchema.pick({
     name: true,
     description: true,
     unit: true,
-  }).parse)
+    project: true,
+  }).required().parse)
+
+  const db = useDB()
+
+  await validateProjectBelongsToUser(body.project, user!.id, db)
 
   const insertVariable = {
     ...body,
-    createdBy: user.id,
+    createdBy: user!.id,
   }
-
-  const db = useDB()
 
   return (await db.insert(variables).values(insertVariable).returning()).at(0)!
 })

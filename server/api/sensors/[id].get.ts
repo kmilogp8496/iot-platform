@@ -9,7 +9,11 @@ export default defineEventHandler(async (event) => {
 
   const db = useDB()
 
-  const sensor = (await db.select({ id: sensors.id, name: sensors.name }).from(sensors).where(
+  const sensor = (await db.select({
+    id: sensors.id,
+    name: sensors.name,
+    username: sensors.username,
+  }).from(sensors).where(
     and(
       eq(sensors.id, sensorId),
       eq(projects.createdBy, user.id),

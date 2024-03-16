@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { usePermissions } from '~/shared/permissions'
 import type { InferPaginationItem } from '~/utils/typing.ts'
 
 const sensors = useFetch('/api/sensors')
@@ -53,7 +52,8 @@ const columns = useTableColumns<Sensor>([
     <AsyncTable :total="sensors.data.value?.total ?? 0" :loading="sensors.pending.value" :rows="sensors.data.value?.results ?? []" :columns="columns">
       <template #actions-data="{ row }">
         <LazySensorsEditDialog v-if="permissions.canUpdate('sensors')" :item="row" @edited="sensors.refresh()" />
-        <UButton size="xs" icon="i-carbon-settings-edit" :to="`/sensors/${row.id}`" />
+        <LazySensorsCredentialsDialog v-if="permissions.canUpdate('sensors')" :sensor="row" />
+        <UButton variant="ghost" size="xs" icon="i-carbon-settings-edit" :to="`/sensors/${row.id}`" />
         <LazySensorsDeleteButton v-if="permissions.canDelete('sensors')" :sensor="row" @deleted="sensors.refresh()" />
       </template>
     </AsyncTable>

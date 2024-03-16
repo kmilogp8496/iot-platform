@@ -13,4 +13,8 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxt/fonts',
   ],
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
+  },
+  css: ['~/assets/css/main.css'],
 })

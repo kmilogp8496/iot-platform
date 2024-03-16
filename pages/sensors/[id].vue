@@ -83,23 +83,25 @@ async function onCopyToClipboard() {
 </script>
 
 <template>
-  <div class="flex mb-4 gap-4 items-center">
-    <PageTitle :title="`Configuración de ${sensor.data.value?.name ?? ''}`" />
-    <BaseSpacer />
-    <UTooltip
-      text="Copiar sensor.h al portapapeles"
-    >
-      <UButton icon="material-symbols:content-copy" @click="onCopyToClipboard()" />
-    </UTooltip>
-    <UButton icon="material-symbols:sync-rounded" :loading="sensorsConfigurations.status.value === 'pending'" @click="sensorsConfigurations.refresh()">
-      Actualizar
-    </UButton>
-    <SensorsConfigurationCreateDialog v-if="sensor.data.value" :sensor-id="sensor.data.value.id" @created="sensorsConfigurations.refresh()" />
+  <div>
+    <div class="flex mb-4 gap-4 items-center">
+      <PageTitle :title="`Configuración de ${sensor.data.value?.name ?? ''}`" />
+      <BaseSpacer />
+      <UTooltip
+        text="Copiar sensor.h al portapapeles"
+      >
+        <UButton icon="material-symbols:content-copy" @click="onCopyToClipboard()" />
+      </UTooltip>
+      <UButton icon="material-symbols:sync-rounded" :loading="sensorsConfigurations.status.value === 'pending'" @click="sensorsConfigurations.refresh()">
+        Actualizar
+      </UButton>
+      <SensorsConfigurationCreateDialog v-if="sensor.data.value" :sensor-id="sensor.data.value.id" @created="sensorsConfigurations.refresh()" />
+    </div>
+    <AsyncTable :total="sensorsConfigurations.data.value?.total ?? 0" :loading="sensorsConfigurations.pending.value" :rows="sensorsConfigurations.data.value?.results ?? []" :columns="columns">
+      <template #actions-data="{ row }">
+        <LazySensorsConfigurationEditDialog v-if="permissions.canUpdate('sensorConfiguration')" :item="row" :sensor="sensor.data.value!" @edited="sensorsConfigurations.refresh()" />
+        <LazySensorsConfigurationDeleteButton v-if="permissions.canDelete('sensorConfiguration')" :sensor-configuration="row" @deleted="sensorsConfigurations.refresh()" />
+      </template>
+    </AsyncTable>
   </div>
-  <AsyncTable :total="sensorsConfigurations.data.value?.total ?? 0" :loading="sensorsConfigurations.pending.value" :rows="sensorsConfigurations.data.value?.results ?? []" :columns="columns">
-    <template #actions-data="{ row }">
-      <LazySensorsConfigurationEditDialog v-if="permissions.canUpdate('sensorConfiguration')" :item="row" :sensor="sensor.data.value!" @edited="sensorsConfigurations.refresh()" />
-      <LazySensorsConfigurationDeleteButton v-if="permissions.canDelete('sensorConfiguration')" :sensor-configuration="row" @deleted="sensorsConfigurations.refresh()" />
-    </template>
-  </AsyncTable>
 </template>

@@ -36,7 +36,7 @@ useHead({
           <BaseColorModeButton />
         </li>
         <li>
-          <UButton v-if="loggedIn" color="cool" trailing-icon="i-mdi-logout" variant="link" @click="onLogout">
+          <UButton v-if="loggedIn" color="black" trailing-icon="i-mdi-logout" variant="link" @click="onLogout">
             Cerrar sesión
           </UButton>
           <UButton v-else variant="link" to="/auth/login">

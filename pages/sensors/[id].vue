@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { usePermissions } from '~/shared/permissions'
 import type { InferPaginationItem } from '~/utils/typing.ts'
 
 const route = useRoute()
@@ -51,30 +50,37 @@ const columns = useTableColumns<SensorConfiguration>([
 
 const { copy } = useCopyToClipboard()
 
-const cPlusPlusLize = (text: string) => text.replaceAll(' ', '_').toUpperCase()
+const cPlusPlusLize = (text: string) => text.replaceAll(' ', '_').toUpperCase().normalize('NFD').replace(/[\u0300-\u036F]/g, '')
 
 async function onCopyToClipboard() {
   const data = sensorsConfigurations.data.value
-  if (!data)
+  if (!data || !sensor.data.value)
     return
 
-  const text = data.results.map((item) => {
-    const configurationDefinition = [
-      'SENSOR',
-      cPlusPlusLize(item.name),
-      cPlusPlusLize(item.variable.name ?? ''),
-      cPlusPlusLize(item.variable.unit ?? ''),
-      cPlusPlusLize(item.variable.id.toString()),
-      cPlusPlusLize(item.location.name ?? ''),
-      cPlusPlusLize(item.location.id.toString()),
-    ].join('_')
+  const text = [
+    '#ifndef _IOT_PLATFORM_SENSOR_H_',
+    '#define _IOT_PLATFORM_SENSOR_H_',
+    '',
+    `#define SENSOR_ID ${sensor.data.value!.id}`,
+    `#define SENSOR_NAME "${sensor.data.value!.username}"`,
+    '#define SENSOR_PASSWORD "[YOUR_SENSOR_PASSWORD]"',
+    '',
+    data.results.map((item) => {
+      const configurationDefinition = [
+        'SENSOR',
+        cPlusPlusLize(item.name),
+        cPlusPlusLize(item.variable.name ?? ''),
+        cPlusPlusLize(item.location.name ?? ''),
+      ].join('_')
 
-    return `#define ${configurationDefinition} ${item.id}`
-  }).join('\n')
+      return `#define ${configurationDefinition} "${item.id}"`
+    }).join('\n'),
+    '#endif',
+  ].join('\n')
 
   copy(text, {
     title: 'Copiado al portapapeles',
-    description: 'Tus configuraciones han sido copiadas al portapapeles',
+    description: 'Tus configuraciones de los sensores han sido copiadas al portapapeles',
   }, {
     title: 'Error al copiar al portapapeles',
     description: 'No se ha podido copiar al portapapeles',
@@ -88,7 +94,7 @@ async function onCopyToClipboard() {
       <PageTitle :title="`Configuración de ${sensor.data.value?.name ?? ''}`" />
       <BaseSpacer />
       <UTooltip
-        text="Copiar sensor.h al portapapeles"
+        text="Copiar IoTPlatformSensor.h al portapapeles"
       >
         <UButton icon="material-symbols:content-copy" @click="onCopyToClipboard()" />
       </UTooltip>
@@ -99,8 +105,8 @@ async function onCopyToClipboard() {
     </div>
     <AsyncTable :total="sensorsConfigurations.data.value?.total ?? 0" :loading="sensorsConfigurations.pending.value" :rows="sensorsConfigurations.data.value?.results ?? []" :columns="columns">
       <template #actions-data="{ row }">
-        <LazySensorsConfigurationEditDialog v-if="permissions.canUpdate('sensorConfiguration')" :item="row" :sensor="sensor.data.value!" @edited="sensorsConfigurations.refresh()" />
-        <LazySensorsConfigurationDeleteButton v-if="permissions.canDelete('sensorConfiguration')" :sensor-configuration="row" @deleted="sensorsConfigurations.refresh()" />
+        <LazySensorsConfigurationEditDialog v-if="permissions.canUpdate('sensorConfiguration')" :key="row.id" :item="row" :sensor="sensor.data.value!" @edited="sensorsConfigurations.refresh()" />
+        <LazySensorsConfigurationDeleteButton v-if="permissions.canDelete('sensorConfiguration')" :key="row.id" :sensor-configuration="row" @deleted="sensorsConfigurations.refresh()" />
       </template>
     </AsyncTable>
   </div>

@@ -34,10 +34,10 @@ async function onSearchProjects(search: string) {
     <UInput v-model="state.name" placeholder="Nombre del sensor" icon="i-heroicons-list-bullet" />
   </UFormGroup>
   <UFormGroup v-if="showCredentialsInputs" label="Usuario" name="username">
-    <UInput v-model="state.username" autocomplete="off" placeholder="Nombre del sensor" icon="i-heroicons-list-bullet" />
+    <UInput v-model="state.username" autocomplete="off" placeholder="Usuario" icon="i-heroicons-list-bullet" />
   </UFormGroup>
   <UFormGroup v-if="showCredentialsInputs" label="Contraseña" name="password">
-    <UInput v-model="state.password" autocomplete="off" type="password" placeholder="Nombre del sensor" icon="i-heroicons-list-bullet" />
+    <UInput v-model="state.password" autocomplete="off" type="password" placeholder="Contraseña" icon="i-heroicons-list-bullet" />
   </UFormGroup>
   <UFormGroup label="Proyecto" name="project">
     <USelectMenu

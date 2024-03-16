@@ -40,8 +40,8 @@ export default defineEventHandler(async (event) => {
     variable: true,
   }).required().parse)
 
-  if (body.variable !== sensorConfiguration.variable)
-    await validateLocationBelongsToUserProjects(body.variable, session.user!.id, db)
+  if (body.variable !== sensorConfiguration.location)
+    await validateLocationBelongsToUserProjects(body.location, session.user!.id, db)
 
   if (body.variable !== sensorConfiguration.variable)
     await validateVariableExists(body.variable, db)

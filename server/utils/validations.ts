@@ -36,6 +36,24 @@ export async function validateVariableExists(variableId: number, db: DB) {
   }
 }
 
+export async function validateVariableBelongsToUserProjects(variableId: number, userId: number, db: DB) {
+  const variable = (await db.select({ project: variables.project }).from(variables).where(
+    and(
+      eq(variables.id, variableId),
+      eq(projects.createdBy, userId),
+    ),
+  ).leftJoin(projects, eq(projects.id, variables.project))
+
+  ).at(0)
+
+  if (!variable) {
+    throw createError({
+      statusCode: 404,
+      message: 'Proyecto no encontrado',
+    })
+  }
+}
+
 export async function validateProjectBelongsToUser(projectId: number, userId: number, db: DB) {
   const project = (await db.select({ id: projects.id }).from(projects).where(
     and(

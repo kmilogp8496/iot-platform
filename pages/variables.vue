@@ -1,10 +1,16 @@
 <script lang="ts" setup>
-import { useTableColumns } from '../composables/useTableColumns'
 import type { InferPaginationItem } from '~/utils/typing.ts'
+
+const session = useUserSession()
+const permissions = usePermissions(session)
 
 const variables = useFetch('/api/variables')
 
 const columns = useTableColumns<InferPaginationItem<typeof variables>>([
+  {
+    key: 'project.name',
+    label: 'Proyecto',
+  },
   {
     key: 'name',
     label: 'Nombre',
@@ -22,6 +28,11 @@ const columns = useTableColumns<InferPaginationItem<typeof variables>>([
     label: 'Creada en',
     transform: value => new Date(value.createdAt!).toLocaleDateString(),
   },
+  {
+    key: 'actions',
+    label: 'Acciones',
+    hidden: !permissions.canUpdate('variables') && !permissions.canDelete('sensors'),
+  },
 ])
 </script>
 
@@ -35,6 +46,10 @@ const columns = useTableColumns<InferPaginationItem<typeof variables>>([
       </UButton>
       <VariablesCreateDialog @created="variables.refresh()" />
     </div>
-    <AsyncTable :total="variables.data.value?.total ?? 0" :loading="variables.pending.value" :rows="variables.data.value?.results ?? []" :columns="columns" />
+    <AsyncTable :total="variables.data.value?.total ?? 0" :loading="variables.pending.value" :rows="variables.data.value?.results ?? []" :columns="columns">
+      <template #actions-data="{ row }">
+        <LazyVariablesEditDialog v-if="permissions.canUpdate('variables')" :item="row" @edited="variables.refresh()" />
+      </template>
+    </AsyncTable>
   </div>
 </template>

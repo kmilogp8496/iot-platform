@@ -32,7 +32,7 @@ export function displaySuccessNotification(options: Partial<Notification>) {
   })
 }
 
-export function displayErrorFromApi(error: ReturnType<typeof useFetch<unknown, { data: { message: string } }>>['error']) {
+export function displayErrorFromApi(error: ReturnType<typeof useFetch<''>>['error']) {
   const unwrapperError = unref(error)
   if (!unwrapperError) {
     displayErrorNotification({

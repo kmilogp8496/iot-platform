@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { usePermissions } from '~/shared/permissions'
 import type { InferPaginationItem } from '~/utils/typing.ts'
 
 const locations = useFetch('/api/locations')

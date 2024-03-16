@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { sensorsConfigurationFormSchema } from './sensorConfiguration.constants'
-import { useCreateDialog } from '~/composables/useCreateDialog'
+import { useFormDialog } from '~/composables/useCreateDialog'
 import type { SensorConfiguration } from '~/pages/sensors/[id].vue'
 import { displayErrorFromApi } from '~/utils/notifications'
 
@@ -18,7 +18,7 @@ const model = defineModel({
 })
 
 const state = ref({ ...props.item })
-const { formDialog } = useCreateDialog(model, state, props.item)
+const { formDialog } = useFormDialog(model, state, props.item)
 
 const computedBody = computed(() => {
   return { ...state.value, location: state.value.location?.id, variable: state.value.variable.id, sensor: props.sensor.id }

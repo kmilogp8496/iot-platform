@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { sensorsConfigurationFormSchema } from './sensorConfiguration.constants'
-import { useCreateDialog } from '~/composables/useCreateDialog'
+import { useFormDialog } from '~/composables/useCreateDialog'
 import { displayErrorFromApi } from '~/utils/notifications'
 import type { InferResponse, WithId } from '~/utils/typing.ts'
 
@@ -25,7 +25,7 @@ const defaultState = {
 } as const
 
 const state = ref({ ...defaultState })
-const { formDialog } = useCreateDialog(model, state, defaultState)
+const { formDialog } = useFormDialog(model, state, defaultState)
 
 const computedBody = computed(() => {
   return { ...state.value, location: state.value.location?.id, variable: state.value.variable?.id }

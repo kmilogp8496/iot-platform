@@ -7,7 +7,7 @@ const props = defineProps<{
   item: {
     id: number
     name: string
-    description: string
+    description: string | null
     unit: string
     project: WithId | null
   }

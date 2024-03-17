@@ -3,7 +3,7 @@ const state = defineModel<{
   name: string
   unit: string
   project?: WithId | null
-  description: string
+  description: string | null
 }>('state', { required: true })
 
 const loading = ref({

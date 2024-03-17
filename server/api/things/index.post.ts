@@ -90,7 +90,9 @@ export default defineEventHandler(async (event) => {
   })
 
   influxWriteClient.writePoints(points)
-  influxWriteClient.flush()
+  influxWriteClient.flush().catch((error) => {
+    console.error('Error writing data to InfluxDB', error)
+  })
 
   return body
 })

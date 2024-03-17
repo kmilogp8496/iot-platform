@@ -26,3 +26,6 @@
 - [ ] Sensors
     - [x] Connect first sensor
     - [x] Add authentication to sensors
+    - [x] Push data to Influx
+    - [x] Code generation for sensors configuration
+    - [x] Deploy on prod and test with a real sensor

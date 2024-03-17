@@ -91,7 +91,7 @@ export default defineEventHandler(async (event) => {
 
   influxWriteClient.writePoints(points)
   try {
-    influxWriteClient.flush()
+    await influxWriteClient.flush()
   }
   catch (error) {
     throw createError({

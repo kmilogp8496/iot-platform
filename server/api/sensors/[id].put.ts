@@ -1,5 +1,4 @@
 import { eq } from 'drizzle-orm'
-import { z } from 'zod'
 import { getSensorById } from '~/server/database/repositories/sensorsRepository'
 import { sensors, sensorsUpdateSchema } from '~/server/database/schemas/sensors.schema'
 import { getNumericIdFromRouteParams, getUserFromEvent } from '~/server/utils/api'
@@ -10,9 +9,6 @@ export default defineEventHandler(async (event) => {
     ['UPDATE', 'sensors'],
   ])
   const user = await getUserFromEvent(event)
-  const variablesSchema = z.object({
-    variables: z.array(z.number()),
-  })
   const db = useDB()
 
   const sensorId = await getNumericIdFromRouteParams(event)
@@ -21,7 +17,7 @@ export default defineEventHandler(async (event) => {
     name: true,
     description: true,
     project: true,
-  }).merge(variablesSchema).parse)
+  }).required().parse)
 
   await validateProjectBelongsToUser(user.id, body.project, db)
 

@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
     project: true,
   }).required().parse)
 
-  await validateProjectBelongsToUser(user.id, body.project, db)
+  await validateProjectBelongsToUser(body.project, user.id, db)
 
   const sensor = await getSensorById(db, sensorId)
 

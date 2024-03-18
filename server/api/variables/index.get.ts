@@ -1,15 +1,21 @@
-import { eq, like, sql } from 'drizzle-orm'
+import { eq, inArray, like, sql } from 'drizzle-orm'
 import { z } from 'zod'
 import { projects } from '~/server/database/schemas/projects.schema'
 import { variables } from '~/server/database/schemas/variables.schema'
 import { createPaginatedResponse, useValidatedPaginatedQuery } from '~/server/utils/api'
 
 export default defineEventHandler(async (event) => {
+  const { user } = await requireUserSession(event)
   const query = await useValidatedPaginatedQuery(event, {
     search: z.string().optional(),
   })
 
   const db = useDB()
+
+  const projectIds = await db.select({ id: projects.id }).from(projects).where(eq(projects.createdBy, user.id))
+
+  if (!projectIds.length)
+    return createPaginatedResponse(0, [])
 
   const variablesQB = db.select({
     id: variables.id,
@@ -24,6 +30,7 @@ export default defineEventHandler(async (event) => {
   })
     .from(variables)
     .leftJoin(projects, eq(variables.project, projects.id))
+    .where(inArray(variables.project, projectIds.map(p => p.id)))
     .limit(query.limit)
     .offset(query.offset)
     .$dynamic()

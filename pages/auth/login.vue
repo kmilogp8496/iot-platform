@@ -16,6 +16,11 @@ definePageMeta({
           Iniciar sesión con Github <UIcon name="i-mdi-github" />
         </UButton>
       </a>
+      <a href="/auth/google">
+        <UButton variant="outline" color="white" size="xl">
+          Iniciar sesión con Google <UIcon name="i-mdi-google" />
+        </UButton>
+      </a>
     </div>
   </div>
 </template>

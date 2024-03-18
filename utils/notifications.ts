@@ -32,7 +32,7 @@ export function displaySuccessNotification(options: Partial<Notification>) {
   })
 }
 
-export function displayErrorFromApi(error: ReturnType<typeof useFetch<''>>['error']) {
+export function displayErrorFromApi(error: ReturnType<typeof useFetch<''>>['error'] | Record<string, any>) {
   const unwrapperError = unref(error)
   if (!unwrapperError) {
     displayErrorNotification({
@@ -41,6 +41,6 @@ export function displayErrorFromApi(error: ReturnType<typeof useFetch<''>>['erro
     return
   }
   displayErrorNotification({
-    description: unwrapperError.data.message ?? 'La operación no se pudo realizar',
+    description: unwrapperError.data?.message ?? 'La operación no se pudo realizar',
   })
 }

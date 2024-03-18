@@ -4,7 +4,11 @@ import type { InferPaginationItem } from '~/utils/typing.ts'
 const session = useUserSession()
 const permissions = usePermissions(session)
 
-const variables = useFetch('/api/variables')
+const variables = useFetch('/api/variables', {
+  onResponseError: (error) => {
+    displayErrorFromApi({ data: error.response._data })
+  },
+})
 
 const columns = useTableColumns<InferPaginationItem<typeof variables>>([
   {

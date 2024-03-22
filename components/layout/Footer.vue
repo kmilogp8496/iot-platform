@@ -4,7 +4,9 @@
       <div class="inline-flex gap-4 items-center">
         <Logo />
         <BaseColorModeButton />
-        <UButton icon="i-mdi-github" variant="ghost" href="https://github.com/kmilogp8496/iot-platform" />
+        <ULink variant="ghost" to="https://github.com/kmilogp8496/iot-platform" target="_blank">
+          <UIcon name="i-mdi-github" />
+        </ULink>
       </div>
       <p class="text-gray-600">
         © 2024 IoT platform.  Todos los derechos reservados.

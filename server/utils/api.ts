@@ -11,9 +11,11 @@ export type MaybeRefObject<T> = {
 
 export type QueryType<T extends ZodObject<ZodRawShape>> = Partial<MaybeRefObject<ReturnType<T['parse']>>>
 
+export const processedNumber = z.preprocess(Number, z.number())
+
 export const paginationQuerySchema = z.object({
-  limit: z.preprocess(Number, z.number()).default(20),
-  offset: z.preprocess(Number, z.number()).default(0),
+  limit: processedNumber.default(20),
+  offset: processedNumber.default(0),
 })
 
 export const createPaginatedQuerySchema = <T extends ZodRawShape>(schema: T) => z.object(schema).merge(paginationQuerySchema)
@@ -43,8 +45,8 @@ export interface PaginatedResponse<T> {
 
 export const createPaginatedResponse = <T>(total: number, results: T[]): PaginatedResponse<T> => ({ total, results })
 
-export async function getNumericIdFromRouteParams(event: H3Event) {
+export async function getNumericIdFromRouteParams(event: H3Event, idName = 'id') {
   return (await getValidatedRouterParams(event, z.object({
-    id: z.preprocess(Number, z.number()),
-  }).parse)).id
+    [idName]: processedNumber,
+  }).parse))[idName]
 }

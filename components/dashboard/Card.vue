@@ -7,16 +7,19 @@ const props = defineProps<{
   configuration: SensorConfigurationByProject
 }>()
 
+const ONE_HOUR = 60 * 60 * 1000
+const ONE_DAY = 24 * ONE_HOUR
+
 const fromOptions = [
-  { label: '1 hora', value: 1 * 60 * 60 * 1000 },
-  { label: '3 horas', value: 3 * 60 * 60 * 1000 },
-  { label: '6 horas', value: 6 * 60 * 60 * 1000 },
-  { label: '12 horas', value: 12 * 60 * 60 * 1000 },
-  { label: '1 día', value: 24 * 60 * 60 * 1000 },
-  { label: '2 días', value: 2 * 24 * 60 * 60 * 1000 },
-  { label: '3 días', value: 3 * 24 * 60 * 60 * 1000 },
-  { label: '7 días', value: 7 * 24 * 60 * 60 * 1000 },
-  { label: '15 días', value: 15 * 24 * 60 * 60 * 1000 },
+  { label: '1 hora', value: ONE_HOUR },
+  { label: '3 horas', value: 3 * ONE_HOUR },
+  { label: '6 horas', value: 6 * ONE_HOUR },
+  { label: '12 horas', value: 12 * ONE_HOUR },
+  { label: '1 día', value: ONE_DAY },
+  { label: '2 días', value: 2 * ONE_DAY },
+  { label: '3 días', value: 3 * ONE_DAY },
+  { label: '7 días', value: 7 * ONE_DAY },
+  { label: '15 días', value: 15 * ONE_DAY },
 ]
 
 const from = ref(fromOptions[0].value)

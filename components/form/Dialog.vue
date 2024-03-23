@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="T extends ZodRawShape, K extends Zod.ZodObject<T>">
 import type { ZodRawShape, z } from 'zod'
-import UForm from '#ui/components/forms/Form.vue'
 import type { FormSubmitEvent } from '#ui/types'
+import { UForm } from '#components'
 
 defineProps<{
   title: string

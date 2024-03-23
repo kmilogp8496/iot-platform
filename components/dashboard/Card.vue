@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { VisAxis, VisLine, VisXYContainer } from '@unovis/vue'
+import type { UnwrapRef } from 'vue'
 import type { SensorConfigurationByProject } from '~/pages/dashboard.vue'
 
 const props = defineProps<{
@@ -29,6 +30,8 @@ const data = useFetch(`/api/measurements/${props.configuration.id}`, {
 function tickFormat(d: number) {
   return new Date(d).toLocaleTimeString()
 }
+
+type DataPoint = UnwrapRef<typeof computedData>[number]
 
 const computedData = computed(() => {
   return data.data.value?.map(d => ({
@@ -102,7 +105,7 @@ function onGenerateCsv() {
     </template>
 
     <VisXYContainer class="transition-opacity duration-500" :class="{ 'opacity-20': data.status.value === 'pending' }">
-      <VisLine color="#038eb7" :data="computedData" :x="d => d.x" :y="d => d.y" />
+      <VisLine color="#038eb7" :data="computedData" :x="(d: DataPoint) => d.x" :y="(d: DataPoint) => d.y" />
       <VisAxis type="x" :tick-format="tickFormat" />
       <VisAxis type="y" />
     </VisXYContainer>

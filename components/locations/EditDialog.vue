@@ -51,7 +51,7 @@ watch(() => props.item, () => {
 <template>
   <FormDialog ref="formDialog" v-model="model" title="Editar ubicación" :state="state" :schema="locationsFormSchema" @submit="onSubmit">
     <template #activator="{ on }">
-      <UButton icon="i-heroicons-pencil" v-bind="on" size="xs" color="orange" />
+      <UButton variant="ghost" icon="i-heroicons-pencil" v-bind="on" size="xs" color="orange" />
     </template>
     <LocationsForm v-model:state="state" />
     <template #actions>

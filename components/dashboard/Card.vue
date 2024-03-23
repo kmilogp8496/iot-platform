@@ -8,7 +8,7 @@ const props = defineProps<{
 }>()
 
 const fromOptions = [
-  { label: '1 hora', value: 11 * 60 * 60 * 1000 },
+  { label: '1 hora', value: 1 * 60 * 60 * 1000 },
   { label: '3 horas', value: 3 * 60 * 60 * 1000 },
   { label: '6 horas', value: 6 * 60 * 60 * 1000 },
   { label: '12 horas', value: 12 * 60 * 60 * 1000 },

@@ -2,8 +2,9 @@ import { useInfluxReadClient } from '../utils/influxDB'
 
 export default defineEventHandler(async () => {
   const readClient = useInfluxReadClient()
+  const config = useRuntimeConfig()
 
-  const fluxQuery = /* sql */ `from(bucket: "iot-platform")
+  const fluxQuery = /* sql */ `from(bucket: "${config.influxDatabase}")
                                   |> range(start: -10m)
                                   |> filter(fn: (r) => r._measurement == "temperatura")`
 

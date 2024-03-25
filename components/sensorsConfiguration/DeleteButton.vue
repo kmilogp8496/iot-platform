@@ -29,7 +29,7 @@ async function onDeleteLocation() {
 <template>
   <ConfirmDialog :content="`¿Confirma que desea eliminar la configuración ${props.sensorConfiguration.name}? Si tienes algún sensor activo dejará de transmitir.`" :on-success="onDeleteLocation">
     <template #activator="{ on }">
-      <UButton size="xs" icon="i-heroicons-trash" color="red" v-bind="on" />
+      <UButton variant="ghost" size="xs" icon="i-heroicons-trash" color="red" v-bind="on" />
     </template>
   </ConfirmDialog>
 </template>

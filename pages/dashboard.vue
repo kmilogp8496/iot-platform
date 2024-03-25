@@ -30,7 +30,7 @@ const sensorsConfigurations = project.value
 
 <template>
   <div class="h-full flex flex-col">
-    <div class="ml-auto inline-flex items-center gap-4 pb-4">
+    <div class="inline-flex items-center gap-4 pb-4">
       <span class="text-sm">
         Proyecto:
       </span>

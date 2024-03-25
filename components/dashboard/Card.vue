@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { VisAxis, VisLine, VisXYContainer } from '@unovis/vue'
+import { VisAxis, VisCrosshair, VisLine, VisScatter, VisTooltip, VisXYContainer } from '@unovis/vue'
 import type { UnwrapRef } from 'vue'
 import type { SensorConfigurationByProject } from '~/pages/dashboard.vue'
+import { PrimaryColor } from '~~/tailwind.config'
 
 const props = defineProps<{
   configuration: SensorConfigurationByProject
@@ -24,14 +25,20 @@ const fromOptions = [
 
 const from = ref(fromOptions[0].value)
 
-const data = useFetch(`/api/measurements/${props.configuration.id}`, {
+const data = useLazyFetch(`/api/measurements/${props.configuration.id}`, {
   params: {
     from,
   },
 })
 
 function tickFormat(d: number) {
-  return new Date(d).toLocaleTimeString()
+  return new Date(d).toLocaleString('es-ES', {
+    hour12: false,
+    day: '2-digit',
+    month: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  })
 }
 
 type DataPoint = UnwrapRef<typeof computedData>[number]
@@ -40,6 +47,7 @@ const computedData = computed(() => {
   return data.data.value?.map(d => ({
     y: d._value,
     x: new Date(d._time).valueOf(),
+    tooltip: `${d._value.toFixed(2)} ${props.configuration.variable.unit} (${new Date(d._time).toLocaleString()})`,
   })) ?? []
 })
 
@@ -70,7 +78,7 @@ const currentValue = computed(() => {
   return {
     value: `${last.y.toFixed(2)} (${props.configuration.variable.unit})`,
     icon,
-    ago: useTimeAgo(last.x, TIME_AGO_DEFAULT_MESSAGES).value,
+    ago: useTimeAgo(last.x, TIME_AGO_DEFAULT_MESSAGES),
   }
 })
 
@@ -87,6 +95,9 @@ function onGenerateCsv() {
   a.click()
   a.remove()
 }
+
+const template = (d: DataPoint) => d.tooltip
+const color = () => PrimaryColor[300]
 </script>
 
 <template>
@@ -100,17 +111,29 @@ function onGenerateCsv() {
           </div>
         </div>
         <div class="font-extralight text-base sm:text-lg flex justify-between items-center">
-          {{ YLabel }} en {{ configuration.location.name }} <div v-if="currentValue" class="text-xs">
-            ({{ currentValue.ago }})
+          {{ YLabel }} en {{ configuration.location.name }} <div v-if="currentValue" class="inline-flex items-center gap-2">
+            <UButton
+              variant="ghost"
+              size="xs"
+              :loading="data.status.value === 'pending'"
+              trailing-icon="i-heroicons:arrow-path"
+              @click="data.refresh()"
+            >
+              ({{ currentValue.ago.value }})
+            </UButton>
           </div>
         </div>
       </slot>
     </template>
 
-    <VisXYContainer class="transition-opacity duration-500" :class="{ 'opacity-20': data.status.value === 'pending' }">
-      <VisLine color="#038eb7" :data="computedData" :x="(d: DataPoint) => d.x" :y="(d: DataPoint) => d.y" />
-      <VisAxis type="x" :tick-format="tickFormat" />
-      <VisAxis type="y" />
+    <VisXYContainer class="transition-opacity duration-500" :data="computedData" :class="{ 'opacity-20': data.status.value === 'pending' }">
+      <VisLine :color="PrimaryColor[600]" :x="(d: DataPoint) => d.x" :y="(d: DataPoint) => d.y" />
+      <VisCrosshair :color="color" :template="template" />
+
+      <VisTooltip />
+      <VisAxis type="x" :tick-format="tickFormat" :tick-text-width="50" :num-ticks="5" />
+      <VisAxis type="y" :num-ticks="5" />
+      <VisScatter v-if="computedData.length < 100" :size="7" :color="PrimaryColor[600]" :x="(d: DataPoint) => d.x" :y="(d: DataPoint) => d.y" />
     </VisXYContainer>
 
     <template #footer>

@@ -6,7 +6,6 @@ export default defineNuxtConfig({
     influxOrganization: '',
     dbUrl: '',
   },
-  devtools: { enabled: true },
   modules: [
     '@nuxt/ui',
     'nuxt-auth-utils',
@@ -17,4 +16,11 @@ export default defineNuxtConfig({
     pageTransition: { name: 'page', mode: 'out-in' },
   },
   css: ['~/assets/css/main.css'],
+  devtools: {
+    enabled: true,
+
+    timeline: {
+      enabled: true,
+    },
+  },
 })

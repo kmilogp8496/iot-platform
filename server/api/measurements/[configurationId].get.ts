@@ -43,7 +43,7 @@ interface InfluxResponsePoint {
   variableID: string
 }
 
-export default defineEventHandler(async (event) => {
+export default defineCachedEventHandler(async (event) => {
   const { user } = await requireUserSession(event)
   const readClient = useInfluxReadClient()
   const config = useRuntimeConfig()
@@ -88,4 +88,7 @@ export default defineEventHandler(async (event) => {
   }
 
   return result
+}, {
+  maxAge: 5 * 60,
+  varies: ['cookie'],
 })

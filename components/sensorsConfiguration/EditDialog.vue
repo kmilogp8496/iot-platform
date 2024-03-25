@@ -48,7 +48,7 @@ watch(() => props.item, () => {
 <template>
   <FormDialog ref="formDialog" v-model="model" :title="`Editar configuración ${sensor.name}`" :state="state" :schema="sensorsConfigurationFormSchema" @submit="onSubmit">
     <template #activator="{ on }">
-      <UButton icon="i-heroicons-pencil" v-bind="on" size="xs" color="orange" />
+      <UButton variant="ghost" icon="i-heroicons-pencil" v-bind="on" size="xs" color="orange" />
     </template>
     <SensorsConfigurationForm v-model:state="state" />
     <template #actions>

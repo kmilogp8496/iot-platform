@@ -2,6 +2,7 @@ import { z } from 'zod'
 import type { MaybeRef } from 'vue'
 import type { ZodObject, ZodRawShape } from 'zod'
 import type { H3Event } from 'h3'
+import postgres from 'postgres'
 
 export type MaybePromise<T> = T | Promise<T>
 
@@ -49,4 +50,13 @@ export async function getNumericIdFromRouteParams(event: H3Event, idName = 'id')
   return (await getValidatedRouterParams(event, z.object({
     [idName]: processedNumber,
   }).parse))[idName]
+}
+
+export async function validateUniqueKeyError(error: unknown, message: string) {
+  if (error instanceof postgres.PostgresError && error.routine === '_bt_check_unique') {
+    throw createError({
+      statusCode: 400,
+      message,
+    })
+  }
 }

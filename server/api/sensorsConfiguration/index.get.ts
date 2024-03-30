@@ -60,14 +60,14 @@ export default defineEventHandler(async (event) => {
     .$dynamic()
 
   const totalQb = db.select({
-    total: sql<number>`cast(count(${locations.id}) as int)`,
+    total: sql<number>`cast(count(${sensorsConfigurations.id}) as int)`,
   }).from(sensorsConfigurations)
     .where(eq(sensorsConfigurations.sensor, query.sensor))
     .$dynamic()
 
   if (query.search) {
-    sensorConfigurationsQb.where(like(locations.name, `%${query.search}%`))
-    totalQb.where(like(locations.name, `%${query.search}%`))
+    sensorConfigurationsQb.where(like(sensorsConfigurations.name, `%${query.search}%`))
+    totalQb.where(like(sensorsConfigurations.name, `%${query.search}%`))
   }
 
   const [{ total }] = await totalQb

@@ -6,6 +6,8 @@ useHead({
 definePageMeta({
   layout: 'auth',
 })
+
+preloadRouteComponents('/dashboard')
 </script>
 
 <template>

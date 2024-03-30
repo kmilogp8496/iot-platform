@@ -40,7 +40,7 @@ useHead({
       Conecta tus dispositivos y visualiza sus datos en tiempo real a través de nuestra plataforma. Maneja todos tus dispositivos IoT desde un solo lugar.
     </p>
     <div class="inline-flex gap-4">
-      <UButton :ui="{ rounded: 'rounded-full' }" size="lg" to="/dashboard">
+      <UButton :ui="{ rounded: 'rounded-full' }" size="lg" to="/auth/login">
         Comenzar <UIcon class="text-xl" name="i-mdi-arrow-right" />
       </UButton>
       <UButton :ui="{ rounded: 'rounded-full' }" class="shadow" variant="outline" size="lg">

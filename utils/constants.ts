@@ -45,5 +45,7 @@ export const ICONS = {
   text: 'i-carbon-string-text',
   create: 'i-heroicons-plus',
   edit: 'i-heroicons-pencil',
+  delete: 'i-heroicons-trash',
   cancel: 'i-heroicons-x-circle',
+  confirm: 'i-heroicons-check',
 } as const

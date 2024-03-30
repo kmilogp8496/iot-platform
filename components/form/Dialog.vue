@@ -41,7 +41,7 @@ defineExpose({
       <UCard>
         <template #header>
           <slot name="title">
-            <h4 class="text-2xl font-semibold">
+            <h4 class="text-xl font-semibold">
               {{ title }}
             </h4>
           </slot>

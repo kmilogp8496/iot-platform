@@ -1,5 +1,4 @@
-import { ActuatorConfigurationInsertSchema } from '~/server/database/schemas/actuatorConfiguration.schema'
-import { sensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
+import { ActuatorConfigurationInsertSchema, ActuatorConfigurations } from '~/server/database/schemas/actuatorConfiguration.schema'
 import { validateUniqueKeyError } from '~/server/utils/api'
 import { validateSensorBelongsToUser, validateSensorConfigurationBelongsToUser } from '~/server/utils/validations'
 
@@ -22,7 +21,7 @@ export default defineEventHandler(async (event) => {
   await validateSensorConfigurationBelongsToUser(body.sensorConfiguration, user.id, db)
 
   try {
-    await db.insert(sensorsConfigurations).values({
+    await db.insert(ActuatorConfigurations).values({
       ...body,
       createdBy: user.id,
     })

@@ -27,7 +27,7 @@ async function onSearchProjects(search: string) {
 
 <template>
   <UFormGroup label="Nombre" name="name">
-    <UInput v-model="state.name" placeholder="Nombre de la ubicación" icon="i-heroicons-list-bullet" />
+    <UInput v-model="state.name" placeholder="Nombre de la ubicación" :icon="ICONS.text" />
   </UFormGroup>
   <UFormGroup label="Proyecto" name="project">
     <USelectMenu

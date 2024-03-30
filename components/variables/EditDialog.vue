@@ -51,12 +51,12 @@ watch(() => props.item, () => {
 <template>
   <FormDialog ref="formDialog" v-model="model" title="Editar variable" :state="state" :schema="variablesSchema" @submit="onSubmit">
     <template #activator="{ on }">
-      <UButton variant="ghost" color="orange" size="xs" icon="i-heroicons-pencil" v-bind="on" />
+      <UButton variant="ghost" color="orange" size="xs" :icon="ICONS.edit" v-bind="on" />
     </template>
     <VariablesForm v-model:state="state" />
     <template #actions>
-      <UButton label="Cancelar" icon="i-heroicons-x-circle" variant="outline" :loading="editVariable.status.value === 'pending'" @click="model = false" />
-      <UButton label="Editar" color="orange" type="submit" icon="i-heroicons-pencil" :loading="editVariable.status.value === 'pending'" />
+      <UButton label="Cancelar" :icon="ICONS.cancel" variant="outline" :loading="editVariable.status.value === 'pending'" @click="model = false" />
+      <UButton label="Editar" color="orange" type="submit" :icon="ICONS.edit" :loading="editVariable.status.value === 'pending'" />
     </template>
   </FormDialog>
 </template>

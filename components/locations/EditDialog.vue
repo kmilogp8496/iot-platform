@@ -51,12 +51,12 @@ watch(() => props.item, () => {
 <template>
   <FormDialog ref="formDialog" v-model="model" title="Editar ubicación" :state="state" :schema="locationsFormSchema" @submit="onSubmit">
     <template #activator="{ on }">
-      <UButton variant="ghost" icon="i-heroicons-pencil" v-bind="on" size="xs" color="orange" />
+      <UButton variant="ghost" :icon="ICONS.edit" v-bind="on" size="xs" color="orange" />
     </template>
     <LocationsForm v-model:state="state" />
     <template #actions>
-      <UButton label="Cancelar" icon="i-heroicons-x-circle" variant="outline" :loading="editLocation.status.value === 'pending'" @click="model = false" />
-      <UButton label="Editar" type="submit" color="orange" icon="i-heroicons-pencil" :loading="editLocation.status.value === 'pending'" />
+      <UButton label="Cancelar" :icon="ICONS.cancel" variant="outline" :loading="editLocation.status.value === 'pending'" @click="model = false" />
+      <UButton label="Editar" type="submit" color="orange" :icon="ICONS.edit" :loading="editLocation.status.value === 'pending'" />
     </template>
   </FormDialog>
 </template>./sensor.constants

@@ -52,7 +52,7 @@ const sensorsConfigurations = project.value
       <div class="flex justify-center gap-4">
         <UButton
           v-if="permissions.canCreate('projects')"
-          leading-icon="i-heroicons-plus"
+          leading-:icon="ICONS.create"
           trailing-icon="i-heroicons-chart-bar"
           to="/projects"
           variant="soft"
@@ -61,7 +61,7 @@ const sensorsConfigurations = project.value
         </UButton>
         <UButton
           v-if="permissions.canCreate('sensors')"
-          leading-icon="i-heroicons-plus"
+          leading-:icon="ICONS.create"
           trailing-icon="i-cbi-motion-sensor-temperature"
           to="/sensors"
           variant="soft"

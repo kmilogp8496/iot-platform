@@ -42,7 +42,7 @@ async function onSearchVariables(search: string) {
 
 <template>
   <UFormGroup label="Nombre" name="name">
-    <UInput v-model="state.name" placeholder="Nombre de la configuración" icon="i-heroicons-list-bullet" />
+    <UInput v-model="state.name" placeholder="Nombre de la configuración" :icon="ICONS.text" />
   </UFormGroup>
   <UFormGroup label="Ubicación" name="location">
     <USelectMenu
@@ -67,7 +67,7 @@ async function onSearchVariables(search: string) {
     />
   </UFormGroup>
   <UFormGroup label="Descripción" name="description">
-    <UTextarea v-model="state.description" placeholder="Descripción" icon="i-heroicons-list-bullet" />
+    <UTextarea v-model="state.description" placeholder="Descripción" :icon="ICONS.text" />
   </UFormGroup>
 </template>
 

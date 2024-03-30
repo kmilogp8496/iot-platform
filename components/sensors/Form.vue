@@ -31,13 +31,13 @@ async function onSearchProjects(search: string) {
 
 <template>
   <UFormGroup label="Nombre" name="name">
-    <UInput v-model="state.name" placeholder="Nombre del sensor" icon="i-heroicons-list-bullet" />
+    <UInput v-model="state.name" placeholder="Nombre del sensor" :icon="ICONS.text" />
   </UFormGroup>
   <UFormGroup v-if="showCredentialsInputs" label="Usuario" name="username">
-    <UInput v-model="state.username" autocomplete="off" placeholder="Usuario" icon="i-heroicons-list-bullet" />
+    <UInput v-model="state.username" autocomplete="off" placeholder="Usuario" :icon="ICONS.text" />
   </UFormGroup>
   <UFormGroup v-if="showCredentialsInputs" label="Contraseña" name="password">
-    <UInput v-model="state.password" autocomplete="off" type="password" placeholder="Contraseña" icon="i-heroicons-list-bullet" />
+    <UInput v-model="state.password" autocomplete="off" type="password" placeholder="Contraseña" :icon="ICONS.text" />
   </UFormGroup>
   <UFormGroup label="Proyecto" name="project">
     <USelectMenu
@@ -51,7 +51,7 @@ async function onSearchProjects(search: string) {
     />
   </UFormGroup>
   <UFormGroup label="Descripción" name="description">
-    <UTextarea v-model="state.description" placeholder="Descripción" icon="i-heroicons-list-bullet" />
+    <UTextarea v-model="state.description" placeholder="Descripción" :icon="ICONS.text" />
   </UFormGroup>
 </template>
 

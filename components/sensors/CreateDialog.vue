@@ -48,14 +48,14 @@ async function onSubmit() {
 <template>
   <FormDialog ref="formDialog" v-model="model" title="Crear sensor" :state="state" :schema="schema" @submit="onSubmit">
     <template #activator="{ on }">
-      <UButton icon="i-heroicons-plus" v-bind="on">
+      <UButton :icon="ICONS.create" v-bind="on">
         Crear
       </UButton>
     </template>
     <SensorsForm v-model:state="state" show-credentials-inputs />
     <template #actions>
-      <UButton label="Cancelar" icon="i-heroicons-x-circle" variant="outline" :loading="createSensor.status.value === 'pending'" @click="model = false" />
-      <UButton label="Crear" type="submit" icon="i-heroicons-plus" :loading="createSensor.status.value === 'pending'" />
+      <UButton label="Cancelar" :icon="ICONS.cancel" variant="outline" :loading="createSensor.status.value === 'pending'" @click="model = false" />
+      <UButton label="Crear" type="submit" :icon="ICONS.create" :loading="createSensor.status.value === 'pending'" />
     </template>
   </FormDialog>
 </template>

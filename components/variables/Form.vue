@@ -25,10 +25,10 @@ async function onSearchProjects(search: string) {
 
 <template>
   <UFormGroup label="Nombre" name="name">
-    <UInput v-model="state.name" placeholder="Nombre de la variable" icon="i-heroicons-list-bullet" />
+    <UInput v-model="state.name" placeholder="Nombre de la variable" :icon="ICONS.text" />
   </UFormGroup>
   <UFormGroup label="Unidad" name="unit">
-    <UInput v-model="state.unit" placeholder="Unidad de medida (kg, ºC, L, etc...)" icon="i-heroicons-list-bullet" />
+    <UInput v-model="state.unit" placeholder="Unidad de medida (kg, ºC, L, etc...)" :icon="ICONS.text" />
   </UFormGroup>
   <UFormGroup label="Proyecto" name="project">
     <USelectMenu
@@ -42,6 +42,6 @@ async function onSearchProjects(search: string) {
     />
   </UFormGroup>
   <UFormGroup label="Descripción" name="description">
-    <UTextarea v-model="state.description" placeholder="Descripción" icon="i-heroicons-list-bullet" />
+    <UTextarea v-model="state.description" placeholder="Descripción" :icon="ICONS.text" />
   </UFormGroup>
 </template>

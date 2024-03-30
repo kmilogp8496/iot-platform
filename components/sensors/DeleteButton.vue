@@ -29,7 +29,7 @@ async function onDeleteSensor() {
 <template>
   <ConfirmDialog :content="`¿Confirma que desea eliminar el sensor ${props.sensor.name}?`" :on-success="onDeleteSensor">
     <template #activator="{ on }">
-      <UButton variant="ghost" size="xs" icon="i-heroicons-trash" color="red" v-bind="on" />
+      <UButton variant="ghost" size="xs" :icon="ICONS.delete" color="red" v-bind="on" />
     </template>
   </ConfirmDialog>
 </template>

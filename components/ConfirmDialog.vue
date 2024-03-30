@@ -54,9 +54,11 @@ function onClick() {
   <slot name="activator" :on="{ onClick }" />
   <UModal v-model="model">
     <UCard>
-      <template #title>
+      <template #header>
         <slot name="title">
-          {{ title }}
+          <h4 class="text-xl font-semibold">
+            {{ title }}
+          </h4>
         </slot>
       </template>
 
@@ -66,8 +68,8 @@ function onClick() {
 
       <template #footer>
         <div class="flex gap-4 justify-end">
-          <UButton icon="i-heroicons-x-mark" :loading="loading" label="Cancelar" @click="onReject" />
-          <UButton icon="i-heroicons-check" :loading="loading" label="Confirmar" :color="color" @click="onSuccess" />
+          <UButton :icon="ICONS.cancel" variant="outline" :loading="loading" label="Cancelar" @click="onReject" />
+          <UButton :icon="ICONS.confirm" :loading="loading" label="Confirmar" :color="color" @click="onSuccess" />
         </div>
       </template>
     </UCard>

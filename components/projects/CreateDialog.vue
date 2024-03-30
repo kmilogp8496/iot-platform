@@ -41,19 +41,19 @@ async function onSubmit() {
 <template>
   <FormDialog v-model="model" title="Crear proyecto" :state="state" :schema="schema" @submit="onSubmit">
     <template #activator="{ on }">
-      <UButton icon="i-heroicons-plus" v-bind="on">
+      <UButton :icon="ICONS.create" v-bind="on">
         Crear
       </UButton>
     </template>
     <UFormGroup label="Nombre" name="title">
-      <UInput v-model="state.name" placeholder="Nombre del proyecto" icon="i-heroicons-list-bullet" />
+      <UInput v-model="state.name" placeholder="Nombre del proyecto" :icon="ICONS.text" />
     </UFormGroup>
     <UFormGroup label="Descripción" name="description">
-      <UTextarea v-model="state.description" placeholder="Descripción" icon="i-heroicons-list-bullet" />
+      <UTextarea v-model="state.description" placeholder="Descripción" :icon="ICONS.text" />
     </UFormGroup>
     <template #actions>
-      <UButton label="Cancelar" icon="i-heroicons-x-circle" variant="outline" :loading="createProject.status.value === 'pending'" @click="model = false" />
-      <UButton label="Crear" type="submit" icon="i-heroicons-plus" :loading="createProject.status.value === 'pending'" />
+      <UButton label="Cancelar" :icon="ICONS.cancel" variant="outline" :loading="createProject.status.value === 'pending'" @click="model = false" />
+      <UButton label="Crear" type="submit" :icon="ICONS.create" :loading="createProject.status.value === 'pending'" />
     </template>
   </FormDialog>
 </template>

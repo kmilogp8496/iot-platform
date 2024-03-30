@@ -1,4 +1,6 @@
 import { and, eq } from 'drizzle-orm'
+import { sensors } from '../database/schemas/sensors.schema'
+import { sensorsConfigurations } from '../database/schemas/sensorsConfiguration.schema'
 import { locations } from '~/server/database/schemas/locations.schema'
 import { projects } from '~/server/database/schemas/projects.schema'
 import { variables } from '~/server/database/schemas/variables.schema'
@@ -66,6 +68,42 @@ export async function validateProjectBelongsToUser(projectId: number, userId: nu
     throw createError({
       statusCode: 404,
       message: 'Proyecto no encontrado',
+    })
+  }
+}
+
+export async function validateSensorBelongsToUser(sensorId: number, userId: number, db: DB) {
+  const sensor = (await db.select({ id: sensors.id })
+    .from(sensors)
+    .where(
+      and(
+        eq(sensors.id, sensorId),
+        eq(sensors.createdBy, userId),
+      ),
+    )
+  ).at(0)
+
+  if (!sensor) {
+    throw createError({
+      statusCode: 404,
+      message: 'Sensor no encontrado',
+    })
+  }
+}
+
+export async function validateSensorConfigurationBelongsToUser(sensorConfigurationId: number, userId: number, db: DB) {
+  const sensorConfiguration = (await db.select({ id: sensorsConfigurations.id }).from(sensorsConfigurations)
+    .where(
+      and(
+        eq(sensorsConfigurations.id, sensorConfigurationId),
+        eq(sensorsConfigurations.createdBy, userId),
+      ),
+    )).at(0)
+
+  if (!sensorConfiguration) {
+    throw createError({
+      statusCode: 404,
+      message: 'Configuración de sensor no encontrada',
     })
   }
 }

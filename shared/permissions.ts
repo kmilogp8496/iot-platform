@@ -7,6 +7,7 @@ export const PERMISSIONS_DEFINITION = {
   THINGS_DATA: 'thingsData',
   VARIABLES: 'variables',
   SENSORS_CONFIGURATION: 'sensorConfiguration',
+  SENSORS_ACTUATORS: 'actuators',
 } as const
 
 export const USER_PERMISSIONS = {
@@ -16,6 +17,7 @@ export const USER_PERMISSIONS = {
     [PERMISSIONS_DEFINITION.PROJECTS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
     [PERMISSIONS_DEFINITION.LOCATIONS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
     [PERMISSIONS_DEFINITION.SENSORS_CONFIGURATION]: [RolesDefinition.ADMIN, RolesDefinition.USER],
+    [PERMISSIONS_DEFINITION.SENSORS_ACTUATORS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
     [PERMISSIONS_DEFINITION.THINGS_DATA]: [RolesDefinition.SENSOR],
   },
   UPDATE: {
@@ -23,12 +25,14 @@ export const USER_PERMISSIONS = {
     [PERMISSIONS_DEFINITION.VARIABLES]: [RolesDefinition.ADMIN, RolesDefinition.USER],
     [PERMISSIONS_DEFINITION.PROJECTS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
     [PERMISSIONS_DEFINITION.LOCATIONS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
+    [PERMISSIONS_DEFINITION.SENSORS_ACTUATORS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
     [PERMISSIONS_DEFINITION.SENSORS_CONFIGURATION]: [RolesDefinition.ADMIN, RolesDefinition.USER],
   },
   DELETE: {
     [PERMISSIONS_DEFINITION.SENSORS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
     [PERMISSIONS_DEFINITION.PROJECTS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
     [PERMISSIONS_DEFINITION.LOCATIONS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
+    [PERMISSIONS_DEFINITION.SENSORS_ACTUATORS]: [RolesDefinition.ADMIN, RolesDefinition.USER],
     [PERMISSIONS_DEFINITION.SENSORS_CONFIGURATION]: [RolesDefinition.ADMIN, RolesDefinition.USER],
   },
 } as const

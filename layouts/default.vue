@@ -1,10 +1,7 @@
 <script lang="ts" setup>
-import { breakpointsTailwind } from '@vueuse/core'
 import Spacer from '~/components/base/Spacer.vue'
 
 const { loggedIn, clear, user } = useUserSession()
-
-const { lg } = useBreakpoints(breakpointsTailwind)
 
 async function onLogout() {
   await clear()
@@ -20,9 +17,7 @@ useHead({
   <div class="container px-4 h-svh flex flex-col mx-auto">
     <nav class="py-2">
       <ul class="flex items-center gap-4">
-        <ClientOnly>
-          <LayoutMobileVerticalNavigation v-if="!lg" />
-        </ClientOnly>
+        <LayoutMobileVerticalNavigation class="lg:hidden" />
         <Spacer />
         <li>
           <UButton v-if="!loggedIn" variant="link" to="/home">
@@ -46,11 +41,9 @@ useHead({
       </ul>
     </nav>
     <div class="md:inline-flex md:gap-4 md:flex-grow pt-4">
-      <ClientOnly>
-        <div v-if="lg" class="max-w-40">
-          <LayoutDesktopVerticalNavigation />
-        </div>
-      </ClientOnly>
+      <div class="hidden lg:inline-block max-w-40">
+        <LayoutDesktopVerticalNavigation />
+      </div>
       <main class="relative flex-grow">
         <slot />
       </main>

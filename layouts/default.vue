@@ -14,7 +14,7 @@ useHead({
 </script>
 
 <template>
-  <div class="container px-4 h-svh flex flex-col mx-auto">
+  <div class="lg:container px-4 h-svh flex flex-col mx-auto">
     <nav class="py-2">
       <ul class="flex items-center gap-4">
         <LayoutMobileVerticalNavigation class="lg:hidden" />
@@ -40,7 +40,7 @@ useHead({
         </li>
       </ul>
     </nav>
-    <div class="md:inline-flex md:gap-4 md:flex-grow pt-4">
+    <div class="lg:inline-flex lg:gap-4 lg:flex-grow pt-4">
       <div class="hidden lg:inline-block max-w-40">
         <LayoutDesktopVerticalNavigation />
       </div>

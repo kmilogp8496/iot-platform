@@ -10,6 +10,7 @@ export interface TableColumn<T extends Record<string, any>> {
   label: string
   hidden?: MaybeRef<boolean>
   transform?: (row: T) => string
+  truncate?: string
 }
 
 export function useTableColumns<T extends Record<string, any>>(columns: TableColumn<T>[]) {

@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-const props = defineProps<{
-  sensorId: number
-}>()
 const state = defineModel<{
   name: string
   description: string
@@ -18,7 +15,7 @@ async function onSearchSensorConfigurations(search: string) {
   loading.value.sensorConfiguration = true
 
   const sensorConfigurations = await $fetch('/api/sensorsConfiguration', {
-    params: { search, sensor: props.sensorId },
+    params: { search },
   })
 
   loading.value.sensorConfiguration = false

@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import type { InferPaginationItem } from '~/utils/typing.ts'
-
 const route = useRoute()
 
 const sensor = await useFetch(`/api/sensors/${route.params.id}`)
@@ -38,7 +36,6 @@ const sensorConfigurationTableColumns = useTableColumns<SensorConfiguration>([
   {
     key: 'generatedId',
     label: 'ID Generado',
-    transform: value => generateSensorId(value),
   },
   {
     key: 'variable.name',
@@ -90,11 +87,12 @@ const actuatorConfigurationTableColumns = useTableColumns<ActuatorConfiguration>
 const { copy } = useCopyToClipboard()
 
 async function onCopyToClipboard() {
-  const data = sensorsConfigurations.data.value
-  if (!data || !sensor.data.value)
+  const sensorConfigurationsData = sensorsConfigurations.data.value
+  const sensorActuatorsData = actuatorConfigurations.data.value
+  if (!sensorConfigurationsData || !sensorActuatorsData || !sensor.data.value)
     return
 
-  const text = generateSensorConfigurationFile(data.results, sensor.data.value)
+  const text = generateSensorFile(sensorConfigurationsData.results, sensor.data.value)
 
   copy(text, {
     title: 'Copiado al portapapeles',
@@ -127,6 +125,9 @@ async function onCopyToClipboard() {
       :rows="sensorsConfigurations.data.value?.results ?? []"
       :columns="sensorConfigurationTableColumns"
     >
+      <template #generatedId-data="{ row }">
+        <TableTruncatedCell :content="generateSensorConfigurationId(row)" />
+      </template>
       <template #actions-data="{ row }">
         <LazySensorsConfigurationEditDialog v-if="permissions.canUpdate('sensorConfiguration')" :key="row.id" :item="row" :sensor="sensor.data.value!" @edited="sensorsConfigurations.refresh()" />
         <LazySensorsConfigurationDeleteButton v-if="permissions.canDelete('sensorConfiguration')" :key="row.id" :sensor-configuration="row" @deleted="sensorsConfigurations.refresh()" />

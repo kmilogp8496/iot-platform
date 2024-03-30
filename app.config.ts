@@ -4,5 +4,8 @@ export default defineAppConfig({
       dynamic: true,
     },
     primary: 'jelly-bean',
+    tooltip: {
+      width: 'max-w-lg',
+    },
   },
 })

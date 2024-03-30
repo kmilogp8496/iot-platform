@@ -50,7 +50,7 @@ watch(() => props.item, () => {
     <template #activator="{ on }">
       <UButton variant="ghost" :icon="ICONS.edit" v-bind="on" size="xs" color="orange" />
     </template>
-    <ActuatorConfigurationForm v-model:state="state" :sensor-id="sensor.id" />
+    <ActuatorConfigurationForm v-model:state="state" />
     <template #actions>
       <UButton label="Cancelar" :icon="ICONS.cancel" variant="outline" :loading="editSensorConfiguration.status.value === 'pending'" @click="model = false" />
       <UButton label="Editar" type="submit" color="orange" :icon="ICONS.edit" :loading="editSensorConfiguration.status.value === 'pending'" />

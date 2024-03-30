@@ -54,7 +54,7 @@ async function onSubmit() {
         Crear
       </UButton>
     </template>
-    <ActuatorConfigurationForm v-model:state="state" :sensor-id="sensorId" />
+    <ActuatorConfigurationForm v-model:state="state" />
     <template #actions>
       <UButton label="Cancelar" :icon="ICONS.cancel" variant="outline" :loading="createActuatorConfiguration.status.value === 'pending'" @click="model = false" />
       <UButton label="Crear" type="submit" :icon="ICONS.create" :loading="createActuatorConfiguration.status.value === 'pending'" />

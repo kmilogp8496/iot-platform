@@ -38,3 +38,12 @@ export const TIME_AGO_DEFAULT_MESSAGES = {
     invalid: '',
   },
 }
+
+export const ICONS = {
+  sensorConfiguration: 'i-carbon-settings-edit',
+  refresh: 'material-symbols:sync-rounded',
+  text: 'i-carbon-string-text',
+  create: 'i-heroicons-plus',
+  edit: 'i-heroicons-pencil',
+  cancel: 'i-heroicons-x-circle',
+} as const

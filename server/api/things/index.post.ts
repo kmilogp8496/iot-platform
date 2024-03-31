@@ -121,10 +121,14 @@ export default defineEventHandler(async (event) => {
   const influxWriteClient = useInfluxWriteClient()
 
   influxWriteClient.writePoints(points)
-
-  influxWriteClient.flush().catch((error) => {
-    console.error(error)
-  })
-
+  try {
+    await influxWriteClient.flush()
+  }
+  catch (error) {
+    throw createError({
+      statusCode: 500,
+      message: 'Error writing to influx',
+    })
+  }
   return body
 })

@@ -150,8 +150,11 @@ async function onCopyToClipboard() {
       :loading="actuatorConfigurations.pending.value"
     >
       <template #actions-data="{ row }">
-        <LazyActuatorConfigurationEditDialog v-if="permissions.canUpdate('actuators')" :key="row.id" :item="row" :sensor="sensor.data.value!" @edited="actuatorConfigurations.refresh()" />
-        <LazyActuatorConfigurationDeleteButton v-if="permissions.canDelete('actuators')" :key="row.id" :actuator-configuration="row" @deleted="actuatorConfigurations.refresh()" />
+        <div class="flex items-center">
+          <LazyActuatorConfigurationEditDialog v-if="permissions.canUpdate('actuators')" :key="row.id" :item="row" :sensor="sensor.data.value!" @edited="actuatorConfigurations.refresh()" />
+          <ActuatorConfigurationPostValueButton v-if="permissions.canUpdate('actuators')" :key="row.id" :actuator-configuration="row" />
+          <LazyActuatorConfigurationDeleteButton v-if="permissions.canDelete('actuators')" :key="row.id" :actuator-configuration="row" @deleted="actuatorConfigurations.refresh()" />
+        </div>
       </template>
     </AsyncTable>
   </div>

@@ -37,7 +37,7 @@ async function onSubmit() {
     <template #panel>
       <UForm :state :schema class="px-4 py-2 space-y-4" @submit="onSubmit">
         <UFormGroup label="Enviar valor al actuador" name="value">
-          <UInput v-model="state.value" type="number" max="65532" step="10" min="0" />
+          <UInput v-model="state.value" type="number" max="65532" min="0" />
         </UFormGroup>
         <div class="flex justify-end">
           <UButton label="Enviar" size="xs" :loading="submitValue.status.value === 'pending'" :icon="ICONS.message" type="submit" />

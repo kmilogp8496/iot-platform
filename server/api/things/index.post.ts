@@ -9,6 +9,11 @@ import { sensorsConfigurations } from '~/server/database/schemas/sensorsConfigur
 import { variables } from '~/server/database/schemas/variables.schema'
 import { webSocketPeers } from '~/server/routes/_ws'
 
+export const ThingsPostBodySchema = z.record(
+  z.preprocess(Number, z.number()),
+  z.number(),
+)
+
 export default defineEventHandler(async (event) => {
   const session = await requireEventPermission(event, [
     ['CREATE', 'thingsData'],
@@ -17,10 +22,7 @@ export default defineEventHandler(async (event) => {
   const db = useDB()
 
   // Body contains the data indexed by the sensor configuration id
-  const body = await readValidatedBody(event, z.record(
-    z.preprocess(Number, z.number()),
-    z.number(),
-  ).parse)
+  const body = await readValidatedBody(event, ThingsPostBodySchema.parse)
 
   const sensorConfigurations = Object.keys(body).map(Number)
 

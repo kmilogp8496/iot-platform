@@ -10,7 +10,6 @@ const sensorsConfigurations = useFetch('/api/sensorsConfiguration', {
   query: {
     sensor: route.params.id,
     limit: 10,
-
   },
 })
 
@@ -110,14 +109,25 @@ async function onCopyToClipboard() {
       <PageTitle :title="`Configuración de ${sensor.data.value?.name ?? ''}`" />
       <BaseSpacer />
       <UTooltip
-        text="Copiar IoTPlatformSensor.h al portapapeles"
+        text="Copiar PlatformSensor.h al portapapeles"
       >
-        <UButton icon="material-symbols:content-copy" @click="onCopyToClipboard()" />
+        <UButton
+          icon="material-symbols:content-copy"
+          @click="onCopyToClipboard()"
+        />
       </UTooltip>
-      <UButton :icon="ICONS.refresh" :loading="sensorsConfigurations.status.value === 'pending'" @click="sensorsConfigurations.refresh()">
+      <UButton
+        :icon="ICONS.refresh"
+        :loading="sensorsConfigurations.status.value === 'pending'"
+        @click="sensorsConfigurations.refresh()"
+      >
         Actualizar
       </UButton>
-      <SensorsConfigurationCreateDialog v-if="sensor.data.value" :sensor-id="sensor.data.value.id" @created="sensorsConfigurations.refresh()" />
+      <SensorsConfigurationCreateDialog
+        v-if="sensor.data.value"
+        :sensor-id="sensor.data.value.id"
+        @created="sensorsConfigurations.refresh()"
+      />
     </div>
     <AsyncTable
       :total="sensorsConfigurations.data.value?.total ?? 0"
@@ -129,8 +139,19 @@ async function onCopyToClipboard() {
         <TableTruncatedCell :content="generateSensorConfigurationId(row)" />
       </template>
       <template #actions-data="{ row }">
-        <LazySensorsConfigurationEditDialog v-if="permissions.canUpdate('sensorConfiguration')" :key="row.id" :item="row" :sensor="sensor.data.value!" @edited="sensorsConfigurations.refresh()" />
-        <LazySensorsConfigurationDeleteButton v-if="permissions.canDelete('sensorConfiguration')" :key="row.id" :sensor-configuration="row" @deleted="sensorsConfigurations.refresh()" />
+        <LazySensorsConfigurationEditDialog
+          v-if="permissions.canUpdate('sensorConfiguration')"
+          :key="row.id"
+          :item="row"
+          :sensor="sensor.data.value!"
+          @edited="sensorsConfigurations.refresh()"
+        />
+        <LazySensorsConfigurationDeleteButton
+          v-if="permissions.canDelete('sensorConfiguration')"
+          :key="row.id"
+          :sensor-configuration="row"
+          @deleted="sensorsConfigurations.refresh()"
+        />
       </template>
     </AsyncTable>
     <div class="flex my-4 gap-4 items-center">
@@ -138,10 +159,18 @@ async function onCopyToClipboard() {
         Configuraciones de actuador
       </h2>
       <BaseSpacer />
-      <UButton :icon="ICONS.refresh" :loading="actuatorConfigurations.status.value === 'pending'" @click="actuatorConfigurations.refresh()">
+      <UButton
+        :icon="ICONS.refresh"
+        :loading="actuatorConfigurations.status.value === 'pending'"
+        @click="actuatorConfigurations.refresh()"
+      >
         Actualizar
       </UButton>
-      <ActuatorConfigurationCreateDialog v-if="sensor.data.value" :sensor-id="sensor.data.value.id" @created="actuatorConfigurations.refresh()" />
+      <ActuatorConfigurationCreateDialog
+        v-if="sensor.data.value"
+        :sensor-id="sensor.data.value.id"
+        @created="actuatorConfigurations.refresh()"
+      />
     </div>
     <AsyncTable
       :rows="actuatorConfigurations.data.value?.results ?? []"
@@ -151,9 +180,24 @@ async function onCopyToClipboard() {
     >
       <template #actions-data="{ row }">
         <div class="flex items-center">
-          <LazyActuatorConfigurationEditDialog v-if="permissions.canUpdate('actuators')" :key="row.id" :item="row" :sensor="sensor.data.value!" @edited="actuatorConfigurations.refresh()" />
-          <ActuatorConfigurationPostValueButton v-if="permissions.canUpdate('actuators')" :key="row.id" :actuator-configuration="row" />
-          <LazyActuatorConfigurationDeleteButton v-if="permissions.canDelete('actuators')" :key="row.id" :actuator-configuration="row" @deleted="actuatorConfigurations.refresh()" />
+          <LazyActuatorConfigurationEditDialog
+            v-if="permissions.canUpdate('actuators')"
+            :key="row.id"
+            :item="row"
+            :sensor="sensor.data.value!"
+            @edited="actuatorConfigurations.refresh()"
+          />
+          <ActuatorConfigurationPostValueButton
+            v-if="permissions.canUpdate('actuators')"
+            :key="row.id"
+            :actuator-configuration="row"
+          />
+          <LazyActuatorConfigurationDeleteButton
+            v-if="permissions.canDelete('actuators')"
+            :key="row.id"
+            :actuator-configuration="row"
+            @deleted="actuatorConfigurations.refresh()"
+          />
         </div>
       </template>
     </AsyncTable>

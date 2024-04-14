@@ -11,9 +11,15 @@ export default defineNuxtConfig({
     'nuxt-auth-utils',
     '@vueuse/nuxt',
     '@nuxt/fonts',
+    '@nuxt/eslint',
   ],
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
+  },
+  eslint: {
+    config: {
+      stylistic: true,
+    },
   },
   css: ['~/assets/css/main.css'],
   devtools: {

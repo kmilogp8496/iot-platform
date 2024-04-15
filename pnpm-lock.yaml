@@ -20,12 +20,6 @@ dependencies:
   '@unovis/vue':
     specifier: ^1.4.0
     version: 1.4.0(@unovis/ts@1.4.0)(vue@3.4.22)
-  '@vercel/analytics':
-    specifier: ^1.2.2
-    version: 1.2.2
-  '@vercel/speed-insights':
-    specifier: ^1.0.10
-    version: 1.0.10(vue-router@4.3.0)(vue@3.4.22)
   drizzle-orm:
     specifier: ^0.30.8
     version: 0.30.8(@neondatabase/serverless@0.9.1)(pg@8.11.5)
@@ -3787,20 +3781,6 @@ packages:
       vue: 3.4.22(typescript@5.4.5)
     dev: false
 
-  /@vercel/analytics@1.2.2:
-    resolution: {integrity: sha512-X0rctVWkQV1e5Y300ehVNqpOfSOufo7ieA5PIdna8yX/U7Vjz0GFsGf4qvAhxV02uQ2CVt7GYcrFfddXXK2Y4A==}
-    peerDependencies:
-      next: '>= 13'
-      react: ^18 || ^19
-    peerDependenciesMeta:
-      next:
-        optional: true
-      react:
-        optional: true
-    dependencies:
-      server-only: 0.0.1
-    dev: false
-
   /@vercel/nft@0.26.4:
     resolution: {integrity: sha512-j4jCOOXke2t8cHZCIxu1dzKLHLcFmYzC3yqAK6MfZznOL1QIJKd0xcFsXK3zcqzU7ScsE2zWkiMMNHGMHgp+FA==}
     engines: {node: '>=16'}
@@ -3821,34 +3801,6 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
-
-  /@vercel/speed-insights@1.0.10(vue-router@4.3.0)(vue@3.4.22):
-    resolution: {integrity: sha512-4uzdKB0RW6Ff2FkzshzjZ+RlJfLPxgm/00i0XXgxfMPhwnnsk92YgtqsxT9OcPLdJUyVU1DqFlSWWjIQMPkh0g==}
-    requiresBuild: true
-    peerDependencies:
-      '@sveltejs/kit': ^1 || ^2
-      next: '>= 13'
-      react: ^18 || ^19
-      svelte: ^4
-      vue: ^3
-      vue-router: ^4
-    peerDependenciesMeta:
-      '@sveltejs/kit':
-        optional: true
-      next:
-        optional: true
-      react:
-        optional: true
-      svelte:
-        optional: true
-      vue:
-        optional: true
-      vue-router:
-        optional: true
-    dependencies:
-      vue: 3.4.22(typescript@5.4.5)
-      vue-router: 4.3.0(vue@3.4.22)
-    dev: false
 
   /@vitejs/plugin-vue-jsx@3.1.0(vite@5.2.8)(vue@3.4.22):
     resolution: {integrity: sha512-w9M6F3LSEU5kszVb9An2/MmXNxocAnUb3WhRr8bHlimhDrXNt6n6D2nJQR3UXpGlZHh/EsgouOHCsM8V3Ln+WA==}
@@ -9419,10 +9371,6 @@ packages:
       send: 0.18.0
     transitivePeerDependencies:
       - supports-color
-
-  /server-only@0.0.1:
-    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
-    dev: false
 
   /set-blocking@2.0.0:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}

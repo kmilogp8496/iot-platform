@@ -1,5 +1,4 @@
 import { and, eq } from 'drizzle-orm'
-import postgres from 'postgres'
 import { projects } from '~/server/database/schemas/projects.schema'
 import { sensors } from '~/server/database/schemas/sensors.schema'
 import { sensorsConfigurationInsertSchema, sensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
@@ -44,13 +43,13 @@ export default defineEventHandler(async (event) => {
     })
   }
   catch (error) {
-    if (error instanceof postgres.PostgresError && error.routine === '_bt_check_unique') {
-      throw createError({
-        statusCode: 400,
-        message: 'Ya existe una configuración similar para este sensor',
-      })
-    }
-    throw error
+    // if (error instanceof postgres.PostgresError && error.routine === '_bt_check_unique') {
+    throw createError({
+      statusCode: 400,
+      message: 'Ya existe una configuración similar para este sensor',
+    })
+    // }
+    // throw error
   }
 
   return null

@@ -30,5 +30,5 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  return (await db.delete(locations).where(eq(locations.id, id))).at(0)!
+  return (await db.delete(locations).where(eq(locations.id, id)).returning()).at(0)!
 })

@@ -1,14 +1,13 @@
-import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js'
-import { drizzle } from 'drizzle-orm/postgres-js'
-import postgres from 'postgres'
 import { subtle } from 'uncrypto'
+import { neon } from '@neondatabase/serverless'
+import { drizzle } from 'drizzle-orm/neon-http'
 
-let _db: PostgresJsDatabase
+let _db: ReturnType<typeof drizzle>
 
 export function useDB() {
   if (!_db) {
     const config = useRuntimeConfig()
-    const client = postgres(config.dbUrl, { prepare: false })
+    const client = neon(config.dbUrl)
     _db = drizzle(client)
   }
   return _db

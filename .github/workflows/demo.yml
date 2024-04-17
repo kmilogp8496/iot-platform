@@ -39,7 +39,7 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm build
+        run: pnpm build && echo "$SSH_HOST"
   
       - name: copy file to server
         uses: appleboy/scp-action@v0.1.7

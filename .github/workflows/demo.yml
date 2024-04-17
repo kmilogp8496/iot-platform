@@ -39,7 +39,9 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm build && echo "$SSH_HOST"
+        env:
+          SUPER_SECRET: ${{ secrets.SSH_HOST }}
+        run: pnpm build && echo "$SUPER_SECRET"
   
       - name: copy file to server
         uses: appleboy/scp-action@v0.1.7

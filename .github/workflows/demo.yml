@@ -44,27 +44,27 @@ jobs:
       - name: copy file to server
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.SSHHOST }}
-          username: ${{ secrets.SSHUSER }}
-          key: ${{ secrets.SSHKEY }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: ".output/*,.nuxt/*"
           target: /home/kmilo.dev/releases/${{ github.run_id }}
       
       - name: Link release to current
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SSHHOST }}
-          username: ${{ secrets.SSHUSER }}
-          key: ${{ secrets.SSHKEY }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             ln -sfn /home/kmilo.dev/releases/${{ github.run_id }} /home/kmilo.dev/current
 
       - name: Delete previous releases but keep the last 3
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SSHHOST }}
-          username: ${{ secrets.SSHUSER }}
-          key: ${{ secrets.SSHKEY }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/kmilo.dev/releases
             ls -t | tail -n +4 | xargs rm -rf

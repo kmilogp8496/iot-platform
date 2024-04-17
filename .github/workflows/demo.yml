@@ -40,6 +40,9 @@ jobs:
 
       - name: Build
         run: pnpm build
+      
+      - name: Pack build
+        run: tar -czf artifact.tar.gz .nuxt .output
   
       - name: copy file to server
         uses: appleboy/scp-action@v0.1.7
@@ -47,17 +50,29 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: ".output/*,.nuxt/*"
+          source: artifact.tar.gz
           target: /home/kmilo.dev/releases/${{ github.run_id }}
       
-      - name: Link release to current
+      - name: Unpack build
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            ln -sfn /home/kmilo.dev/releases/${{ github.run_id }} /home/kmilo.dev/current
+            cd /home/kmilo.dev/releases/${{ github.run_id }}
+            tar -xzf artifact.tar.gz
+            rm -rf artifact.tar.gz
+      
+      - name: Symlink current release
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/kmilo.dev
+            ln -sfn releases/${{ github.run_id }} current
 
       - name: Delete previous releases but keep the last 3
         uses: appleboy/ssh-action@v1.0.3

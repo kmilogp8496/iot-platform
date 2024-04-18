@@ -73,12 +73,14 @@ jobs:
 
       - name: Symlink current release
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           envs:
-            ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
+            ENVIRONMENT: ENVIRONMENT
           script: |
             cd /home/kmilo.dev
             ln -sfn releases/${{ github.run_id }} current

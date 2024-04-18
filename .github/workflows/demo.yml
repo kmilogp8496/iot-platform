@@ -77,11 +77,13 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          env:
+            ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
           script: |
             cd /home/kmilo.dev
             ln -sfn releases/${{ github.run_id }} current
-            current
-            echo ${{ secrets.ENVIRONMENT }} > .env
+            cd current
+            echo "$ENVIRONMENT" > .env
 
       - name: Delete previous releases but keep the last 3
         uses: appleboy/ssh-action@v1.0.3

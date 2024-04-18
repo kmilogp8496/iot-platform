@@ -41,7 +41,7 @@ jobs:
       - name: Build
         env:
           NUXT_SESSION_PASSWORD: ${{ secrets.NUXT_SESSION_PASSWORD }}
-        run: NUXT_SESSION_PASSWORD=$NUXT_SESSION_PASSWORD pnpm build
+        run: NUXT_SESSION_PASSWORD="$NUXT_SESSION_PASSWORD" pnpm build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

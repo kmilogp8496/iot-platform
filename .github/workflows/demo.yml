@@ -80,6 +80,8 @@ jobs:
           script: |
             cd /home/kmilo.dev
             ln -sfn releases/${{ github.run_id }} current
+            current
+            echo ${{ secrets.ENVIRONMENT }} > .env
 
       - name: Delete previous releases but keep the last 3
         uses: appleboy/ssh-action@v1.0.3

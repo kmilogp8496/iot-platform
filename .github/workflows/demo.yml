@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 20.x
 
       - uses: pnpm/action-setup@v3
         name: Install pnpm
@@ -58,6 +58,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: kmilo.dev-artifact
+
+      - name: List contents of the artifact
+        run: ls -l
 
       - name: copy file to server
         uses: appleboy/scp-action@v0.1.7

@@ -91,7 +91,7 @@ jobs:
           envs: NUXT_DB_URL,NUXT_INFLUX_DATABASE,NUXT_INFLUX_HOST,NUXT_INFLUX_ORGANIZATION,NUXT_INFLUX_TOKEN,NUXT_OAUTH_GITHUB_CLIENT_ID,NUXT_OAUTH_GITHUB_CLIENT_SECRET,NUXT_OAUTH_GOOGLE_CLIENT_ID,NUXT_OAUTH_GOOGLE_CLIENT_SECRET,NUXT_SESSION_PASSWORD
           script: |
             cd /home/kmilo.dev
-            ln -s releases/${{ github.run_id }} current
+            ln -sn releases/${{ github.run_id }} current
             cd current
 
             touch .env

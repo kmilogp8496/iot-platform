@@ -40,14 +40,32 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kmilo.dev-artifact
+          path: |
+            .nuxt
+            .output
       
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: kmilo.dev-artifact
+
       - name: copy file to server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "artifact.tar.gz"
+          source: ".output,.nuxt"
           target: /home/kmilo.dev/releases/${{ github.run_id }}
 
       - name: Symlink current release

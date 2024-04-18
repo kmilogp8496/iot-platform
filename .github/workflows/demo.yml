@@ -48,6 +48,7 @@ jobs:
           path: |
             .nuxt
             .output
+            ecosystem.config.cjs
       
   deploy:
     needs: build

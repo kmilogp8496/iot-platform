@@ -48,7 +48,6 @@ jobs:
           path: |
             .nuxt
             .output
-            ecosystem.config.cjs
       
   deploy:
     needs: build
@@ -69,7 +68,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: ".output,.nuxt,ecosystem.config.cjs"
+          source: ".output,.nuxt"
           target: /home/kmilo.dev/releases/${{ github.run_id }}
 
       - name: Symlink current release

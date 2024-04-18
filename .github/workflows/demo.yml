@@ -79,8 +79,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs:
-            ENVIRONMENT: ENVIRONMENT
+          envs: ENVIRONMENT
           script: |
             cd /home/kmilo.dev
             ln -sfn releases/${{ github.run_id }} current

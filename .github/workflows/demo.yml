@@ -60,7 +60,7 @@ jobs:
           name: kmilo.dev-artifact
 
       - name: List contents of the artifact
-        run: ls -l
+        run: ls -la
 
       - name: copy file to server
         uses: appleboy/scp-action@v0.1.7

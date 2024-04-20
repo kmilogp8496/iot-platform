@@ -38,21 +38,19 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Create .env file
-        run: |
-          echo NUXT_SESSION_PASSWORD="${{ secrets.NUXT_SESSION_PASSWORD }}" >> .env && \
-          echo NUXT_DB_URL="${{ secrets.NUXT_DB_URL }}" >> .env && \
-          echo NUXT_INFLUX_DATABASE="${{ secrets.NUXT_INFLUX_DATABASE }}" >> .env && \
-          echo NUXT_INFLUX_HOST="${{ secrets.NUXT_INFLUX_HOST }}" >> .env && \
-          echo NUXT_INFLUX_ORGANIZATION="${{ secrets.NUXT_INFLUX_ORGANIZATION }}" >> .env && \
-          echo NUXT_OAUTH_GITHUB_CLIENT_ID="${{ secrets.NUXT_OAUTH_GITHUB_CLIENT_ID }}" >> .env && \
-          echo NUXT_OAUTH_GITHUB_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GITHUB_CLIENT_SECRET }}" >> .env && \
-          echo NUXT_OAUTH_GOOGLE_CLIENT_ID="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_ID }}" >> .env && \
-          echo NUXT_OAUTH_GOOGLE_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_SECRET }}" >> .env  && \
-          echo NUXT_INFLUX_TOKEN="${{ secrets.NUXT_INFLUX_TOKEN }}" >> .env
-
       - name: Build
-        run: pnpm build
+        run: |
+          NUXT_SESSION_PASSWORD="${{ secrets.NUXT_SESSION_PASSWORD }}" \
+          NUXT_DB_URL="${{ secrets.NUXT_DB_URL }}" \
+          NUXT_INFLUX_DATABASE="${{ secrets.NUXT_INFLUX_DATABASE }}" \
+          NUXT_INFLUX_HOST="${{ secrets.NUXT_INFLUX_HOST }}" \
+          NUXT_INFLUX_ORGANIZATION="${{ secrets.NUXT_INFLUX_ORGANIZATION }}" \
+          NUXT_OAUTH_GITHUB_CLIENT_ID="${{ secrets.NUXT_OAUTH_GITHUB_CLIENT_ID }}" \
+          NUXT_OAUTH_GITHUB_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GITHUB_CLIENT_SECRET }}" \
+          NUXT_OAUTH_GOOGLE_CLIENT_ID="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_ID }}" \
+          NUXT_OAUTH_GOOGLE_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_SECRET }}" \
+          NUXT_INFLUX_TOKEN="${{ secrets.NUXT_INFLUX_TOKEN }}"
+          pnpm build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -61,7 +59,6 @@ jobs:
           path: |
             .nuxt
             .output
-            .env
       
   deploy:
     needs: build
@@ -79,7 +76,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: ".output,.nuxt,.env"
+          source: ".output,.nuxt"
           target: /home/kmilo.dev/releases/${{ github.run_id }}
 
       - name: Symlink current release

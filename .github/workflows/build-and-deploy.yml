@@ -38,19 +38,21 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build
+      - name: Create .env file
         run: |
-          NUXT_SESSION_PASSWORD="${{ secrets.NUXT_SESSION_PASSWORD }}" \
-          NUXT_DB_URL="${{ secrets.NUXT_DB_URL }}" \
-          NUXT_INFLUX_DATABASE="${{ secrets.NUXT_INFLUX_DATABASE }}" \
-          NUXT_INFLUX_HOST="${{ secrets.NUXT_INFLUX_HOST }}" \
-          NUXT_INFLUX_ORGANIZATION="${{ secrets.NUXT_INFLUX_ORGANIZATION }}" \
-          NUXT_INFLUX_TOKEN="${{ secrets.NUXT_INFLUX_TOKEN }}" \
-          NUXT_OAUTH_GITHUB_CLIENT_ID="${{ secrets.NUXT_OAUTH_GITHUB_CLIENT_ID }}" \
-          NUXT_OAUTH_GITHUB_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GITHUB_CLIENT_SECRET }}" \
-          NUXT_OAUTH_GOOGLE_CLIENT_ID="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_ID }}" \
-          NUXT_OAUTH_GOOGLE_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_SECRET }}" \
-          pnpm build
+          echo NUXT_SESSION_PASSWORD="${{ secrets.NUXT_SESSION_PASSWORD }}" >> .env && \
+          echo NUXT_DB_URL="${{ secrets.NUXT_DB_URL }}" >> .env && \
+          echo NUXT_INFLUX_DATABASE="${{ secrets.NUXT_INFLUX_DATABASE }}" >> .env && \
+          echo NUXT_INFLUX_HOST="${{ secrets.NUXT_INFLUX_HOST }}" >> .env && \
+          echo NUXT_INFLUX_ORGANIZATION="${{ secrets.NUXT_INFLUX_ORGANIZATION }}" >> .env && \
+          echo NUXT_INFLUX_TOKEN="${{ secrets.NUXT_INFLUX_TOKEN }}" >> .env && \
+          echo NUXT_OAUTH_GITHUB_CLIENT_ID="${{ secrets.NUXT_OAUTH_GITHUB_CLIENT_ID }}" >> .env && \
+          echo NUXT_OAUTH_GITHUB_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GITHUB_CLIENT_SECRET }}" >> .env && \
+          echo NUXT_OAUTH_GOOGLE_CLIENT_ID="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_ID }}" >> .env && \
+          echo NUXT_OAUTH_GOOGLE_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_SECRET }}" >> .env
+
+      - name: Build
+        run: pnpm build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -59,6 +61,7 @@ jobs:
           path: |
             .nuxt
             .output
+            .env
       
   deploy:
     needs: build
@@ -70,16 +73,13 @@ jobs:
         with:
           name: kmilo.dev-artifact
 
-      - name: List contents of the artifact
-        run: ls -la
-
       - name: copy file to server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: ".output,.nuxt"
+          source: ".output,.nuxt,.env"
           target: /home/kmilo.dev/releases/${{ github.run_id }}
 
       - name: Symlink current release
@@ -88,7 +88,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: NUXT_DB_URL,NUXT_INFLUX_DATABASE,NUXT_INFLUX_HOST,NUXT_INFLUX_ORGANIZATION,NUXT_INFLUX_TOKEN,NUXT_OAUTH_GITHUB_CLIENT_ID,NUXT_OAUTH_GITHUB_CLIENT_SECRET,NUXT_OAUTH_GOOGLE_CLIENT_ID,NUXT_OAUTH_GOOGLE_CLIENT_SECRET,NUXT_SESSION_PASSWORD
           script: |
             cd /home/kmilo.dev
             ln -sfn releases/${{ github.run_id }} current

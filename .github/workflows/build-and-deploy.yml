@@ -39,7 +39,7 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: \
+        run: |
           NUXT_SESSION_PASSWORD="${{ secrets.NUXT_SESSION_PASSWORD }}" \
           NUXT_DB_URL="${{ secrets.NUXT_DB_URL }}" \
           NUXT_INFLUX_DATABASE="${{ secrets.NUXT_INFLUX_DATABASE }}" \

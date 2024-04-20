@@ -39,7 +39,18 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: NUXT_SESSION_PASSWORD="${{ secrets.NUXT_SESSION_PASSWORD }}" pnpm build
+        run: \ 
+          NUXT_SESSION_PASSWORD="${{ secrets.NUXT_SESSION_PASSWORD }}" \
+          NUXT_DB_URL="${{ secrets.NUXT_DB_URL }}" \
+          NUXT_INFLUX_DATABASE="${{ secrets.NUXT_INFLUX_DATABASE }}" \
+          NUXT_INFLUX_HOST="${{ secrets.NUXT_INFLUX_HOST }}" \
+          NUXT_INFLUX_ORGANIZATION="${{ secrets.NUXT_INFLUX_ORGANIZATION }}" \
+          NUXT_INFLUX_TOKEN="${{ secrets.NUXT_INFLUX_TOKEN }}" \
+          NUXT_OAUTH_GITHUB_CLIENT_ID="${{ secrets.NUXT_OAUTH_GITHUB_CLIENT_ID }}" \
+          NUXT_OAUTH_GITHUB_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GITHUB_CLIENT_SECRET }}" \
+          NUXT_OAUTH_GOOGLE_CLIENT_ID="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_ID }}" \
+          NUXT_OAUTH_GOOGLE_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_SECRET }}" \
+          pnpm build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -73,17 +84,6 @@ jobs:
 
       - name: Symlink current release
         uses: appleboy/ssh-action@v1.0.3
-        env:
-          NUXT_DB_URL: ${{ secrets.NUXT_DB_URL }}
-          NUXT_INFLUX_DATABASE: ${{ secrets.NUXT_INFLUX_DATABASE }}
-          NUXT_INFLUX_HOST: ${{ secrets.NUXT_INFLUX_HOST }}
-          NUXT_INFLUX_ORGANIZATION: ${{ secrets.NUXT_INFLUX_ORGANIZATION }}
-          NUXT_INFLUX_TOKEN: ${{ secrets.NUXT_INFLUX_TOKEN }}
-          NUXT_OAUTH_GITHUB_CLIENT_ID: ${{ secrets.NUXT_OAUTH_GITHUB_CLIENT_ID }}
-          NUXT_OAUTH_GITHUB_CLIENT_SECRET: ${{ secrets.NUXT_OAUTH_GITHUB_CLIENT_SECRET }}
-          NUXT_OAUTH_GOOGLE_CLIENT_ID: ${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_ID }}
-          NUXT_OAUTH_GOOGLE_CLIENT_SECRET: ${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_SECRET }}
-          NUXT_SESSION_PASSWORD: ${{ secrets.NUXT_SESSION_PASSWORD }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
@@ -92,19 +92,6 @@ jobs:
           script: |
             cd /home/kmilo.dev
             ln -sfn releases/${{ github.run_id }} current
-            cd current
-
-            touch .env
-            echo "NUXT_DB_URL=$NUXT_DB_URL" >> .env
-            echo "NUXT_INFLUX_DATABASE=$NUXT_INFLUX_DATABASE" >> .env
-            echo "NUXT_INFLUX_HOST=$NUXT_INFLUX_HOST" >> .env
-            echo "NUXT_INFLUX_ORGANIZATION=$NUXT_INFLUX_ORGANIZATION" >> .env
-            echo "NUXT_INFLUX_TOKEN=$NUXT_INFLUX_TOKEN" >> .env
-            echo "NUXT_OAUTH_GITHUB_CLIENT_ID=$NUXT_OAUTH_GITHUB_CLIENT_ID" >> .env
-            echo "NUXT_OAUTH_GITHUB_CLIENT_SECRET=$NUXT_OAUTH_GITHUB_CLIENT_SECRET" >> .env
-            echo "NUXT_OAUTH_GOOGLE_CLIENT_ID=$NUXT_OAUTH_GOOGLE_CLIENT_ID" >> .env
-            echo "NUXT_OAUTH_GOOGLE_CLIENT_SECRET=$NUXT_OAUTH_GOOGLE_CLIENT_SECRET" >> .env
-            echo "NUXT_SESSION_PASSWORD=$NUXT_SESSION_PASSWORD" >> .env
 
       - name: Delete previous releases but keep the last 3
         uses: appleboy/ssh-action@v1.0.3

@@ -51,9 +51,6 @@ jobs:
           echo NUXT_OAUTH_GOOGLE_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_SECRET }}" >> .env  && \
           echo NUXT_INFLUX_TOKEN="${{ secrets.NUXT_INFLUX_TOKEN }}" >> .env
 
-      - name: List env variables
-        run: cat .env
-
       - name: Build
         run: pnpm build
 

@@ -49,7 +49,7 @@ jobs:
           NUXT_OAUTH_GITHUB_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GITHUB_CLIENT_SECRET }}" \
           NUXT_OAUTH_GOOGLE_CLIENT_ID="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_ID }}" \
           NUXT_OAUTH_GOOGLE_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_SECRET }}" \
-          NUXT_INFLUX_TOKEN="${{ secrets.NUXT_INFLUX_TOKEN }}"
+          NUXT_INFLUX_TOKEN="${{ secrets.NUXT_INFLUX_TOKEN }}" \
           pnpm build
 
       - name: Upload artifact

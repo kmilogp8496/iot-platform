@@ -45,11 +45,11 @@ jobs:
           echo NUXT_INFLUX_DATABASE="${{ secrets.NUXT_INFLUX_DATABASE }}" >> .env && \
           echo NUXT_INFLUX_HOST="${{ secrets.NUXT_INFLUX_HOST }}" >> .env && \
           echo NUXT_INFLUX_ORGANIZATION="${{ secrets.NUXT_INFLUX_ORGANIZATION }}" >> .env && \
-          echo NUXT_INFLUX_TOKEN="${{ secrets.NUXT_INFLUX_TOKEN }}" >> .env && \
           echo NUXT_OAUTH_GITHUB_CLIENT_ID="${{ secrets.NUXT_OAUTH_GITHUB_CLIENT_ID }}" >> .env && \
           echo NUXT_OAUTH_GITHUB_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GITHUB_CLIENT_SECRET }}" >> .env && \
           echo NUXT_OAUTH_GOOGLE_CLIENT_ID="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_ID }}" >> .env && \
-          echo NUXT_OAUTH_GOOGLE_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_SECRET }}" >> .env
+          echo NUXT_OAUTH_GOOGLE_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_SECRET }}" >> .env  && \
+          echo NUXT_INFLUX_TOKEN="${{ secrets.NUXT_INFLUX_TOKEN }}" >> .env
 
       - name: Build
         run: pnpm build

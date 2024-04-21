@@ -26,7 +26,7 @@ const fromOptions = [
   { label: '15 días', value: 15 * ONE_DAY },
 ]
 
-const from = ref(fromOptions[0].value)
+const from = ref(fromOptions[3].value)
 
 const data = useLazyFetch(`/api/measurements/${props.configuration.id}`, {
   params: {

@@ -109,6 +109,7 @@ export default defineEventHandler(async (event) => {
     points.push(
       new Point(configuration.name)
         .floatField(sensor.name, body[configuration.id])
+        .tag('configurationID', configuration.id.toString())
         .tag('sensorID', sensor.id.toString())
         .tag('variableID', configuration.variable?.id.toString() ?? '')
         .tag('locationID', configuration.location?.id.toString() ?? '')

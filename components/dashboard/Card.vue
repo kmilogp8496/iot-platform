@@ -12,6 +12,9 @@ const ONE_HOUR = 60 * 60 * 1000
 const ONE_DAY = 24 * ONE_HOUR
 
 const fromOptions = [
+  { label: '1 minuto', value: 1 * 60 * 1000 },
+  { label: '15 minutos', value: 15 * 60 * 1000 },
+  { label: '30 minutos', value: 30 * 60 * 1000 },
   { label: '1 hora', value: ONE_HOUR },
   { label: '3 horas', value: 3 * ONE_HOUR },
   { label: '6 horas', value: 6 * ONE_HOUR },
@@ -106,12 +109,21 @@ const color = () => PrimaryColor[300]
       <slot name="title">
         <div class="text-lg sm:text-xl font-bold flex items-center justify-between">
           {{ computedTitle }}
-          <div v-if="currentValue" class="font-medium text-gray-700 dark:text-gray-300">
-            {{ currentValue.value }} <UIcon v-if="currentValue.icon" :name="currentValue.icon" />
+          <div
+            v-if="currentValue"
+            class="font-medium text-gray-700 dark:text-gray-300"
+          >
+            {{ currentValue.value }} <UIcon
+              v-if="currentValue.icon"
+              :name="currentValue.icon"
+            />
           </div>
         </div>
         <div class="font-extralight text-base sm:text-lg flex justify-between items-center">
-          {{ YLabel }} en {{ configuration.location.name }} <div v-if="currentValue" class="inline-flex items-center gap-2">
+          {{ YLabel }} en {{ configuration.location.name }} <div
+            v-if="currentValue"
+            class="inline-flex items-center gap-2"
+          >
             <UButton
               variant="ghost"
               size="xs"
@@ -126,14 +138,39 @@ const color = () => PrimaryColor[300]
       </slot>
     </template>
 
-    <VisXYContainer class="transition-opacity duration-500" :data="computedData" :class="{ 'opacity-20': data.status.value === 'pending' }">
-      <VisLine :color="PrimaryColor[600]" :x="(d: DataPoint) => d.x" :y="(d: DataPoint) => d.y" />
-      <VisCrosshair :color="color" :template="template" />
+    <VisXYContainer
+      class="transition-opacity duration-500"
+      :data="computedData"
+      :class="{ 'opacity-20': data.status.value === 'pending' }"
+    >
+      <VisLine
+        :color="PrimaryColor[600]"
+        :x="(d: DataPoint) => d.x"
+        :y="(d: DataPoint) => d.y"
+      />
+      <VisCrosshair
+        :color="color"
+        :template="template"
+      />
 
       <VisTooltip />
-      <VisAxis type="x" :tick-format="tickFormat" :tick-text-width="50" :num-ticks="5" />
-      <VisAxis type="y" :num-ticks="5" />
-      <VisScatter v-if="computedData.length < 100" :size="7" :color="PrimaryColor[600]" :x="(d: DataPoint) => d.x" :y="(d: DataPoint) => d.y" />
+      <VisAxis
+        type="x"
+        :tick-format="tickFormat"
+        :tick-text-width="50"
+        :num-ticks="5"
+      />
+      <VisAxis
+        type="y"
+        :num-ticks="5"
+      />
+      <VisScatter
+        v-if="computedData.length < 100"
+        :size="7"
+        :color="PrimaryColor[600]"
+        :x="(d: DataPoint) => d.x"
+        :y="(d: DataPoint) => d.y"
+      />
     </VisXYContainer>
 
     <template #footer>
@@ -149,7 +186,11 @@ const color = () => PrimaryColor[300]
           />
         </div>
         <div>
-          <UButton size="sm" icon="i-mdi-file-download-outline" @click="onGenerateCsv">
+          <UButton
+            size="sm"
+            icon="i-mdi-file-download-outline"
+            @click="onGenerateCsv"
+          >
             Descargar datos
           </UButton>
         </div>

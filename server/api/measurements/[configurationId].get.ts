@@ -57,7 +57,7 @@ export default defineCachedEventHandler(async (event) => {
   const db = useDB()
 
   const configuration = (await db.select({
-    variableId: sensorsConfigurations.variable,
+    id: sensorsConfigurations.id,
   })
     .from(sensorsConfigurations)
     .where(
@@ -76,7 +76,7 @@ export default defineCachedEventHandler(async (event) => {
 
   const fluxQuery = /* sql */ `from(bucket: "${config.influxDatabase}")
                                   |> range(start: -${query.from}ms)
-                                  |> filter(fn: (r) => r.variableID == "${configuration.variableId}")`
+                                  |> filter(fn: (r) => r.configurationID == "${configuration.id}")`
 
   const rows = readClient.iterateRows(fluxQuery)
 
@@ -90,5 +90,4 @@ export default defineCachedEventHandler(async (event) => {
   return result
 }, {
   maxAge: 5 * 60,
-  varies: ['cookie'],
 })

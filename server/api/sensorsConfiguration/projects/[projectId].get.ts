@@ -1,5 +1,4 @@
-import { and, eq, like, sql } from 'drizzle-orm'
-import { z } from 'zod'
+import { and, eq } from 'drizzle-orm'
 import { locations } from '~/server/database/schemas/locations.schema'
 import { projects } from '~/server/database/schemas/projects.schema'
 import { sensors } from '~/server/database/schemas/sensors.schema'

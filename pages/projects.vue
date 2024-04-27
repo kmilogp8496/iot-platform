@@ -33,11 +33,20 @@ const columns = useTableColumns<InferPaginationItem<typeof projects>>([
     <div class="flex mb-4 gap-4 items-center">
       <PageTitle title="Proyectos" />
       <BaseSpacer />
-      <UButton icon="material-symbols:sync-rounded" :loading="projects.status.value === 'pending'" @click="projects.refresh()">
+      <UButton
+        icon="material-symbols:sync-rounded"
+        :loading="projects.status.value === 'pending'"
+        @click="projects.refresh()"
+      >
         Actualizar
       </UButton>
       <ProjectsCreateDialog @created="projects.refresh()" />
     </div>
-    <AsyncTable :total="projects.data.value?.total ?? 0" :loading="projects.pending.value" :rows="projects.data.value?.results ?? []" :columns="columns" />
+    <AsyncTable
+      :total="projects.data.value?.total ?? 0"
+      :loading="projects.pending.value"
+      :rows="projects.data.value?.results ?? []"
+      :columns="columns"
+    />
   </div>
 </template>

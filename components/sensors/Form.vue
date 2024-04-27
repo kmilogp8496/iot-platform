@@ -30,16 +30,45 @@ async function onSearchProjects(search: string) {
 </script>
 
 <template>
-  <UFormGroup label="Nombre" name="name">
-    <UInput v-model="state.name" placeholder="Nombre del sensor" :icon="ICONS.text" />
+  <UFormGroup
+    label="Nombre"
+    name="name"
+  >
+    <UInput
+      v-model="state.name"
+      placeholder="Nombre del sensor"
+      :icon="ICONS.text"
+    />
   </UFormGroup>
-  <UFormGroup v-if="showCredentialsInputs" label="Usuario" name="username">
-    <UInput v-model="state.username" autocomplete="off" placeholder="Usuario" :icon="ICONS.text" />
+  <UFormGroup
+    v-if="showCredentialsInputs"
+    label="Usuario"
+    name="username"
+  >
+    <UInput
+      v-model="state.username"
+      autocomplete="off"
+      placeholder="Usuario"
+      :icon="ICONS.text"
+    />
   </UFormGroup>
-  <UFormGroup v-if="showCredentialsInputs" label="Contraseña" name="password">
-    <UInput v-model="state.password" autocomplete="off" type="password" placeholder="Contraseña" :icon="ICONS.text" />
+  <UFormGroup
+    v-if="showCredentialsInputs"
+    label="Contraseña"
+    name="password"
+  >
+    <UInput
+      v-model="state.password"
+      autocomplete="off"
+      type="password"
+      placeholder="Contraseña"
+      :icon="ICONS.text"
+    />
   </UFormGroup>
-  <UFormGroup label="Proyecto" name="project">
+  <UFormGroup
+    label="Proyecto"
+    name="project"
+  >
     <USelectMenu
       v-model="state.project"
       :loading="loading.project"
@@ -50,8 +79,15 @@ async function onSearchProjects(search: string) {
       by="id"
     />
   </UFormGroup>
-  <UFormGroup label="Descripción" name="description">
-    <UTextarea v-model="state.description" placeholder="Descripción" :icon="ICONS.text" />
+  <UFormGroup
+    label="Descripción"
+    name="description"
+  >
+    <UTextarea
+      v-model="state.description"
+      placeholder="Descripción"
+      :icon="ICONS.text"
+    />
   </UFormGroup>
 </template>
 

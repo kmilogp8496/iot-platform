@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { z } from 'zod'
 import { variablesSchema } from './variables.const'
 import { displayErrorFromApi } from '~/utils/notifications'
 import { useFormDialog } from '~/composables/useCreateDialog'
@@ -43,16 +42,37 @@ async function onSubmit() {
 </script>
 
 <template>
-  <FormDialog ref="formDialog" v-model="model" title="Crear variable" :state="state" :schema="variablesSchema" @submit="onSubmit">
+  <FormDialog
+    ref="formDialog"
+    v-model="model"
+    title="Crear variable"
+    :state="state"
+    :schema="variablesSchema"
+    @submit="onSubmit"
+  >
     <template #activator="{ on }">
-      <UButton :icon="ICONS.create" v-bind="on">
+      <UButton
+        :icon="ICONS.create"
+        v-bind="on"
+      >
         Crear
       </UButton>
     </template>
     <VariablesForm v-model:state="state" />
     <template #actions>
-      <UButton label="Cancelar" :icon="ICONS.cancel" variant="outline" :loading="createVariable.status.value === 'pending'" @click="model = false" />
-      <UButton label="Crear" type="submit" :icon="ICONS.create" :loading="createVariable.status.value === 'pending'" />
+      <UButton
+        label="Cancelar"
+        :icon="ICONS.cancel"
+        variant="outline"
+        :loading="createVariable.status.value === 'pending'"
+        @click="model = false"
+      />
+      <UButton
+        label="Crear"
+        type="submit"
+        :icon="ICONS.create"
+        :loading="createVariable.status.value === 'pending'"
+      />
     </template>
   </FormDialog>
 </template>

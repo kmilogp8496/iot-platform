@@ -24,13 +24,30 @@ async function onSearchProjects(search: string) {
 </script>
 
 <template>
-  <UFormGroup label="Nombre" name="name">
-    <UInput v-model="state.name" placeholder="Nombre de la variable" :icon="ICONS.text" />
+  <UFormGroup
+    label="Nombre"
+    name="name"
+  >
+    <UInput
+      v-model="state.name"
+      placeholder="Nombre de la variable"
+      :icon="ICONS.text"
+    />
   </UFormGroup>
-  <UFormGroup label="Unidad" name="unit">
-    <UInput v-model="state.unit" placeholder="Unidad de medida (kg, ºC, L, etc...)" :icon="ICONS.text" />
+  <UFormGroup
+    label="Unidad"
+    name="unit"
+  >
+    <UInput
+      v-model="state.unit"
+      placeholder="Unidad de medida (kg, ºC, L, etc...)"
+      :icon="ICONS.text"
+    />
   </UFormGroup>
-  <UFormGroup label="Proyecto" name="project">
+  <UFormGroup
+    label="Proyecto"
+    name="project"
+  >
     <USelectMenu
       v-model="state.project"
       :loading="loading.project"
@@ -41,7 +58,14 @@ async function onSearchProjects(search: string) {
       by="id"
     />
   </UFormGroup>
-  <UFormGroup label="Descripción" name="description">
-    <UTextarea v-model="state.description" placeholder="Descripción" :icon="ICONS.text" />
+  <UFormGroup
+    label="Descripción"
+    name="description"
+  >
+    <UTextarea
+      v-model="state.description"
+      placeholder="Descripción"
+      :icon="ICONS.text"
+    />
   </UFormGroup>
 </template>

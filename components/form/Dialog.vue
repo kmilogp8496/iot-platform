@@ -34,10 +34,20 @@ defineExpose({
 </script>
 
 <template>
-  <slot name="activator" :on="{ onClick }" />
+  <slot
+    name="activator"
+    :on="{ onClick }"
+  />
 
-  <UModal v-model="model" :ui="{ base: 'overflow-visible' }">
-    <UForm ref="form" v-bind="{ state, schema }" @submit="emit('submit', $event)">
+  <UModal
+    v-model="model"
+    :ui="{ base: 'overflow-visible' }"
+  >
+    <UForm
+      ref="form"
+      v-bind="{ state, schema }"
+      @submit="emit('submit', $event)"
+    >
       <UCard>
         <template #header>
           <slot name="title">

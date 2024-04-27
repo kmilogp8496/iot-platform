@@ -25,10 +25,20 @@ async function onSearchSensorConfigurations(search: string) {
 </script>
 
 <template>
-  <UFormGroup label="Nombre" name="name">
-    <UInput v-model="state.name" placeholder="Nombre de la configuración de actuador" :icon="ICONS.text" />
+  <UFormGroup
+    label="Nombre"
+    name="name"
+  >
+    <UInput
+      v-model="state.name"
+      placeholder="Nombre de la configuración de actuador"
+      :icon="ICONS.text"
+    />
   </UFormGroup>
-  <UFormGroup label="Configuración de sensor" name="sensorConfiguration">
+  <UFormGroup
+    label="Configuración de sensor"
+    name="sensorConfiguration"
+  >
     <USelectMenu
       v-model="state.sensorConfiguration"
       :loading="loading.sensorConfiguration"
@@ -39,8 +49,15 @@ async function onSearchSensorConfigurations(search: string) {
       by="id"
     />
   </UFormGroup>
-  <UFormGroup label="Descripción" name="description">
-    <UTextarea v-model="state.description" placeholder="Descripción" :icon="ICONS.text" />
+  <UFormGroup
+    label="Descripción"
+    name="description"
+  >
+    <UTextarea
+      v-model="state.description"
+      placeholder="Descripción"
+      :icon="ICONS.text"
+    />
   </UFormGroup>
 </template>
 

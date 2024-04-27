@@ -15,7 +15,10 @@ defineProps<{
           {{ title }}
         </h2>
 
-        <UIcon :name="icon" class="text-4xl" />
+        <UIcon
+          :name="icon"
+          class="text-4xl"
+        />
       </div>
       <p class="text-gray-500 mt-4 text-left">
         {{ description }}

@@ -9,7 +9,10 @@ withDefaults(defineProps<{
 
 <template>
   <UTooltip :text="content">
-    <div class="truncate" :class="[width]">
+    <div
+      class="truncate"
+      :class="[width]"
+    >
       {{ content }}
     </div>
   </UTooltip>

@@ -1,4 +1,4 @@
-import { count, desc, eq, inArray, like, sql } from 'drizzle-orm'
+import { count, desc, eq, inArray, like } from 'drizzle-orm'
 import { z } from 'zod'
 import { projects } from '~/server/database/schemas/projects.schema'
 import { sensors } from '~/server/database/schemas/sensors.schema'

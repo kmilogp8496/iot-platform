@@ -24,9 +24,10 @@ async function onClick() {
 </script>
 
 <template>
-  <UButton :loading="createFixtures.status.value === 'pending'" @click="onClick">
+  <UButton
+    :loading="createFixtures.status.value === 'pending'"
+    @click="onClick"
+  >
     Generate Fixture
   </UButton>
-
-  {{ consult.data.value }}
 </template>

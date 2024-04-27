@@ -1,4 +1,6 @@
-export const NAVIGATION_LINKS = [
+import type { VerticalNavigationLink } from '#ui/types'
+
+export const NAVIGATION_LINKS: VerticalNavigationLink[] = [
   {
     label: 'Dashboard',
     icon: 'i-heroicons-presentation-chart-line-solid',

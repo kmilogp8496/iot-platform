@@ -1,7 +1,10 @@
 <template>
   <div class="container h-svh flex flex-col mx-auto">
     <nav class="px-4 py-2 flex gap-4 items-center container mx-auto">
-      <Logo /> <ULink to="/home" class="ml-2 text-lg font-semibold">
+      <AppLogo /> <ULink
+        to="/home"
+        class="ml-2 text-lg font-semibold"
+      >
         IoT platform
       </ULink>
 

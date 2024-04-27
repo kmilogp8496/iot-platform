@@ -27,9 +27,18 @@ async function onDeleteLocation() {
 </script>
 
 <template>
-  <ConfirmDialog :content="`¿Confirma que desea eliminar la ubicación ${props.location.name}?`" :on-success="onDeleteLocation">
+  <ConfirmDialog
+    :content="`¿Confirma que desea eliminar la ubicación ${props.location.name}?`"
+    :on-success="onDeleteLocation"
+  >
     <template #activator="{ on }">
-      <UButton variant="ghost" size="xs" :icon="ICONS.delete" color="red" v-bind="on" />
+      <UButton
+        variant="ghost"
+        size="xs"
+        :icon="ICONS.delete"
+        color="red"
+        v-bind="on"
+      />
     </template>
   </ConfirmDialog>
 </template>

@@ -45,14 +45,27 @@ const columns = useTableColumns<InferPaginationItem<typeof variables>>([
     <div class="flex mb-4 gap-4 items-center">
       <PageTitle title="Variables" />
       <BaseSpacer />
-      <UButton icon="material-symbols:sync-rounded" :loading="variables.status.value === 'pending'" @click="variables.refresh()">
+      <UButton
+        icon="material-symbols:sync-rounded"
+        :loading="variables.status.value === 'pending'"
+        @click="variables.refresh()"
+      >
         Actualizar
       </UButton>
       <VariablesCreateDialog @created="variables.refresh()" />
     </div>
-    <AsyncTable :total="variables.data.value?.total ?? 0" :loading="variables.pending.value" :rows="variables.data.value?.results ?? []" :columns="columns">
+    <AsyncTable
+      :total="variables.data.value?.total ?? 0"
+      :loading="variables.pending.value"
+      :rows="variables.data.value?.results ?? []"
+      :columns="columns"
+    >
       <template #actions-data="{ row }">
-        <LazyVariablesEditDialog v-if="permissions.canUpdate('variables')" :item="row" @edited="variables.refresh()" />
+        <LazyVariablesEditDialog
+          v-if="permissions.canUpdate('variables')"
+          :item="row"
+          @edited="variables.refresh()"
+        />
       </template>
     </AsyncTable>
   </div>

@@ -43,7 +43,10 @@ const sensorsConfigurations = project.value
       />
     </div>
 
-    <div v-if="!sensorsConfigurations || !sensorsConfigurations.data.value?.length" class="space-y-10 flex-grow flex-col justify-center inline-flex">
+    <div
+      v-if="!sensorsConfigurations || !sensorsConfigurations.data.value?.length"
+      class="space-y-10 flex-grow flex-col justify-center inline-flex"
+    >
       <div
         class="text-center text-gray-600 dark:text-gray-300 text-xl px-4"
       >
@@ -70,7 +73,10 @@ const sensorsConfigurations = project.value
         </UButton>
       </div>
     </div>
-    <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div
+      v-else
+      class="grid grid-cols-1 lg:grid-cols-2 gap-4"
+    >
       <DashboardCard
         v-for="configuration in sensorsConfigurations.data.value"
         :key="configuration.id"

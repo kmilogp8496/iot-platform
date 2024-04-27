@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<{
 const model = ref(false)
 const loading = ref(false)
 
-async function onSuccess() {
+async function onConfirmSuccess() {
   loading.value = true
   try {
     const success = await props.onSuccess?.()
@@ -29,7 +29,7 @@ async function onSuccess() {
   model.value = false
 }
 
-async function onReject() {
+async function onConfirmReject() {
   loading.value = true
   try {
     const success = await props.onReject?.()
@@ -51,7 +51,10 @@ function onClick() {
 </script>
 
 <template>
-  <slot name="activator" :on="{ onClick }" />
+  <slot
+    name="activator"
+    :on="{ onClick }"
+  />
   <UModal v-model="model">
     <UCard>
       <template #header>
@@ -68,8 +71,20 @@ function onClick() {
 
       <template #footer>
         <div class="flex gap-4 justify-end">
-          <UButton :icon="ICONS.cancel" variant="outline" :loading="loading" label="Cancelar" @click="onReject" />
-          <UButton :icon="ICONS.confirm" :loading="loading" label="Confirmar" :color="color" @click="onSuccess" />
+          <UButton
+            :icon="ICONS.cancel"
+            variant="outline"
+            :loading="loading"
+            label="Cancelar"
+            @click="onConfirmReject"
+          />
+          <UButton
+            :icon="ICONS.confirm"
+            :loading="loading"
+            label="Confirmar"
+            :color="color"
+            @click="onConfirmSuccess"
+          />
         </div>
       </template>
     </UCard>

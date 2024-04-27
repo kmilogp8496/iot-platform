@@ -50,14 +50,39 @@ watch(() => props.item, () => {
 </script>
 
 <template>
-  <FormDialog ref="formDialog" v-model="model" title="Editar sensor" :state="state" :schema="schema" @submit="onSubmit">
+  <FormDialog
+    ref="formDialog"
+    v-model="model"
+    title="Editar sensor"
+    :state="state"
+    :schema="schema"
+    @submit="onSubmit"
+  >
     <template #activator="{ on }">
-      <UButton :icon="ICONS.edit" variant="ghost" v-bind="on" size="xs" color="orange" />
+      <UButton
+        :icon="ICONS.edit"
+        variant="ghost"
+        v-bind="on"
+        size="xs"
+        color="orange"
+      />
     </template>
     <SensorsForm v-model:state="state" />
     <template #actions>
-      <UButton label="Cancelar" :icon="ICONS.cancel" variant="outline" :loading="editSensor.status.value === 'pending'" @click="model = false" />
-      <UButton label="Editar" type="submit" color="orange" :icon="ICONS.edit" :loading="editSensor.status.value === 'pending'" />
+      <UButton
+        label="Cancelar"
+        :icon="ICONS.cancel"
+        variant="outline"
+        :loading="editSensor.status.value === 'pending'"
+        @click="model = false"
+      />
+      <UButton
+        label="Editar"
+        type="submit"
+        color="orange"
+        :icon="ICONS.edit"
+        :loading="editSensor.status.value === 'pending'"
+      />
     </template>
   </FormDialog>
 </template>./sensor.constants

@@ -1,5 +1,4 @@
 import { variables, variablesInsertSchema } from '~/server/database/schemas/variables.schema'
-import { getUserFromEvent } from '~/server/utils/api'
 
 export default defineEventHandler(async (event) => {
   const { user } = await requireEventPermission(event, [

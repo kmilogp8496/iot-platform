@@ -20,7 +20,11 @@ useHead({
         <LayoutMobileVerticalNavigation class="lg:hidden" />
         <Spacer />
         <li>
-          <UButton v-if="!loggedIn" variant="link" to="/home">
+          <UButton
+            v-if="!loggedIn"
+            variant="link"
+            to="/home"
+          >
             Inicio
           </UButton>
         </li>
@@ -31,10 +35,20 @@ useHead({
           <BaseColorModeButton />
         </li>
         <li>
-          <UButton v-if="loggedIn" color="black" trailing-icon="i-mdi-logout" variant="link" @click="onLogout">
+          <UButton
+            v-if="loggedIn"
+            color="black"
+            trailing-icon="i-mdi-logout"
+            variant="link"
+            @click="onLogout"
+          >
             Cerrar sesión
           </UButton>
-          <UButton v-else variant="link" to="/auth/login">
+          <UButton
+            v-else
+            variant="link"
+            to="/auth/login"
+          >
             Iniciar sesión
           </UButton>
         </li>

@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import type { SensorConfiguration } from '~/pages/sensors/[id].vue'
-
 const state = defineModel<{
   name: string
   description: string
@@ -41,10 +39,20 @@ async function onSearchVariables(search: string) {
 </script>
 
 <template>
-  <UFormGroup label="Nombre" name="name">
-    <UInput v-model="state.name" placeholder="Nombre de la configuración" :icon="ICONS.text" />
+  <UFormGroup
+    label="Nombre"
+    name="name"
+  >
+    <UInput
+      v-model="state.name"
+      placeholder="Nombre de la configuración"
+      :icon="ICONS.text"
+    />
   </UFormGroup>
-  <UFormGroup label="Ubicación" name="location">
+  <UFormGroup
+    label="Ubicación"
+    name="location"
+  >
     <USelectMenu
       v-model="state.location"
       :loading="loading.location"
@@ -55,7 +63,10 @@ async function onSearchVariables(search: string) {
       by="id"
     />
   </UFormGroup>
-  <UFormGroup label="Variables" name="variable">
+  <UFormGroup
+    label="Variables"
+    name="variable"
+  >
     <USelectMenu
       v-model="state.variable"
       :loading="loading.variable"
@@ -66,8 +77,15 @@ async function onSearchVariables(search: string) {
       by="id"
     />
   </UFormGroup>
-  <UFormGroup label="Descripción" name="description">
-    <UTextarea v-model="state.description" placeholder="Descripción" :icon="ICONS.text" />
+  <UFormGroup
+    label="Descripción"
+    name="description"
+  >
+    <UTextarea
+      v-model="state.description"
+      placeholder="Descripción"
+      :icon="ICONS.text"
+    />
   </UFormGroup>
 </template>
 

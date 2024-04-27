@@ -1,4 +1,4 @@
-import type { ActuatorConfiguration, SensorConfiguration } from '~/pages/sensors/[id].vue'
+import type { SensorConfiguration } from '~/pages/sensors/[id].vue'
 
 export function generateSensorConfigurationId(item: SensorConfiguration) {
   return [

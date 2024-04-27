@@ -36,17 +36,37 @@ const transformableColumns = computed(() => props.columns.filter(column => Boole
 
 <template>
   <slot name="header" />
-  <UTable class="border-gray-200 dark:border-gray-700 rounded border-[1px]" :rows="rows" :columns="computedColumns" :loading="loading">
-    <template v-for="column in transformableColumns" :key="`transformed-${column.key.toString()}`" #[`${column.key.toString()}-data`]="{ row }">
+  <UTable
+    class="border-gray-200 dark:border-gray-700 rounded border-[1px]"
+    :rows="rows"
+    :columns="computedColumns"
+    :loading="loading"
+  >
+    <template
+      v-for="column in transformableColumns"
+      :key="`transformed-${column.key.toString()}`"
+      #[`${column.key.toString()}-data`]="{ row }"
+    >
       {{ column.transform?.(row) }}
     </template>
 
-    <template v-for="(_, name) in $slots" :key="`slot-${name}`" #[name]="{ row }">
-      <slot :name="name" :row="row" />
+    <template
+      v-for="(_, name) in $slots"
+      :key="`slot-${name}`"
+      #[name]="{ row }"
+    >
+      <slot
+        :name="name"
+        :row="row"
+      />
     </template>
   </UTable>
   <div class="flex justify-end items-center gap-4 mt-4">
-    <span> Total: {{ total }} </span> <UPagination v-model="page" :page-count="limit" :total="total" />
+    <span> Total: {{ total }} </span> <UPagination
+      v-model="page"
+      :page-count="limit"
+      :total="total"
+    />
   </div>
 </template>
 

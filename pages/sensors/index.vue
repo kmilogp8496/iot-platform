@@ -42,17 +42,42 @@ const columns = useTableColumns<Sensor>([
     <div class="flex mb-4 gap-4 items-center">
       <PageTitle title="Sensores" />
       <BaseSpacer />
-      <UButton :icon="ICONS.refresh" :loading="sensors.status.value === 'pending'" @click="sensors.refresh()">
+      <UButton
+        :icon="ICONS.refresh"
+        :loading="sensors.status.value === 'pending'"
+        @click="sensors.refresh()"
+      >
         Actualizar
       </UButton>
       <SensorsCreateDialog @created="sensors.refresh()" />
     </div>
-    <AsyncTable :total="sensors.data.value?.total ?? 0" :loading="sensors.pending.value" :rows="sensors.data.value?.results ?? []" :columns="columns">
+    <AsyncTable
+      :total="sensors.data.value?.total ?? 0"
+      :loading="sensors.pending.value"
+      :rows="sensors.data.value?.results ?? []"
+      :columns="columns"
+    >
       <template #actions-data="{ row }">
-        <LazySensorsEditDialog v-if="permissions.canUpdate('sensors')" :item="row" @edited="sensors.refresh()" />
-        <LazySensorsCredentialsDialog v-if="permissions.canUpdate('sensors')" :sensor="row" />
-        <UButton variant="ghost" size="xs" :icon="ICONS.sensorConfiguration" :to="`/sensors/${row.id}`" />
-        <LazySensorsDeleteButton v-if="permissions.canDelete('sensors')" :sensor="row" @deleted="sensors.refresh()" />
+        <LazySensorsEditDialog
+          v-if="permissions.canUpdate('sensors')"
+          :item="row"
+          @edited="sensors.refresh()"
+        />
+        <LazySensorsCredentialsDialog
+          v-if="permissions.canUpdate('sensors')"
+          :sensor="row"
+        />
+        <UButton
+          variant="ghost"
+          size="xs"
+          :icon="ICONS.sensorConfiguration"
+          :to="`/sensors/${row.id}`"
+        />
+        <LazySensorsDeleteButton
+          v-if="permissions.canDelete('sensors')"
+          :sensor="row"
+          @deleted="sensors.refresh()"
+        />
       </template>
     </AsyncTable>
   </div>

@@ -26,10 +26,20 @@ async function onSearchProjects(search: string) {
 </script>
 
 <template>
-  <UFormGroup label="Nombre" name="name">
-    <UInput v-model="state.name" placeholder="Nombre de la ubicación" :icon="ICONS.text" />
+  <UFormGroup
+    label="Nombre"
+    name="name"
+  >
+    <UInput
+      v-model="state.name"
+      placeholder="Nombre de la ubicación"
+      :icon="ICONS.text"
+    />
   </UFormGroup>
-  <UFormGroup label="Proyecto" name="project">
+  <UFormGroup
+    label="Proyecto"
+    name="project"
+  >
     <USelectMenu
       v-model="state.project"
       :loading="loading.project"

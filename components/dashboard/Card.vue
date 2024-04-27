@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { CurveType } from '@unovis/ts'
 import { VisAxis, VisCrosshair, VisLine, VisScatter, VisTooltip, VisXYContainer } from '@unovis/vue'
 import type { UnwrapRef } from 'vue'
 import type { SensorConfigurationByProject } from '~/pages/dashboard.vue'
@@ -101,6 +102,8 @@ function onGenerateCsv() {
 
 const template = (d: DataPoint) => d.tooltip
 const color = () => PrimaryColor[300]
+
+const curveType = computed(() => new Set(computedData.value.map(d => d.x)).size > 2 ? CurveType.Basis : CurveType.Step)
 </script>
 
 <template>
@@ -159,6 +162,7 @@ const color = () => PrimaryColor[300]
         :tick-format="tickFormat"
         :tick-text-width="50"
         :num-ticks="5"
+        :curve-type="curveType"
       />
       <VisAxis
         type="y"

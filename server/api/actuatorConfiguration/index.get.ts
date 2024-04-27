@@ -4,7 +4,7 @@ import { ActuatorConfigurations } from '~/server/database/schemas/actuatorConfig
 import { locations } from '~/server/database/schemas/locations.schema'
 import { projects } from '~/server/database/schemas/projects.schema'
 import { sensors } from '~/server/database/schemas/sensors.schema'
-import { sensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
+import { SensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
 import { variables } from '~/server/database/schemas/variables.schema'
 
 export default defineEventHandler(async (event) => {
@@ -40,15 +40,15 @@ export default defineEventHandler(async (event) => {
       description: ActuatorConfigurations.description,
       sensorConfiguration: {
         id: ActuatorConfigurations.sensorConfiguration,
-        name: sensorsConfigurations.name,
+        name: SensorsConfigurations.name,
       },
       variable: {
-        id: sensorsConfigurations.variable,
+        id: SensorsConfigurations.variable,
         name: variables.name,
         unit: variables.unit,
       },
       location: {
-        id: sensorsConfigurations.location,
+        id: SensorsConfigurations.location,
         name: locations.name,
       },
     })
@@ -56,9 +56,9 @@ export default defineEventHandler(async (event) => {
 
     .where(eq(ActuatorConfigurations.sensor, query.sensor))
 
-    .leftJoin(sensorsConfigurations, eq(sensorsConfigurations.id, ActuatorConfigurations.sensorConfiguration))
-    .leftJoin(variables, eq(sensorsConfigurations.variable, variables.id))
-    .leftJoin(locations, eq(sensorsConfigurations.location, locations.id))
+    .leftJoin(SensorsConfigurations, eq(SensorsConfigurations.id, ActuatorConfigurations.sensorConfiguration))
+    .leftJoin(variables, eq(SensorsConfigurations.variable, variables.id))
+    .leftJoin(locations, eq(SensorsConfigurations.location, locations.id))
 
     .limit(query.limit)
     .offset(query.offset)

@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { locations } from '~/server/database/schemas/locations.schema'
 import { projects } from '~/server/database/schemas/projects.schema'
 import { sensors } from '~/server/database/schemas/sensors.schema'
-import { sensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
+import { SensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
 import { variables } from '~/server/database/schemas/variables.schema'
 
 export default defineEventHandler(async (event) => {
@@ -35,45 +35,45 @@ export default defineEventHandler(async (event) => {
 
   const sensorConfigurationsQb = db
     .select({
-      id: sensorsConfigurations.id,
-      name: sensorsConfigurations.name,
-      createdAt: sensorsConfigurations.createdAt,
-      description: sensorsConfigurations.description,
+      id: SensorsConfigurations.id,
+      name: SensorsConfigurations.name,
+      createdAt: SensorsConfigurations.createdAt,
+      description: SensorsConfigurations.description,
       variable: {
-        id: sensorsConfigurations.variable,
+        id: SensorsConfigurations.variable,
         name: variables.name,
         unit: variables.unit,
       },
       location: {
-        id: sensorsConfigurations.location,
+        id: SensorsConfigurations.location,
         name: locations.name,
       },
       project: {
         name: projects.name,
       },
     })
-    .from(sensorsConfigurations)
-    .where(eq(sensorsConfigurations.createdBy, session.user.id))
-    .leftJoin(variables, eq(sensorsConfigurations.variable, variables.id))
-    .leftJoin(locations, eq(sensorsConfigurations.location, locations.id))
+    .from(SensorsConfigurations)
+    .where(eq(SensorsConfigurations.createdBy, session.user.id))
+    .leftJoin(variables, eq(SensorsConfigurations.variable, variables.id))
+    .leftJoin(locations, eq(SensorsConfigurations.location, locations.id))
     .leftJoin(projects, eq(locations.project, projects.id))
     .limit(query.limit)
     .offset(query.offset)
     .$dynamic()
 
   const totalQb = db.select({
-    total: sql<number>`cast(count(${sensorsConfigurations.id}) as int)`,
-  }).from(sensorsConfigurations)
-    .where(eq(sensorsConfigurations.createdBy, session.user.id))
+    total: sql<number>`cast(count(${SensorsConfigurations.id}) as int)`,
+  }).from(SensorsConfigurations)
+    .where(eq(SensorsConfigurations.createdBy, session.user.id))
     .$dynamic()
 
   if (query.search) {
-    sensorConfigurationsQb.where(like(sensorsConfigurations.name, `%${query.search}%`))
-    totalQb.where(like(sensorsConfigurations.name, `%${query.search}%`))
+    sensorConfigurationsQb.where(like(SensorsConfigurations.name, `%${query.search}%`))
+    totalQb.where(like(SensorsConfigurations.name, `%${query.search}%`))
   }
   if (query.sensor) {
-    sensorConfigurationsQb.where(eq(sensorsConfigurations.sensor, query.sensor))
-    totalQb.where(eq(sensorsConfigurations.sensor, query.sensor))
+    sensorConfigurationsQb.where(eq(SensorsConfigurations.sensor, query.sensor))
+    totalQb.where(eq(SensorsConfigurations.sensor, query.sensor))
   }
 
   const [{ total }] = await totalQb

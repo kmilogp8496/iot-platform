@@ -2,7 +2,7 @@ import { and, eq } from 'drizzle-orm'
 import { locations } from '~/server/database/schemas/locations.schema'
 import { projects } from '~/server/database/schemas/projects.schema'
 import { sensors } from '~/server/database/schemas/sensors.schema'
-import { sensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
+import { SensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
 import { variables } from '~/server/database/schemas/variables.schema'
 
 export default defineEventHandler(async (event) => {
@@ -31,26 +31,26 @@ export default defineEventHandler(async (event) => {
   }
 
   return db.select({
-    id: sensorsConfigurations.id,
-    name: sensorsConfigurations.name,
+    id: SensorsConfigurations.id,
+    name: SensorsConfigurations.name,
     sensor: {
       id: sensors.id,
       name: sensors.name,
     },
     variable: {
-      id: sensorsConfigurations.variable,
+      id: SensorsConfigurations.variable,
       name: variables.name,
       unit: variables.unit,
     },
     location: {
-      id: sensorsConfigurations.location,
+      id: SensorsConfigurations.location,
       name: locations.name,
     },
-  }).from(sensorsConfigurations)
+  }).from(SensorsConfigurations)
     .innerJoin(sensors, and(
-      eq(sensors.id, sensorsConfigurations.sensor),
+      eq(sensors.id, SensorsConfigurations.sensor),
       eq(sensors.project, projectId),
     ))
-    .leftJoin(variables, eq(sensorsConfigurations.variable, variables.id))
-    .leftJoin(locations, eq(sensorsConfigurations.location, locations.id))
+    .leftJoin(variables, eq(SensorsConfigurations.variable, variables.id))
+    .leftJoin(locations, eq(SensorsConfigurations.location, locations.id))
 })

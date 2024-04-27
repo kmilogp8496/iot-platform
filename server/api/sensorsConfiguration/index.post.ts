@@ -2,7 +2,7 @@ import { and, eq } from 'drizzle-orm'
 import postgres from 'postgres'
 import { projects } from '~/server/database/schemas/projects.schema'
 import { sensors } from '~/server/database/schemas/sensors.schema'
-import { sensorsConfigurationInsertSchema, sensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
+import { sensorsConfigurationInsertSchema, SensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
 
 export default defineEventHandler(async (event) => {
   const session = await requireEventPermission(event, [
@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
 
   await validateVariableExists(body.variable, db)
   try {
-    await db.insert(sensorsConfigurations).values({
+    await db.insert(SensorsConfigurations).values({
       ...body,
       createdBy: session.user!.id,
     })

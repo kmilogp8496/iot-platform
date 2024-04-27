@@ -3,11 +3,14 @@ import { and, eq, inArray } from 'drizzle-orm'
 import { z } from 'zod'
 import { ActuatorConfigurations } from '~/server/database/schemas/actuatorConfiguration.schema'
 import { locations } from '~/server/database/schemas/locations.schema'
+import { NotificationConfigurations } from '~/server/database/schemas/notificationConfigurations.schema'
+import { Notifications } from '~/server/database/schemas/notifications.schema'
 import { projects } from '~/server/database/schemas/projects.schema'
 import { sensors } from '~/server/database/schemas/sensors.schema'
-import { sensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
+import { SensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
 import { variables } from '~/server/database/schemas/variables.schema'
 import { webSocketPeers } from '~/server/routes/_ws'
+import { sendNotifications } from '~/server/utils/notifications'
 
 export const ThingsPostBodySchema = z.record(
   z.preprocess(Number, z.number()),
@@ -56,28 +59,28 @@ export default defineEventHandler(async (event) => {
   }
 
   const configurations = await db.select({
-    id: sensorsConfigurations.id,
-    name: sensorsConfigurations.name,
-    description: sensorsConfigurations.description,
+    id: SensorsConfigurations.id,
+    name: SensorsConfigurations.name,
+    description: SensorsConfigurations.description,
     variable: {
       id: variables.id,
       name: variables.name,
       unit: variables.unit,
     },
     location: {
-      id: sensorsConfigurations.location,
+      id: SensorsConfigurations.location,
       name: locations.name,
     },
   })
-    .from(sensorsConfigurations)
+    .from(SensorsConfigurations)
     .where(
       and(
-        eq(sensorsConfigurations.sensor, sensor.id),
-        inArray(sensorsConfigurations.id, sensorConfigurations),
+        eq(SensorsConfigurations.sensor, sensor.id),
+        inArray(SensorsConfigurations.id, sensorConfigurations),
       ),
     )
-    .leftJoin(variables, eq(sensorsConfigurations.variable, variables.id))
-    .leftJoin(locations, eq(sensorsConfigurations.location, locations.id))
+    .leftJoin(variables, eq(SensorsConfigurations.variable, variables.id))
+    .leftJoin(locations, eq(SensorsConfigurations.location, locations.id))
 
   db.select({
     id: ActuatorConfigurations.id,
@@ -105,7 +108,11 @@ export default defineEventHandler(async (event) => {
 
   const points: Point[] = []
 
+  const updatePromises: Promise<any>[] = []
+
   for (const configuration of configurations) {
+    updatePromises.push(db.update(SensorsConfigurations).set({ lastValue: body[configuration.id] }).where(eq(SensorsConfigurations.id, configuration.id)))
+
     points.push(
       new Point(configuration.name)
         .floatField(sensor.name, body[configuration.id])
@@ -125,13 +132,18 @@ export default defineEventHandler(async (event) => {
 
   influxWriteClient.writePoints(points)
   try {
-    await influxWriteClient.flush()
+    updatePromises.push(influxWriteClient.flush())
+
+    await Promise.all(updatePromises)
   }
   catch (error) {
     throw createError({
       statusCode: 500,
-      message: 'Error writing to influx',
+      message: 'Error writing to database',
     })
   }
+
+  await sendNotifications(db, sensorConfigurations, body)
+
   return body
 })

@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "migrations:make": "drizzle-kit generate:pg",
-    "migrations:push": "drizzle-kit push:pg"
+    "migrations:push": "drizzle-kit push:pg",
+    "studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@influxdata/influxdb-client": "^1.33.2",

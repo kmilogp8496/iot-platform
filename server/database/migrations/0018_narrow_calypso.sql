@@ -1,0 +1,1 @@
+ALTER TABLE "notificationConfigurations" ADD COLUMN "threshold" numeric(100) NOT NULL;

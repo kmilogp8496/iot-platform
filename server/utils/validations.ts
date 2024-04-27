@@ -1,6 +1,6 @@
 import { and, eq } from 'drizzle-orm'
 import { sensors } from '../database/schemas/sensors.schema'
-import { sensorsConfigurations } from '../database/schemas/sensorsConfiguration.schema'
+import { SensorsConfigurations } from '../database/schemas/sensorsConfiguration.schema'
 import { locations } from '~/server/database/schemas/locations.schema'
 import { projects } from '~/server/database/schemas/projects.schema'
 import { variables } from '~/server/database/schemas/variables.schema'
@@ -92,11 +92,11 @@ export async function validateSensorBelongsToUser(sensorId: number, userId: numb
 }
 
 export async function validateSensorConfigurationBelongsToUser(sensorConfigurationId: number, userId: number, db: DB) {
-  const sensorConfiguration = (await db.select({ id: sensorsConfigurations.id }).from(sensorsConfigurations)
+  const sensorConfiguration = (await db.select({ id: SensorsConfigurations.id }).from(SensorsConfigurations)
     .where(
       and(
-        eq(sensorsConfigurations.id, sensorConfigurationId),
-        eq(sensorsConfigurations.createdBy, userId),
+        eq(SensorsConfigurations.id, sensorConfigurationId),
+        eq(SensorsConfigurations.createdBy, userId),
       ),
     )).at(0)
 

@@ -109,8 +109,6 @@ const template = (d: DataPoint) => d.tooltip
 const color = () => PrimaryColor[300]
 
 const curveType = computed(() => new Set(computedData.value.map(d => d.x)).size > 2 ? CurveType.Basis : CurveType.Step)
-
-const app = useNuxtApp()
 </script>
 
 <template>

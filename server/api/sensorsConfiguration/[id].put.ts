@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm'
-import { sensorsConfigurationInsertSchema, sensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
+import { sensorsConfigurationInsertSchema, SensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
 
 export default defineEventHandler(async (event) => {
   const session = await requireEventPermission(event, [
@@ -11,12 +11,12 @@ export default defineEventHandler(async (event) => {
   const db = useDB()
 
   const sensorConfiguration = (await db.select({
-    createdBy: sensorsConfigurations.createdBy,
-    location: sensorsConfigurations.location,
-    variable: sensorsConfigurations.variable,
+    createdBy: SensorsConfigurations.createdBy,
+    location: SensorsConfigurations.location,
+    variable: SensorsConfigurations.variable,
 
-  }).from(sensorsConfigurations).where(
-    eq(sensorsConfigurations.id, sensorConfigurationId),
+  }).from(SensorsConfigurations).where(
+    eq(SensorsConfigurations.id, sensorConfigurationId),
   )).at(0)
 
   if (!sensorConfiguration) {
@@ -46,7 +46,7 @@ export default defineEventHandler(async (event) => {
   if (body.variable !== sensorConfiguration.variable)
     await validateVariableExists(body.variable, db)
 
-  await db.update(sensorsConfigurations).set(body).where(eq(sensorsConfigurations.id, sensorConfigurationId))
+  await db.update(SensorsConfigurations).set(body).where(eq(SensorsConfigurations.id, sensorConfigurationId))
 
   return null
 })

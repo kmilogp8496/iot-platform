@@ -14,51 +14,52 @@ useHead({
 </script>
 
 <template>
-  <div class="lg:container px-4 h-svh flex flex-col mx-auto">
-    <nav class="py-2">
-      <ul class="flex items-center gap-4">
-        <LayoutMobileVerticalNavigation class="lg:hidden" />
-        <Spacer />
-        <li>
-          <UButton
-            v-if="!loggedIn"
-            variant="link"
-            to="/home"
-          >
-            Inicio
-          </UButton>
-        </li>
-        <li class="capitalize">
-          {{ user?.role }}
-        </li>
-        <li>
-          <BaseColorModeButton />
-        </li>
-        <li>
-          <UButton
-            v-if="loggedIn"
-            color="black"
-            trailing-icon="i-mdi-logout"
-            variant="link"
-            @click="onLogout"
-          >
-            Cerrar sesión
-          </UButton>
-          <UButton
-            v-else
-            variant="link"
-            to="/auth/login"
-          >
-            Iniciar sesión
-          </UButton>
-        </li>
-      </ul>
-    </nav>
-    <div class="lg:inline-flex lg:gap-4 lg:flex-grow pt-4">
-      <div class="hidden lg:inline-block max-w-40">
-        <LayoutDesktopVerticalNavigation />
-      </div>
-      <main class="relative flex-grow">
+  <div class="h-svh flex items-stretch">
+    <LayoutDesktopVerticalNavigation class="max-w-72 hidden lg:inline-flex p-4 border-r border-r-gray-300 dark:border-r-gray-600" />
+    <div class="lg:container mx-auto px-4">
+      <nav class="py-2">
+        <ul class="flex items-center gap-2 lg:gap-4">
+          <LayoutMobileVerticalNavigation class="lg:hidden mr-auto" />
+          <li class="ml-auto">
+            <UButton
+              v-if="!loggedIn"
+              variant="link"
+              to="/home"
+            >
+              Inicio
+            </UButton>
+          </li>
+          <li>
+            <div class="truncate max-w-36 lg:max-w-max">
+              {{ user?.email }}
+            </div>
+          </li>
+          <li>
+            <BaseColorModeButton />
+          </li>
+          <li>
+            <UButton
+              v-if="loggedIn"
+              color="black"
+              trailing-icon="i-mdi-logout"
+              variant="link"
+              class="text-nowrap"
+              @click="onLogout"
+            >
+              Cerrar sesión
+            </UButton>
+            <UButton
+              v-else
+              variant="link"
+              to="/auth/login"
+            >
+              Iniciar sesión
+            </UButton>
+          </li>
+        </ul>
+      </nav>
+
+      <main>
         <slot />
       </main>
     </div>

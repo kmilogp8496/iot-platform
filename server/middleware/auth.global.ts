@@ -2,6 +2,7 @@ export default defineEventHandler(async (event) => {
   if (
     event.path.startsWith('/auth')
     || event.path.startsWith('/home')
+    || event.path.startsWith('/api/_content')
     || event.path.startsWith('/api/things')
   )
     return

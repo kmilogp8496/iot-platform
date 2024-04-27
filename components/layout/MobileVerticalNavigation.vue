@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { NAVIGATION_LINKS } from './navigationitems'
+const { accordionItems } = await useLayoutItems()
+
+const items = computed(() => accordionItems.value.map(item => item.items ?? []))
 </script>
 
 <template>
   <UDropdown
-    :items="[NAVIGATION_LINKS]"
+    :items="items"
     :popper="{ placement: 'bottom-start' }"
   >
     <UIcon

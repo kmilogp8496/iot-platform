@@ -1,7 +1,14 @@
 <script setup lang="ts">
-import { NAVIGATION_LINKS } from './navigationitems'
+const { accordionItems } = await useLayoutItems()
 </script>
 
 <template>
-  <UVerticalNavigation :links="NAVIGATION_LINKS" />
+  <UAccordion
+    multiple
+    :items="accordionItems"
+  >
+    <template #item="{ item }">
+      <UVerticalNavigation :links="item.items" />
+    </template>
+  </UAccordion>
 </template>

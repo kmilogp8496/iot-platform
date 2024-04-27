@@ -55,7 +55,7 @@ const computedData = computed(() => {
   })) ?? []
 })
 
-const YLabel = computed(() => `${props.configuration.variable.name} (${props.configuration.variable.unit})`)
+const YLabel = computed(() => props.configuration.variable.unit ? `${props.configuration.variable.name} (${props.configuration.variable.unit})` : props.configuration.variable.name)
 
 const currentValue = computed(() => {
   const last = computedData.value.at(-1)
@@ -78,9 +78,14 @@ const currentValue = computed(() => {
       icon = null
       break
   }
+  let value = last.y.toFixed(2)
+
+  if (props.configuration.variable.unit) {
+    value += ` (${props.configuration.variable.unit})`
+  }
 
   return {
-    value: `${last.y.toFixed(2)} (${props.configuration.variable.unit})`,
+    value,
     icon,
     ago: useTimeAgo(last.x, TIME_AGO_DEFAULT_MESSAGES),
   }
@@ -104,6 +109,8 @@ const template = (d: DataPoint) => d.tooltip
 const color = () => PrimaryColor[300]
 
 const curveType = computed(() => new Set(computedData.value.map(d => d.x)).size > 2 ? CurveType.Basis : CurveType.Step)
+
+const app = useNuxtApp()
 </script>
 
 <template>
@@ -140,7 +147,6 @@ const curveType = computed(() => new Set(computedData.value.map(d => d.x)).size 
         </div>
       </slot>
     </template>
-
     <VisXYContainer
       class="transition-opacity duration-500"
       :data="computedData"
@@ -176,6 +182,10 @@ const curveType = computed(() => new Set(computedData.value.map(d => d.x)).size 
         :y="(d: DataPoint) => d.y"
       />
     </VisXYContainer>
+
+    <div
+      class="w-full aspect-video bg-red-500"
+    />
 
     <template #footer>
       <div class="flex justify-end gap-4">

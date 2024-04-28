@@ -37,7 +37,7 @@ const transformableColumns = computed(() => props.columns.filter(column => Boole
 <template>
   <slot name="header" />
   <UTable
-    class="border-gray-200 dark:border-gray-700 rounded border-[1px]"
+    class="border-gray-300 dark:border-gray-700 rounded border-[1px]"
     :rows="rows"
     :columns="computedColumns"
     :loading="loading"

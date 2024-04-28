@@ -22,7 +22,9 @@
     "@unovis/vue": "^1.4.0",
     "drizzle-orm": "^0.30.9",
     "drizzle-zod": "^0.5.1",
-    "postgres": "^3.4.4"
+    "eslint-plugin-drizzle": "^0.2.3",
+    "postgres": "^3.4.4",
+    "zod": "^3.23.4"
   },
   "devDependencies": {
     "@nuxt/eslint": "^0.3.10",

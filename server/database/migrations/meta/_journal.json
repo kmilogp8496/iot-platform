@@ -134,6 +134,20 @@
       "when": 1714249982973,
       "tag": "0018_narrow_calypso",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "5",
+      "when": 1714325640233,
+      "tag": "0019_lethal_overlord",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "5",
+      "when": 1714339644916,
+      "tag": "0020_legal_ares",
+      "breakpoints": true
     }
   ]
 }

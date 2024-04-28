@@ -26,4 +26,9 @@ export const NAVIGATION_LINKS: VerticalNavigationLink[] = [
     icon: 'mdi:map-marker',
     to: '/locations',
   },
+  {
+    label: 'Notificaciones',
+    icon: ICONS.notification,
+    to: '/notifications',
+  },
 ] as const

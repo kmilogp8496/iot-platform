@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-4">
+  <div class="pb-4 max-w-prose mx-auto">
     <ContentDoc
       class="page-content"
     >

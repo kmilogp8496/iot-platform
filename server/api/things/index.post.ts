@@ -132,7 +132,7 @@ export default defineEventHandler(async (event) => {
 
   influxWriteClient.writePoints(points)
   try {
-    updatePromises.push(influxWriteClient.flush())
+    await influxWriteClient.flush()
 
     await Promise.all(updatePromises)
   }

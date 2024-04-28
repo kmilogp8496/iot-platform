@@ -49,4 +49,5 @@ export const ICONS = {
   cancel: 'i-heroicons-x-circle',
   confirm: 'i-heroicons-check',
   message: 'i-material-symbols-chat-paste-go-outline',
+  notification: 'i-heroicons-bell',
 } as const

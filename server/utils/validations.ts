@@ -1,6 +1,8 @@
 import { and, eq } from 'drizzle-orm'
 import { sensors } from '../database/schemas/sensors.schema'
 import { SensorsConfigurations } from '../database/schemas/sensorsConfiguration.schema'
+import { Notifications } from '../database/schemas/notifications.schema'
+import { NotificationConfigurations } from '../database/schemas/notificationConfigurations.schema'
 import { locations } from '~/server/database/schemas/locations.schema'
 import { projects } from '~/server/database/schemas/projects.schema'
 import { variables } from '~/server/database/schemas/variables.schema'
@@ -106,4 +108,43 @@ export async function validateSensorConfigurationBelongsToUser(sensorConfigurati
       message: 'Configuración de sensor no encontrada',
     })
   }
+}
+
+export const validateNotificationBelongsToUser = async (notificationId: number, userId: number, db: DB) => {
+  const notification = (await db.select({ id: Notifications.id }).from(Notifications).where(
+    and(
+      eq(Notifications.id, notificationId),
+      eq(Notifications.createdBy, userId),
+    ),
+  )).at(0)
+
+  if (!notification) {
+    throw createError({
+      statusCode: 404,
+      message: 'Notificación no encontrada',
+    })
+  }
+
+  return notification
+}
+
+export const validateNotificationConfigurationBelongsToUser = async (notificationConfigurationId: number, userId: number, db: DB) => {
+  const notificationConfiguration = (await db.select({ id: NotificationConfigurations.id })
+    .from(NotificationConfigurations)
+    .where(
+      eq(NotificationConfigurations.id, notificationConfigurationId),
+    ).innerJoin(Notifications, and(
+      eq(Notifications.id, NotificationConfigurations.notification),
+      eq(Notifications.createdBy, userId),
+    ))
+  ).at(0)
+
+  if (!notificationConfiguration) {
+    throw createError({
+      message: 'Configuración no encontrada',
+      statusCode: 404,
+    })
+  }
+
+  return notificationConfiguration
 }

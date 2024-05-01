@@ -73,7 +73,5 @@ export async function sendSlackThresholdNotification(url: string,
     ],
   }
 
-  console.log(body)
-
   await sendSlackNotification(url, body)
 }

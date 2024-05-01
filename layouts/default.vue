@@ -14,7 +14,7 @@ useHead({
 <template>
   <div class="h-svh flex items-stretch">
     <LayoutDesktopVerticalNavigation class="max-w-72 hidden lg:inline-flex p-4 border-r border-r-gray-300 dark:border-r-gray-700" />
-    <div class="lg:container mx-auto px-4 w-full">
+    <div class="lg:container mx-auto px-4 w-full overflow-auto">
       <nav class="py-2">
         <ul class="flex items-center gap-2 lg:gap-4">
           <LayoutMobileVerticalNavigation class="lg:hidden mr-auto" />

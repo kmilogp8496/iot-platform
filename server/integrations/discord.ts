@@ -32,7 +32,5 @@ export async function sendDiscordThresholdNotification(url: string,
   discordMarkdownContent += `
 **Fecha y hora**: ${date.toLocaleString()}`
 
-  console.log({ discordMarkdownContent })
-
   await sendDiscordNotification(url, { content: discordMarkdownContent })
 }

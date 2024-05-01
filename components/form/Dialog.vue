@@ -25,6 +25,7 @@ function onClick() {
 }
 
 function clearForm() {
+  // @ts-expect-error - Clear exists in UForm
   form.value?.clear()
 }
 

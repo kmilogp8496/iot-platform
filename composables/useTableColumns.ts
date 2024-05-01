@@ -1,5 +1,14 @@
 import { ref } from 'vue'
 
+export type UTableColumn = {
+  [key: string]: any
+  key: string
+  sortable?: boolean | undefined
+  sort?: ((a: any, b: any, direction: 'asc' | 'desc') => number) | undefined
+  direction?: 'asc' | 'desc' | undefined
+  class?: string | undefined
+}
+
 export interface TableColumn<T extends Record<string, any>> {
   [key: string]: any
   key: keyof T | (string & NonNullable<unknown>)

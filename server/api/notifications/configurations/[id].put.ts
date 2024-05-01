@@ -1,7 +1,6 @@
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { NotificationConfigurations, notificationConfigurationsUpdateSchema } from '~/server/database/schemas/notificationConfigurations.schema'
-import { Notifications } from '~/server/database/schemas/notifications.schema'
 import { validateNotificationConfigurationBelongsToUser } from '~/server/utils/validations'
 
 export default defineEventHandler(async (event) => {

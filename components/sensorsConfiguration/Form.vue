@@ -54,7 +54,7 @@ async function onSearchVariables(search: string) {
     name="location"
   >
     <USelectMenu
-      v-model="state.location"
+      v-model="state.location as WithId"
       :loading="loading.location"
       :searchable="onSearchLocations"
       placeholder="Seleccionar una ubicación..."
@@ -68,7 +68,7 @@ async function onSearchVariables(search: string) {
     name="variable"
   >
     <USelectMenu
-      v-model="state.variable"
+      v-model="state.variable as WithId"
       :loading="loading.variable"
       :searchable="onSearchVariables"
       placeholder="Selecciona una variable..."

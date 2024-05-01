@@ -49,7 +49,7 @@ async function onSearchProjects(search: string) {
     name="project"
   >
     <USelectMenu
-      v-model="state.project"
+      v-model="state.project as WithId"
       :loading="loading.project"
       :searchable="onSearchProjects"
       placeholder="Selecciona un proyecto..."
@@ -63,7 +63,7 @@ async function onSearchProjects(search: string) {
     name="description"
   >
     <UTextarea
-      v-model="state.description"
+      v-model="state.description as string"
       placeholder="Descripción"
       :icon="ICONS.text"
     />

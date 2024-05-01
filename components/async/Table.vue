@@ -39,7 +39,7 @@ const transformableColumns = computed(() => props.columns.filter(column => Boole
   <UTable
     class="border-gray-300 dark:border-gray-700 rounded border-[1px]"
     :rows="rows"
-    :columns="computedColumns"
+    :columns="computedColumns as any"
     :loading="loading"
   >
     <template

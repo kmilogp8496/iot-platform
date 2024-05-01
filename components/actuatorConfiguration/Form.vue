@@ -40,7 +40,7 @@ async function onSearchSensorConfigurations(search: string) {
     name="sensorConfiguration"
   >
     <USelectMenu
-      v-model="state.sensorConfiguration"
+      v-model="state.sensorConfiguration as WithId"
       :loading="loading.sensorConfiguration"
       :searchable="onSearchSensorConfigurations"
       placeholder="Seleccionar una configuración de sensor..."

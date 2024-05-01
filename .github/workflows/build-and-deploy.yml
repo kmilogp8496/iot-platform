@@ -50,6 +50,8 @@ jobs:
           NUXT_OAUTH_GOOGLE_CLIENT_ID="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_ID }}" \
           NUXT_OAUTH_GOOGLE_CLIENT_SECRET="${{ secrets.NUXT_OAUTH_GOOGLE_CLIENT_SECRET }}" \
           NUXT_INFLUX_TOKEN="${{ secrets.NUXT_INFLUX_TOKEN }}" \
+          NUXT_AI_API_KEY="${{ secrets.NUXT_AI_API_KEY }}" \
+          NUXT_AI_CLIENT_ID="${{ secrets.NUXT_AI_CLIENT_ID }}" \
           pnpm build
 
       - name: Upload artifact

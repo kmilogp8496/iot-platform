@@ -1,7 +1,6 @@
 import { objectPick } from '@vueuse/core'
 import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
-import OpenAI from 'openai'
 import { Sensors } from '~/server/database/schemas/sensors.schema'
 import { SensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
 import { processedNumber } from '~/server/utils/api'

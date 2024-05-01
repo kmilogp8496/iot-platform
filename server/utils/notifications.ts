@@ -2,56 +2,90 @@ import { eq, inArray } from 'drizzle-orm'
 import { NotificationConfigurations } from '../database/schemas/notificationConfigurations.schema'
 import { SensorsConfigurations } from '../database/schemas/sensorsConfiguration.schema'
 import { Notifications } from '../database/schemas/notifications.schema'
+import { variables } from '../database/schemas/variables.schema'
+import { Sensors } from '../database/schemas/sensors.schema'
+import { Locations } from '../database/schemas/locations.schema'
+import { sendSlackThresholdNotification } from '../integrations/slack'
+import { sendDiscordThresholdNotification } from '../integrations/discord'
 
-export const sendNotifications = async (db: DB, sensorConfigurations: number[], requestBody: Record<number, number>) => {
-  const notificationIds = await db.selectDistinct({ notification: NotificationConfigurations.notification }).from(NotificationConfigurations).where(inArray(NotificationConfigurations.sensorConfiguration, sensorConfigurations))
+export const sendNotifications = async (db: DB, sensorConfigurations: number[]) => {
+  const notificationIds = await db.selectDistinct({ notification: NotificationConfigurations.notification })
+    .from(NotificationConfigurations)
+    .where(
+      inArray(NotificationConfigurations.sensorConfiguration, sensorConfigurations),
+    )
 
   if (notificationIds.length === 0) {
     return
   }
 
   const notificationConfigurations = await db.select({
-    lastValue: SensorsConfigurations.lastValue,
+    variable: {
+      name: variables.name,
+      unit: variables.unit,
+    },
     sign: NotificationConfigurations.sign,
+    sensorConfiguration: {
+      id: SensorsConfigurations.id,
+      lastValue: SensorsConfigurations.lastValue,
+    },
+    sensor: {
+      name: Sensors.name,
+    },
+    location: {
+      name: Locations.name,
+    },
     threshold: NotificationConfigurations.threshold,
-    notification: NotificationConfigurations.notification,
-    notificationName: Notifications.name,
-    notificationMessage: Notifications.message,
+    notification: {
+      id: NotificationConfigurations.notification,
+      name: Notifications.name,
+      message: Notifications.message,
+      type: Notifications.type,
+      url: Notifications.url,
+    },
   }).from(NotificationConfigurations).where(
     inArray(NotificationConfigurations.notification, notificationIds.map(n => n.notification)),
   )
-    .leftJoin(SensorsConfigurations, eq(SensorsConfigurations.id, NotificationConfigurations.sensorConfiguration))
-    .leftJoin(Notifications, eq(Notifications.id, NotificationConfigurations.notification))
+    .innerJoin(SensorsConfigurations, eq(SensorsConfigurations.id, NotificationConfigurations.sensorConfiguration))
+    .innerJoin(Notifications, eq(Notifications.id, NotificationConfigurations.notification))
+    .innerJoin(variables, eq(variables.id, SensorsConfigurations.variable))
+    .innerJoin(Sensors, eq(Sensors.id, SensorsConfigurations.sensor))
+    .innerJoin(Locations, eq(Locations.id, SensorsConfigurations.location))
 
   const groupedByNotification = new Map<number, boolean[]>()
 
   for (const notificationConfiguration of notificationConfigurations) {
-    const notification = groupedByNotification.get(notificationConfiguration.notification) ?? []
+    const notification = groupedByNotification.get(notificationConfiguration.notification.id) ?? []
     const threshold = parseFloat(notificationConfiguration.threshold)
+    const lastValue = parseFloat(String(notificationConfiguration.sensorConfiguration.lastValue))
 
-    if (Number.isNaN(threshold)) {
+    if (
+      Number.isNaN(threshold)
+      || Number.isNaN(lastValue)
+    ) {
       notification.push(false)
-      groupedByNotification.set(notificationConfiguration.notification, notification)
+      groupedByNotification.set(notificationConfiguration.notification.id, notification)
+      continue
     }
 
     switch (notificationConfiguration.sign) {
       case 'eq':
-        notification.push(threshold === requestBody[notificationConfiguration.notification])
+        notification.push(threshold === lastValue)
         break
       case 'neq':
-        notification.push(threshold !== requestBody[notificationConfiguration.notification])
+        notification.push(threshold !== lastValue)
         break
       case 'gt':
-        notification.push(threshold < requestBody[notificationConfiguration.notification])
+        notification.push(threshold < lastValue)
         break
       case 'gte':
-        notification.push(threshold <= requestBody[notificationConfiguration.notification])
+        notification.push(threshold <= lastValue)
         break
       case 'lt':
-        notification.push(threshold > requestBody[notificationConfiguration.notification])
+        notification.push(threshold > lastValue)
         break
       case 'lte':
-        notification.push(threshold >= requestBody[notificationConfiguration.notification])
+        notification.push(threshold >= lastValue)
         break
 
       default:
@@ -59,70 +93,48 @@ export const sendNotifications = async (db: DB, sensorConfigurations: number[], 
         break
     }
 
-    groupedByNotification.set(notificationConfiguration.notification, notification)
+    groupedByNotification.set(notificationConfiguration.notification.id, notification)
   }
 
-  const date = new Date()
-
-  for (const notification of groupedByNotification) {
-    if (notification[1].some(n => !n)) {
+  for (const [notificationId, checks] of groupedByNotification) {
+    if (checks.some(n => !n)) {
       continue
     }
 
-    const variables = notificationConfigurations.filter(n => n.notification === notification[0])
+    const configurationsByNotification = notificationConfigurations.filter(n => n.notification.id === notificationId)
+    const notification = configurationsByNotification[0].notification
 
-    $fetch('https://hooks.slack.com/services/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', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: [
-        {
-          type: 'header',
-          text: {
-            type: 'plain_text',
-            text: variables[0].notificationName,
+    switch (notification.type) {
+      case 'slack':
+        sendSlackThresholdNotification(notification.url, configurationsByNotification).catch(console.error)
+        break
+      case 'discord':
+        sendDiscordThresholdNotification(notification.url, configurationsByNotification).catch(console.error)
+        break
+      case 'http':
+        $fetch(notification.url, {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
           },
-        },
-        {
-          type: 'section',
-          fields: [
-            {
-              type: 'plain_text',
-              text: variables[0].notificationMessage,
+          body: {
+            notification: {
+              name: notification.name,
+              message: notification.message,
             },
-          ],
-        },
-        {
-          type: 'section',
-          fields: [
-            {
-              type: 'mrkdwn',
-              text: 'Variables: ' + variables.map(v => '- ' + v.lastValue).join('\n'),
-            },
-          ],
-        },
-        {
-          type: 'section',
-          fields: [
-            {
-              type: 'mrkdwn',
-              text: '*Fecha* ' + date.toLocaleDateString('es-ES'),
-            },
-            {
-              type: 'mrkdwn',
-              text: '*Hora* ' + date.toLocaleTimeString('es-ES'),
-            },
-          ],
-        },
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: '<https://iot.kmilo.dev/|Consultar>',
+            configurations: configurationsByNotification.map(c => ({
+              sensor: c.sensor.name,
+              location: c.location.name,
+              variable: c.variable.name,
+              value: c.sensorConfiguration.lastValue,
+              unit: c.variable.unit,
+            })),
           },
-        },
-      ],
-    })
+        }).catch(console.error)
+        break
+
+      default:
+        break
+    }
   }
 }

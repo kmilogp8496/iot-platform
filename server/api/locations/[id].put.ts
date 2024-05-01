@@ -1,5 +1,5 @@
 import { and, eq } from 'drizzle-orm'
-import { locations, locationsUpdateSchema } from '~/server/database/schemas/locations.schema'
+import { Locations, locationsUpdateSchema } from '~/server/database/schemas/locations.schema'
 import { projects } from '~/server/database/schemas/projects.schema'
 
 export default defineEventHandler(async (event) => {
@@ -17,16 +17,16 @@ export default defineEventHandler(async (event) => {
   const db = useDB()
 
   const location = (await db.select({
-    id: locations.id,
-    project: locations.project,
+    id: Locations.id,
+    project: Locations.project,
   })
-    .from(locations).where(
+    .from(Locations).where(
       and(
-        eq(locations.id, id),
+        eq(Locations.id, id),
         eq(projects.createdBy, user!.id),
       ),
     )
-    .leftJoin(projects, eq(projects.id, locations.project))).at(0)
+    .leftJoin(projects, eq(projects.id, Locations.project))).at(0)
 
   if (!location) {
     throw createError({
@@ -53,7 +53,7 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  const returningValue = (await db.update(locations).set(body).where(eq(locations.id, id)).returning()).at(0)!
+  const returningValue = (await db.update(Locations).set(body).where(eq(Locations.id, id)).returning()).at(0)!
 
   return returningValue
 })

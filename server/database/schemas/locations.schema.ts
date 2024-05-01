@@ -2,7 +2,7 @@ import { foreignKey, integer, pgTable, serial, text, timestamp } from 'drizzle-o
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { projects } from './projects.schema'
 
-export const locations = pgTable('locations', {
+export const Locations = pgTable('locations', {
   id: serial('id').primaryKey(),
   project: integer('project').notNull().references(() => projects.id),
   parentLocation: integer('parent_location'),
@@ -14,9 +14,9 @@ export const locations = pgTable('locations', {
   parentLocation: foreignKey({ columns: [table.parentLocation], foreignColumns: [table.id] }),
 }))
 
-export type InsertLocation = typeof locations.$inferInsert
-export type Location = typeof locations.$inferSelect
+export type InsertLocation = typeof Locations.$inferInsert
+export type Location = typeof Locations.$inferSelect
 
-export const locationsInsertSchema = createInsertSchema(locations)
-export const locationsSelectSchema = createSelectSchema(locations)
+export const locationsInsertSchema = createInsertSchema(Locations)
+export const locationsSelectSchema = createSelectSchema(Locations)
 export const locationsUpdateSchema = locationsInsertSchema.omit({ id: true })

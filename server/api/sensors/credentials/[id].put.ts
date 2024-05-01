@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getSensorById } from '~/server/database/repositories/sensorsRepository'
-import { sensors } from '~/server/database/schemas/sensors.schema'
+import { Sensors } from '~/server/database/schemas/sensors.schema'
 import { getNumericIdFromRouteParams } from '~/server/utils/api'
 
 export default defineEventHandler(async (event) => {
@@ -28,10 +28,10 @@ export default defineEventHandler(async (event) => {
 
   const body = await readValidatedBody(event, updateSensorSchema.parse)
 
-  const returningValue = (await db.update(sensors).set({
+  const returningValue = (await db.update(Sensors).set({
     username: body.username,
     password: await hashPassword(body.password),
-  }).where(eq(sensors.id, sensorId)).returning()).at(0)!
+  }).where(eq(Sensors.id, sensorId)).returning()).at(0)!
 
   return returningValue
 })

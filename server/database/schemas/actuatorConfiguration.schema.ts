@@ -1,12 +1,12 @@
 import { pgTable, serial, text, timestamp, unique } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { SensorsConfigurations } from './sensorsConfiguration.schema'
-import { sensors } from './sensors.schema'
+import { Sensors } from './sensors.schema'
 import { users } from './users.schema'
 
 export const ActuatorConfigurations = pgTable('actuatorConfigurations', {
   id: serial('id').primaryKey(),
-  sensor: serial('sensor').notNull().references(() => sensors.id),
+  sensor: serial('sensor').notNull().references(() => Sensors.id),
   sensorConfiguration: serial('sensor_configuration').notNull().references(() => SensorsConfigurations.id),
   createdBy: serial('created_by').notNull().references(() => users.id),
   name: text('name').notNull(),

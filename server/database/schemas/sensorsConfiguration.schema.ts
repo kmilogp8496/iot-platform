@@ -1,15 +1,15 @@
 import { integer, pgTable, serial, text, timestamp, unique } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
-import { sensors } from './sensors.schema'
+import { Sensors } from './sensors.schema'
 import { variables } from './variables.schema'
-import { locations } from './locations.schema'
+import { Locations } from './locations.schema'
 import { users } from './users.schema'
 
 export const SensorsConfigurations = pgTable('sensorsConfigurations', {
   id: serial('id').primaryKey(),
-  sensor: serial('sensor_id').notNull().references(() => sensors.id),
+  sensor: serial('sensor_id').notNull().references(() => Sensors.id),
   variable: serial('variable_id').notNull().references(() => variables.id),
-  location: serial('location_id').notNull().references(() => locations.id),
+  location: serial('location_id').notNull().references(() => Locations.id),
   createdBy: serial('created_by').notNull().references(() => users.id),
   lastValue: integer('last_value'),
   name: text('name').notNull(),

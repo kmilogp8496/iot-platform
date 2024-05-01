@@ -1,27 +1,26 @@
 import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
-import { sensors } from '~/server/database/schemas/sensors.schema'
+import { Sensors } from '~/server/database/schemas/sensors.schema'
 import { hashPassword } from '~/server/utils/db'
 import { RolesDefinition } from '~/utils/constants'
 
 export default defineEventHandler(async (event) => {
-  const db = useDB()
-
   const body = await readValidatedBody(event, z.object({
     id: z.number(),
     username: z.string(),
     password: z.string(),
   }).parse)
 
+  const db = useDB()
   const hashedPassword = await hashPassword(body.password)
 
-  const sensor = (await db.select({ id: sensors.id, name: sensors.name })
-    .from(sensors)
+  const sensor = (await db.select({ id: Sensors.id, name: Sensors.name })
+    .from(Sensors)
     .where(
       and(
-        eq(sensors.id, body.id),
-        eq(sensors.username, body.username),
-        eq(sensors.password, hashedPassword),
+        eq(Sensors.id, body.id),
+        eq(Sensors.username, body.username),
+        eq(Sensors.password, hashedPassword),
       ),
     )).at(0)
 

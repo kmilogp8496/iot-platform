@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { getSensorById } from '~/server/database/repositories/sensorsRepository'
-import { sensors } from '~/server/database/schemas/sensors.schema'
+import { Sensors } from '~/server/database/schemas/sensors.schema'
 import { SensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
 import { getUserFromEvent } from '~/server/utils/api'
 
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
     id: z.preprocess(Number, z.number()),
   }).parse)
 
-  const sensor = await getSensorById(db, sensorId, { id: sensors.id, createdBy: sensors.createdBy })
+  const sensor = await getSensorById(db, sensorId, { id: Sensors.id, createdBy: Sensors.createdBy })
 
   if (!sensor) {
     throw createError({
@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
   }
 
   await db.delete(SensorsConfigurations).where(eq(SensorsConfigurations.sensor, sensorId))
-  await db.delete(sensors).where(eq(sensors.id, sensorId))
+  await db.delete(Sensors).where(eq(Sensors.id, sensorId))
 
   return null
 })

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { sensors, sensorsInsertSchema } from '~/server/database/schemas/sensors.schema'
+import { Sensors, sensorsInsertSchema } from '~/server/database/schemas/sensors.schema'
 import { getUserFromEvent } from '~/server/utils/api'
 import { hashPassword } from '~/server/utils/db'
 
@@ -31,7 +31,7 @@ export default defineEventHandler(async (event) => {
 
   const db = useDB()
 
-  const returningValue = (await db.insert(sensors).values(insertSensor).returning()).at(0)!
+  const returningValue = (await db.insert(Sensors).values(insertSensor).returning()).at(0)!
 
   return returningValue
 })

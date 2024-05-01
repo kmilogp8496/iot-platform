@@ -1,23 +1,23 @@
 import { and, eq } from 'drizzle-orm'
-import { sensors } from '../database/schemas/sensors.schema'
+import { Sensors } from '../database/schemas/sensors.schema'
 import { SensorsConfigurations } from '../database/schemas/sensorsConfiguration.schema'
 import { Notifications } from '../database/schemas/notifications.schema'
 import { NotificationConfigurations } from '../database/schemas/notificationConfigurations.schema'
-import { locations } from '~/server/database/schemas/locations.schema'
+import { Locations } from '~/server/database/schemas/locations.schema'
 import { projects } from '~/server/database/schemas/projects.schema'
 import { variables } from '~/server/database/schemas/variables.schema'
 import type { DB } from '~/server/utils/db'
 
 export async function validateLocationBelongsToUserProjects(locationId: number, userId: number, db: DB) {
   const location = (
-    await db.select({ id: locations.id })
-      .from(locations)
+    await db.select({ id: Locations.id })
+      .from(Locations)
       .where(
         and(
-          eq(locations.id, locationId),
+          eq(Locations.id, locationId),
           eq(projects.createdBy, userId),
         ),
-      ).leftJoin(projects, eq(projects.id, locations.project))).at(0)
+      ).leftJoin(projects, eq(projects.id, Locations.project))).at(0)
 
   if (!location) {
     throw createError({
@@ -75,12 +75,12 @@ export async function validateProjectBelongsToUser(projectId: number, userId: nu
 }
 
 export async function validateSensorBelongsToUser(sensorId: number, userId: number, db: DB) {
-  const sensor = (await db.select({ id: sensors.id })
-    .from(sensors)
+  const sensor = (await db.select({ id: Sensors.id })
+    .from(Sensors)
     .where(
       and(
-        eq(sensors.id, sensorId),
-        eq(sensors.createdBy, userId),
+        eq(Sensors.id, sensorId),
+        eq(Sensors.createdBy, userId),
       ),
     )
   ).at(0)

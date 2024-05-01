@@ -1,7 +1,7 @@
 import { objectPick } from '@vueuse/core'
 import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
-import { sensors } from '~/server/database/schemas/sensors.schema'
+import { Sensors } from '~/server/database/schemas/sensors.schema'
 import { SensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
 import { processedNumber } from '~/server/utils/api'
 
@@ -62,9 +62,9 @@ export default defineCachedEventHandler(async (event) => {
     .from(SensorsConfigurations)
     .where(
       eq(SensorsConfigurations.id, configurationId),
-    ).innerJoin(sensors, and(
-      eq(sensors.id, SensorsConfigurations.sensor),
-      eq(sensors.createdBy, user.id),
+    ).innerJoin(Sensors, and(
+      eq(Sensors.id, SensorsConfigurations.sensor),
+      eq(Sensors.createdBy, user.id),
     ))).at(0)
 
   if (!configuration) {

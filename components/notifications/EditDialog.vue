@@ -9,7 +9,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  edited: [InferResponse<typeof editNotification>]
+  edited: []
 }>()
 
 const model = defineModel({
@@ -29,10 +29,10 @@ const editNotification = useFetch(`/api/notifications/${props.item.id}`, {
 
 async function onSubmit() {
   await editNotification.execute()
-  if (editNotification.error.value || !editNotification.data.value)
+  if (editNotification.error.value)
     return displayErrorFromApi(editNotification.error)
 
-  emit('edited', editNotification.data.value)
+  emit('edited')
   model.value = false
 }
 
@@ -45,7 +45,7 @@ watch(() => props.item, () => {
   <FormDialog
     ref="formDialog"
     v-model="model"
-    title="Editar variable"
+    title="Editar notificación"
     :state="state"
     :schema="notificationsSchema"
     @submit="onSubmit"

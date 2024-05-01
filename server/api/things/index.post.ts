@@ -2,11 +2,11 @@ import { Point } from '@influxdata/influxdb-client'
 import { and, eq, inArray } from 'drizzle-orm'
 import { z } from 'zod'
 import { ActuatorConfigurations } from '~/server/database/schemas/actuatorConfiguration.schema'
-import { locations } from '~/server/database/schemas/locations.schema'
+import { Locations } from '~/server/database/schemas/locations.schema'
 import { NotificationConfigurations } from '~/server/database/schemas/notificationConfigurations.schema'
 import { Notifications } from '~/server/database/schemas/notifications.schema'
 import { projects } from '~/server/database/schemas/projects.schema'
-import { sensors } from '~/server/database/schemas/sensors.schema'
+import { Sensors } from '~/server/database/schemas/sensors.schema'
 import { SensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
 import { variables } from '~/server/database/schemas/variables.schema'
 import { webSocketPeers } from '~/server/routes/_ws'
@@ -40,16 +40,16 @@ export default defineEventHandler(async (event) => {
   }
 
   const sensor = (await db.select({
-    id: sensors.id,
-    name: sensors.name,
+    id: Sensors.id,
+    name: Sensors.name,
     project: {
       id: projects.id,
       name: projects.name,
     },
   })
-    .from(sensors)
-    .leftJoin(projects, eq(projects.id, sensors.project))
-    .where(eq(sensors.id, session.user!.id))).at(0)
+    .from(Sensors)
+    .leftJoin(projects, eq(projects.id, Sensors.project))
+    .where(eq(Sensors.id, session.user!.id))).at(0)
 
   if (!sensor) {
     throw createError({
@@ -69,7 +69,7 @@ export default defineEventHandler(async (event) => {
     },
     location: {
       id: SensorsConfigurations.location,
-      name: locations.name,
+      name: Locations.name,
     },
   })
     .from(SensorsConfigurations)
@@ -80,7 +80,7 @@ export default defineEventHandler(async (event) => {
       ),
     )
     .leftJoin(variables, eq(SensorsConfigurations.variable, variables.id))
-    .leftJoin(locations, eq(SensorsConfigurations.location, locations.id))
+    .leftJoin(Locations, eq(SensorsConfigurations.location, Locations.id))
 
   db.select({
     id: ActuatorConfigurations.id,
@@ -143,7 +143,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  await sendNotifications(db, sensorConfigurations, body)
+  await sendNotifications(db, sensorConfigurations)
 
   return body
 })

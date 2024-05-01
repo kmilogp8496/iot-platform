@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm'
 import { getSensorById } from '~/server/database/repositories/sensorsRepository'
-import { sensors, sensorsUpdateSchema } from '~/server/database/schemas/sensors.schema'
+import { Sensors, sensorsUpdateSchema } from '~/server/database/schemas/sensors.schema'
 import { getNumericIdFromRouteParams, getUserFromEvent } from '~/server/utils/api'
 import { validateProjectBelongsToUser } from '~/server/utils/validations'
 
@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const returningValue = (await db.update(sensors).set(body).where(eq(sensors.id, sensorId)).returning()).at(0)!
+  const returningValue = (await db.update(Sensors).set(body).where(eq(Sensors.id, sensorId)).returning()).at(0)!
 
   return returningValue
 })

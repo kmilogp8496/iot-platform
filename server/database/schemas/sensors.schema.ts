@@ -3,7 +3,7 @@ import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { projects } from './projects.schema'
 import { users } from './users.schema'
 
-export const sensors = pgTable('sensors', {
+export const Sensors = pgTable('sensors', {
   id: serial('id').primaryKey(),
   project: integer('project').notNull().references(() => projects.id),
   createdBy: integer('created_by').notNull().references(() => users.id),
@@ -16,9 +16,9 @@ export const sensors = pgTable('sensors', {
   deletedAt: timestamp('deleted_at'),
 })
 
-export type InsertSensor = typeof sensors.$inferInsert
-export type Sensor = typeof sensors.$inferSelect
+export type InsertSensor = typeof Sensors.$inferInsert
+export type Sensor = typeof Sensors.$inferSelect
 
-export const sensorsInsertSchema = createInsertSchema(sensors)
-export const sensorsSelectSchema = createSelectSchema(sensors)
+export const sensorsInsertSchema = createInsertSchema(Sensors)
+export const sensorsSelectSchema = createSelectSchema(Sensors)
 export const sensorsUpdateSchema = sensorsInsertSchema.omit({ id: true })

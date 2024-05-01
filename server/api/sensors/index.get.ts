@@ -1,7 +1,7 @@
 import { count, desc, eq, inArray, like } from 'drizzle-orm'
 import { z } from 'zod'
 import { projects } from '~/server/database/schemas/projects.schema'
-import { sensors } from '~/server/database/schemas/sensors.schema'
+import { Sensors } from '~/server/database/schemas/sensors.schema'
 import { users } from '~/server/database/schemas/users.schema'
 import { usersToProjects } from '~/server/database/schemas/usersToProjects.schema'
 import { createPaginatedResponse, useValidatedPaginatedQuery } from '~/server/utils/api'
@@ -20,32 +20,32 @@ export default defineEventHandler(async (event) => {
     return createPaginatedResponse(0, [])
 
   const sensorsQb = db.select({
-    id: sensors.id,
-    name: sensors.name,
+    id: Sensors.id,
+    name: Sensors.name,
     project: {
       name: projects.name,
       id: projects.id,
     },
-    createdAt: sensors.createdAt,
-    description: sensors.description,
+    createdAt: Sensors.createdAt,
+    description: Sensors.description,
     createdByEmail: users.email,
   })
-    .from(sensors)
-    .where(inArray(sensors.project, userProjects.map(p => p.id)))
-    .leftJoin(users, eq(sensors.createdBy, users.id))
-    .leftJoin(projects, eq(projects.id, sensors.project))
+    .from(Sensors)
+    .where(inArray(Sensors.project, userProjects.map(p => p.id)))
+    .leftJoin(users, eq(Sensors.createdBy, users.id))
+    .leftJoin(projects, eq(projects.id, Sensors.project))
     .limit(query.limit)
     .offset(query.offset)
-    .orderBy(desc(sensors.createdAt))
+    .orderBy(desc(Sensors.createdAt))
     .$dynamic()
 
-  const totalQb = db.select({ total: count() }).from(sensors)
-    .where(inArray(sensors.project, userProjects.map(p => p.id)))
+  const totalQb = db.select({ total: count() }).from(Sensors)
+    .where(inArray(Sensors.project, userProjects.map(p => p.id)))
     .$dynamic()
 
   if (query.search) {
-    totalQb.where(like(sensors.name, `${query.search}%`))
-    sensorsQb.where(like(sensors.name, `${query.search}%`))
+    totalQb.where(like(Sensors.name, `${query.search}%`))
+    sensorsQb.where(like(Sensors.name, `${query.search}%`))
   }
   const sensorsResults = await sensorsQb
 

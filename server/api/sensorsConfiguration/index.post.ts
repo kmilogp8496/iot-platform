@@ -1,7 +1,7 @@
 import { and, eq } from 'drizzle-orm'
 import postgres from 'postgres'
 import { projects } from '~/server/database/schemas/projects.schema'
-import { sensors } from '~/server/database/schemas/sensors.schema'
+import { Sensors } from '~/server/database/schemas/sensors.schema'
 import { sensorsConfigurationInsertSchema, SensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
 
 export default defineEventHandler(async (event) => {
@@ -19,13 +19,13 @@ export default defineEventHandler(async (event) => {
 
   const db = useDB()
 
-  const sensor = (await db.select({ id: sensors.id }).from(sensors)
+  const sensor = (await db.select({ id: Sensors.id }).from(Sensors)
     .where(
       and(
-        eq(sensors.id, body.sensor),
+        eq(Sensors.id, body.sensor),
         eq(projects.createdBy, session.user!.id),
       ),
-    ).leftJoin(projects, eq(sensors.project, projects.id))).at(0)
+    ).leftJoin(projects, eq(Sensors.project, projects.id))).at(0)
 
   if (!sensor) {
     throw createError({

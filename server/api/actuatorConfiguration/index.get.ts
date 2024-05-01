@@ -1,9 +1,9 @@
 import { and, eq, like, sql } from 'drizzle-orm'
 import { z } from 'zod'
 import { ActuatorConfigurations } from '~/server/database/schemas/actuatorConfiguration.schema'
-import { locations } from '~/server/database/schemas/locations.schema'
+import { Locations } from '~/server/database/schemas/locations.schema'
 import { projects } from '~/server/database/schemas/projects.schema'
-import { sensors } from '~/server/database/schemas/sensors.schema'
+import { Sensors } from '~/server/database/schemas/sensors.schema'
 import { SensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
 import { variables } from '~/server/database/schemas/variables.schema'
 
@@ -17,13 +17,13 @@ export default defineEventHandler(async (event) => {
 
   const db = useDB()
 
-  const sensor = (await db.select({ id: sensors.id }).from(sensors)
+  const sensor = (await db.select({ id: Sensors.id }).from(Sensors)
     .where(
       and(
-        eq(sensors.id, query.sensor),
+        eq(Sensors.id, query.sensor),
         eq(projects.createdBy, user.id),
       ),
-    ).leftJoin(projects, eq(sensors.project, projects.id))).at(0)
+    ).leftJoin(projects, eq(Sensors.project, projects.id))).at(0)
 
   if (!sensor) {
     throw createError({
@@ -49,7 +49,7 @@ export default defineEventHandler(async (event) => {
       },
       location: {
         id: SensorsConfigurations.location,
-        name: locations.name,
+        name: Locations.name,
       },
     })
     .from(ActuatorConfigurations)
@@ -58,7 +58,7 @@ export default defineEventHandler(async (event) => {
 
     .leftJoin(SensorsConfigurations, eq(SensorsConfigurations.id, ActuatorConfigurations.sensorConfiguration))
     .leftJoin(variables, eq(SensorsConfigurations.variable, variables.id))
-    .leftJoin(locations, eq(SensorsConfigurations.location, locations.id))
+    .leftJoin(Locations, eq(SensorsConfigurations.location, Locations.id))
 
     .limit(query.limit)
     .offset(query.offset)

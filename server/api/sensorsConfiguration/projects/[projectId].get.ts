@@ -1,7 +1,7 @@
 import { and, eq } from 'drizzle-orm'
-import { locations } from '~/server/database/schemas/locations.schema'
+import { Locations } from '~/server/database/schemas/locations.schema'
 import { projects } from '~/server/database/schemas/projects.schema'
-import { sensors } from '~/server/database/schemas/sensors.schema'
+import { Sensors } from '~/server/database/schemas/sensors.schema'
 import { SensorsConfigurations } from '~/server/database/schemas/sensorsConfiguration.schema'
 import { variables } from '~/server/database/schemas/variables.schema'
 
@@ -34,8 +34,8 @@ export default defineEventHandler(async (event) => {
     id: SensorsConfigurations.id,
     name: SensorsConfigurations.name,
     sensor: {
-      id: sensors.id,
-      name: sensors.name,
+      id: Sensors.id,
+      name: Sensors.name,
     },
     variable: {
       id: SensorsConfigurations.variable,
@@ -44,13 +44,13 @@ export default defineEventHandler(async (event) => {
     },
     location: {
       id: SensorsConfigurations.location,
-      name: locations.name,
+      name: Locations.name,
     },
   }).from(SensorsConfigurations)
-    .innerJoin(sensors, and(
-      eq(sensors.id, SensorsConfigurations.sensor),
-      eq(sensors.project, projectId),
+    .innerJoin(Sensors, and(
+      eq(Sensors.id, SensorsConfigurations.sensor),
+      eq(Sensors.project, projectId),
     ))
     .leftJoin(variables, eq(SensorsConfigurations.variable, variables.id))
-    .leftJoin(locations, eq(SensorsConfigurations.location, locations.id))
+    .leftJoin(Locations, eq(SensorsConfigurations.location, Locations.id))
 })

@@ -1,5 +1,5 @@
 import { and, eq } from 'drizzle-orm'
-import { locations, locationsInsertSchema } from '~/server/database/schemas/locations.schema'
+import { Locations, locationsInsertSchema } from '~/server/database/schemas/locations.schema'
 import { projects } from '~/server/database/schemas/projects.schema'
 
 export default defineEventHandler(async (event) => {
@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const returningValue = (await db.insert(locations).values(body).returning()).at(0)!
+  const returningValue = (await db.insert(Locations).values(body).returning()).at(0)!
 
   return returningValue
 })

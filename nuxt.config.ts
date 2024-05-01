@@ -15,6 +15,8 @@ export default defineNuxtConfig({
         clientSecret: process.env.NUXT_OAUTH_GOOGLE_CLIENT_SECRET,
       },
     },
+    aiApiKey: process.env.NUXT_AI_API_KEY,
+    aiClientId: process.env.NUXT_AI_CLIENT_ID,
   },
   modules: [
     '@nuxt/content',

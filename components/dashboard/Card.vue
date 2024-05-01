@@ -109,6 +109,23 @@ const template = (d: DataPoint) => d.tooltip
 const color = () => PrimaryColor[300]
 
 const curveType = computed(() => new Set(computedData.value.map(d => d.x)).size > 2 ? CurveType.Basis : CurveType.Step)
+const helpRequest = useFetch(`/api/measurements/${props.configuration.id}/help`, {
+  method: 'POST',
+  immediate: false,
+  watch: false,
+})
+const onHelpRequest = async () => {
+  await helpRequest.execute()
+  if (helpRequest.error.value) {
+    displayErrorFromApi(helpRequest.error.value)
+  }
+  else {
+    displaySuccessNotification({
+      title: 'El asistente ha respondido',
+      description: helpRequest.data.value,
+    })
+  }
+}
 </script>
 
 <template>
@@ -186,7 +203,19 @@ const curveType = computed(() => new Set(computedData.value.map(d => d.x)).size 
     />
 
     <template #footer>
-      <div class="flex justify-end gap-4">
+      <div class="flex gap-4">
+        <UTooltip
+          class="mr-auto"
+          text="Identificar patrones de la gráfica mediante asistente"
+        >
+          <UButton
+            size="sm"
+            variant="ghost"
+            icon="i-mdi-help-circle-outline"
+            :loading="helpRequest.status.value === 'pending'"
+            @click="onHelpRequest"
+          />
+        </UTooltip>
         <div class="inline-flex items-center gap-4 text-xs">
           Desde hace:
           <USelectMenu

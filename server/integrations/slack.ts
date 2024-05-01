@@ -7,25 +7,26 @@ export const sendSlackNotification = async (url: string, body: object) =>
     body,
   })
 
-export async function sendSlackThresholdNotification(url: string, configurationsByNotification: {
+export async function sendSlackThresholdNotification(url: string,
   notification: {
     name: string
     message: string
-  }
-  variable: { name: string, unit: string }
-  sensorConfiguration: { id: number, lastValue: number | null }
-  sensor: { name: string }
-  location: { name: string } }[],
-date = new Date(),
+  },
+  configurationsByNotification: {
+    variable: { name: string, unit: string }
+    sensorConfiguration: { id: number, lastValue: number | null }
+    sensor: { name: string }
+    location: { name: string } }[],
+  date = new Date(),
 ) {
   const body = {
-    text: configurationsByNotification[0].notification.name,
+    text: notification.name,
     blocks: [
       {
         type: 'header',
         text: {
           type: 'plain_text',
-          text: ':rotating_light: ' + configurationsByNotification[0].notification.name + ' :rotating_light:',
+          text: ':rotating_light: ' + notification.name + ' :rotating_light:',
         },
       },
       {
@@ -33,7 +34,7 @@ date = new Date(),
         fields: [
           {
             type: 'plain_text',
-            text: configurationsByNotification[0].notification.message,
+            text: notification.message,
           },
         ],
       },
@@ -71,6 +72,8 @@ date = new Date(),
       },
     ],
   }
+
+  console.log(body)
 
   await sendSlackNotification(url, body)
 }

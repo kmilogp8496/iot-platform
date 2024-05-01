@@ -50,4 +50,5 @@ export const ICONS = {
   confirm: 'i-heroicons-check',
   message: 'i-material-symbols-chat-paste-go-outline',
   notification: 'i-heroicons-bell',
+  test: 'i-heroicons-play',
 } as const

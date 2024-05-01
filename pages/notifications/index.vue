@@ -41,6 +41,31 @@ const columns = useTableColumns<NotificationItem>([
     hidden: !permissions.canUpdate('notifications') && !permissions.canDelete('notifications'),
   },
 ])
+
+const loadingTest = ref(new Set<number>())
+
+const onTest = async (notification: NotificationItem) => {
+  loadingTest.value.add(notification.id)
+  try {
+    const response = await $fetch.raw(`/api/notifications/${notification.id}/test`, {
+      method: 'POST',
+    })
+    console.log(response)
+    displaySuccessNotification({
+      title: 'Notificación enviada',
+      description: 'La notificación ha sido enviada correctamente',
+    })
+  }
+  catch {
+    displayErrorNotification({
+      title: 'Notificación fallida',
+      description: 'Ha fallado la prueba de la notificación, por favor revisa la url de la notificación',
+    })
+  }
+  finally {
+    loadingTest.value.delete(notification.id)
+  }
+}
 </script>
 
 <template>
@@ -74,6 +99,13 @@ const columns = useTableColumns<NotificationItem>([
           size="xs"
           :icon="ICONS.sensorConfiguration"
           :to="`/notifications/${row.id}`"
+        />
+        <UButton
+          variant="ghost"
+          size="xs"
+          :icon="ICONS.test"
+          :loading="loadingTest.has(row.id)"
+          @click="onTest(row)"
         />
         <LazyNotificationsDeleteButton
           v-if="permissions.canDelete('notifications')"

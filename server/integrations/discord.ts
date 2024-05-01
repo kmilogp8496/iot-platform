@@ -1,5 +1,5 @@
 export function sendDiscordNotification(url: string, body: object) {
-  return $fetch(url, {
+  return $fetch.raw(url, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
@@ -8,27 +8,29 @@ export function sendDiscordNotification(url: string, body: object) {
   })
 }
 
-export async function sendDiscordThresholdNotification(url: string, configurationsByNotification: {
+export async function sendDiscordThresholdNotification(url: string,
   notification: {
     name: string
     message: string
-  }
-  variable: { name: string, unit: string }
-  sensorConfiguration: { id: number, lastValue: number | null }
-  sensor: { name: string }
-  location: { name: string } }[],
-date = new Date(),
+  },
+  configurationsByNotification: {
+    variable: { name: string, unit: string }
+    sensorConfiguration: { id: number, lastValue: number | null }
+    sensor: { name: string }
+    location: { name: string } }[],
+  date = new Date(),
 ) {
-  let discordMarkdownContent = `# ${configurationsByNotification[0].notification.name}
+  let discordMarkdownContent = `# ${notification.name}
 :rotating_light: :rotating_light: :rotating_light:
-## ${configurationsByNotification[0].notification.message}
+## ${notification.message}
 `
 
   discordMarkdownContent += configurationsByNotification.map((v) => {
-    return `**${v.sensor.name}** en **${v.location.name}** \n ${v.variable.name}: ${v.sensorConfiguration.lastValue} ${v.variable.unit}`
+    return `**${v.sensor.name}** en **${v.location.name}** \n${v.variable.name}: ${v.sensorConfiguration.lastValue} ${v.variable.unit}`
   }).join('\n')
 
-  discordMarkdownContent += `**Fecha y hora**: ${date.toLocaleString()}`
+  discordMarkdownContent += `
+**Fecha y hora**: ${date.toLocaleString()}`
 
   console.log({ discordMarkdownContent })
 

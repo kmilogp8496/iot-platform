@@ -110,8 +110,8 @@ export async function validateSensorConfigurationBelongsToUser(sensorConfigurati
   }
 }
 
-export const validateNotificationBelongsToUser = async (notificationId: number, userId: number, db: DB) => {
-  const notification = (await db.select({ id: Notifications.id }).from(Notifications).where(
+export const validateNotificationBelongsToUser = async <const T extends object>(notificationId: number, userId: number, db: DB, extraFields?: T) => {
+  const notification = (await db.select({ id: Notifications.id, ...extraFields }).from(Notifications).where(
     and(
       eq(Notifications.id, notificationId),
       eq(Notifications.createdBy, userId),

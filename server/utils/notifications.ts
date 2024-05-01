@@ -1,12 +1,14 @@
 import { eq, inArray } from 'drizzle-orm'
 import { NotificationConfigurations } from '../database/schemas/notificationConfigurations.schema'
 import { SensorsConfigurations } from '../database/schemas/sensorsConfiguration.schema'
+import type { notificationType } from '../database/schemas/notifications.schema'
 import { Notifications } from '../database/schemas/notifications.schema'
 import { variables } from '../database/schemas/variables.schema'
 import { Sensors } from '../database/schemas/sensors.schema'
 import { Locations } from '../database/schemas/locations.schema'
 import { sendSlackThresholdNotification } from '../integrations/slack'
 import { sendDiscordThresholdNotification } from '../integrations/discord'
+import { sendHTTPThresholdNotification } from '../integrations/http'
 
 export const sendNotifications = async (db: DB, sensorConfigurations: number[]) => {
   const notificationIds = await db.selectDistinct({ notification: NotificationConfigurations.notification })
@@ -103,38 +105,21 @@ export const sendNotifications = async (db: DB, sensorConfigurations: number[]) 
 
     const configurationsByNotification = notificationConfigurations.filter(n => n.notification.id === notificationId)
     const notification = configurationsByNotification[0].notification
+    const handler = getNotificationHandlerByType(notification.type)
+    handler?.(notification.url, notification, configurationsByNotification).catch(console.error)
+  }
+}
 
-    switch (notification.type) {
-      case 'slack':
-        sendSlackThresholdNotification(notification.url, configurationsByNotification).catch(console.error)
-        break
-      case 'discord':
-        sendDiscordThresholdNotification(notification.url, configurationsByNotification).catch(console.error)
-        break
-      case 'http':
-        $fetch(notification.url, {
-          method: 'POST',
-          headers: {
-            'Content-type': 'application/json',
-          },
-          body: {
-            notification: {
-              name: notification.name,
-              message: notification.message,
-            },
-            configurations: configurationsByNotification.map(c => ({
-              sensor: c.sensor.name,
-              location: c.location.name,
-              variable: c.variable.name,
-              value: c.sensorConfiguration.lastValue,
-              unit: c.variable.unit,
-            })),
-          },
-        }).catch(console.error)
-        break
+export function getNotificationHandlerByType(type: (typeof notificationType.enumValues)[number]) {
+  switch (type) {
+    case 'slack':
+      return sendSlackThresholdNotification
+    case 'discord':
+      return sendDiscordThresholdNotification
+    case 'http':
+      return sendHTTPThresholdNotification
 
-      default:
-        break
-    }
+    default:
+      return null
   }
 }

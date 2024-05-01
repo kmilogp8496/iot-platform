@@ -95,18 +95,21 @@ const onTest = async (notification: NotificationItem) => {
           @edited="notifications.refresh()"
         />
         <UButton
+          v-if="permissions.canUpdate('notifications')"
           variant="ghost"
           size="xs"
           :icon="ICONS.sensorConfiguration"
           :to="`/notifications/${row.id}`"
         />
-        <UButton
-          variant="ghost"
-          size="xs"
-          :icon="ICONS.test"
-          :loading="loadingTest.has(row.id)"
-          @click="onTest(row)"
-        />
+        <UTooltip text="Probar notificación">
+          <UButton
+            variant="ghost"
+            size="xs"
+            :icon="ICONS.test"
+            :loading="loadingTest.has(row.id)"
+            @click="onTest(row)"
+          />
+        </UTooltip>
         <LazyNotificationsDeleteButton
           v-if="permissions.canDelete('notifications')"
           :notification="row"

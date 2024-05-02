@@ -12,20 +12,25 @@ const projects = await useFetch('/api/projects')
 
 const project = ref(projects.data.value?.results[0]?.id)
 
+export type SensorConfigurationByProject = InferResponse<NotNull<typeof sensorsConfigurations>>[number]
+
+const apiURL = computed(() => `/api/sensorsConfiguration/projects/${project.value}` as const)
+
+const sensorsConfigurations = project.value
+  ? useFetch(apiURL)
+  : null
+
 watch(project, () => {
+  console.log(project.value)
   if (!project.value)
     return
+
+  sensorsConfigurations?.execute()
 
   title.value = `Dashboard - ${projects.data.value?.results.find(p => p.id === project.value)!.name}`
 })
 
 const permissions = usePermissions(session)
-
-export type SensorConfigurationByProject = InferResponse<NotNull<typeof sensorsConfigurations>>[number]
-
-const sensorsConfigurations = project.value
-  ? useFetch(`/api/sensorsConfiguration/projects/${project.value}`)
-  : null
 </script>
 
 <template>

@@ -109,7 +109,7 @@ export default defineEventHandler(async (event) => {
   const updatePromises: Promise<any>[] = []
 
   for (const configuration of configurations) {
-    updatePromises.push(db.update(SensorsConfigurations).set({ lastValue: body[configuration.id] }).where(eq(SensorsConfigurations.id, configuration.id)))
+    updatePromises.push(db.update(SensorsConfigurations).set({ lastValue: String(body[configuration.id]) }).where(eq(SensorsConfigurations.id, configuration.id)))
 
     points.push(
       new Point(configuration.name)
@@ -135,6 +135,7 @@ export default defineEventHandler(async (event) => {
     await Promise.all(updatePromises)
   }
   catch (error) {
+    console.error(error)
     throw createError({
       statusCode: 500,
       message: 'Error writing to database',

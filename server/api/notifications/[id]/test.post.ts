@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
     {
       location: { name: 'Test location' },
       sensor: { name: 'Test sensor' },
-      sensorConfiguration: { id: 1, lastValue: 1 },
+      sensorConfiguration: { id: 1, lastValue: '1' },
       variable: { name: 'Test variable', unit: 'Test unit' },
     },
   ], new Date()) ?? null

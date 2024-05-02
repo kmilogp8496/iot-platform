@@ -15,7 +15,7 @@ export async function sendDiscordThresholdNotification(url: string,
   },
   configurationsByNotification: {
     variable: { name: string, unit: string }
-    sensorConfiguration: { id: number, lastValue: number | null }
+    sensorConfiguration: { id: number, lastValue: string | null }
     sensor: { name: string }
     location: { name: string } }[],
   date = new Date(),

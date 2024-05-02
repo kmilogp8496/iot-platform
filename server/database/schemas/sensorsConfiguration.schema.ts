@@ -1,4 +1,4 @@
-import { integer, pgTable, serial, text, timestamp, unique } from 'drizzle-orm/pg-core'
+import { numeric, pgTable, serial, text, timestamp, unique } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { Sensors } from './sensors.schema'
 import { variables } from './variables.schema'
@@ -11,7 +11,7 @@ export const SensorsConfigurations = pgTable('sensorsConfigurations', {
   variable: serial('variable_id').notNull().references(() => variables.id),
   location: serial('location_id').notNull().references(() => Locations.id),
   createdBy: serial('created_by').notNull().references(() => users.id),
-  lastValue: integer('last_value'),
+  lastValue: numeric('last_value', { precision: 100, scale: 0 }),
   name: text('name').notNull(),
   description: text('description').notNull(),
   createdAt: timestamp('created_at').defaultNow(),

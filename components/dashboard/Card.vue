@@ -108,7 +108,7 @@ function onGenerateCsv() {
 const template = (d: DataPoint) => d.tooltip
 const color = () => PrimaryColor[300]
 
-const curveType = computed(() => new Set(computedData.value.map(d => d.x)).size > 2 ? CurveType.Basis : CurveType.Step)
+const curveType = computed(() => new Set(computedData.value.map(d => d.y)).size > 2 ? CurveType.Basis : CurveType.Step)
 const helpRequest = useFetch(`/api/measurements/${props.configuration.id}/help`, {
   method: 'POST',
   immediate: false,
@@ -171,6 +171,7 @@ const onHelpRequest = async () => {
         :color="PrimaryColor[600]"
         :x="(d: DataPoint) => d.x"
         :y="(d: DataPoint) => d.y"
+        :curve-type="curveType"
       />
       <VisCrosshair
         :color="color"
@@ -183,7 +184,6 @@ const onHelpRequest = async () => {
         :tick-format="tickFormat"
         :tick-text-width="50"
         :num-ticks="5"
-        :curve-type="curveType"
       />
       <VisAxis
         type="y"

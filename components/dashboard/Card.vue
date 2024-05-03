@@ -108,7 +108,6 @@ function onGenerateCsv() {
 const template = (d: DataPoint) => d.tooltip
 const color = () => PrimaryColor[300]
 
-const curveType = computed(() => new Set(computedData.value.map(d => d.y)).size > 2 ? CurveType.Basis : CurveType.Step)
 const helpRequest = useFetch(`/api/measurements/${props.configuration.id}/help`, {
   method: 'POST',
   immediate: false,
@@ -145,7 +144,8 @@ const onHelpRequest = async () => {
           </div>
         </div>
         <div class="font-extralight text-base sm:text-lg flex justify-between items-center">
-          {{ YLabel }} en {{ configuration.location.name }} <div
+          {{ YLabel }} en {{ configuration.location.name }}
+          <div
             v-if="currentValue"
             class="inline-flex items-center gap-2"
           >
@@ -156,7 +156,9 @@ const onHelpRequest = async () => {
               trailing-icon="i-heroicons:arrow-path"
               @click="data.refresh()"
             >
-              ({{ currentValue.ago.value }})
+              <template v-if="currentValue.value">
+                ({{ currentValue.ago.value }})
+              </template>
             </UButton>
           </div>
         </div>
@@ -171,7 +173,6 @@ const onHelpRequest = async () => {
         :color="PrimaryColor[600]"
         :x="(d: DataPoint) => d.x"
         :y="(d: DataPoint) => d.y"
-        :curve-type="curveType"
       />
       <VisCrosshair
         :color="color"

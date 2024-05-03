@@ -47,10 +47,9 @@ const loadingTest = ref(new Set<number>())
 const onTest = async (notification: NotificationItem) => {
   loadingTest.value.add(notification.id)
   try {
-    const response = await $fetch.raw(`/api/notifications/${notification.id}/test`, {
+    await $fetch.raw(`/api/notifications/${notification.id}/test`, {
       method: 'POST',
     })
-    console.log(response)
     displaySuccessNotification({
       title: 'Notificación enviada',
       description: 'La notificación ha sido enviada correctamente',

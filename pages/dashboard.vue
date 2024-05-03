@@ -21,7 +21,6 @@ const sensorsConfigurations = project.value
   : null
 
 watch(project, () => {
-  console.log(project.value)
   if (!project.value)
     return
 

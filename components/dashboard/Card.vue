@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { CurveType } from '@unovis/ts'
 import { VisAxis, VisCrosshair, VisLine, VisScatter, VisTooltip, VisXYContainer } from '@unovis/vue'
 import type { UnwrapRef } from 'vue'
 import type { SensorConfigurationByProject } from '~/pages/dashboard.vue'

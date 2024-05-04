@@ -1,31 +1,5 @@
 # List of tasks
 
-- [x] Add Github authentication
-- [x] Add influx DB client
-- [x] Setup influxDB CLient
-    - [x] Write data function
-    - [x] Read data function
-- [ ] Integrate Influx graphics in APP
-- [ ] Add notifications to external channels
-- [x] Add authorization to routes
-- [x] Database
-    - [x] Add Users table
-    - [x] Add Projects table
-    - [x] Add sensors tables
-    - [x] Add locations tables
-    - [x] Add variables tables
-    - [x] Setup Supabase
-    - [x] Migrations
-- [x] Cruds
-    - [x] Users
-    - [x] Projects
-    - [x] Sensors
-    - [x] Locations
-    - [x] Variables
-- [x] Landing page
-- [ ] Sensors
-    - [x] Connect first sensor
-    - [x] Add authentication to sensors
-    - [x] Push data to Influx
-    - [x] Code generation for sensors configuration
-    - [x] Deploy on prod and test with a real sensor
+- [ ] Update landing page
+- [ ] Create about page
+- [ ] Add sentry for error tracking

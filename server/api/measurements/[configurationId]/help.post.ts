@@ -102,7 +102,7 @@ export default defineCachedEventHandler(async (event) => {
       { role: 'system', content: 'Tu deber es ayudar al usuario a entender más acerca de patrones en los datos de este sensor.' },
       { role: 'system', content: `La variable medida es ${configuration.variable.name} y la unidad es ${configuration.variable.unit || 'ninguna'}` },
       { role: 'system', content: 'Si tienes menos de dos datos o dos posibles valores, responde que no tienes suficientes valores para realizar un análisis.' },
-      { role: 'system', content: 'Tu respuesta debe ser concisa y no debes repetir las cosas.' },
+      { role: 'system', content: 'Tu respuesta debe ser concisa y lo más breve posible. No debes repetir las cosas y debes responder en lenguaje español castellano.' },
 
       { role: 'user', content: '¿Qué patrones se identifican en estos resultados?' },
     ],

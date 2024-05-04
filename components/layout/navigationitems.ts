@@ -3,7 +3,7 @@ import type { VerticalNavigationLink } from '#ui/types'
 export const NAVIGATION_LINKS: VerticalNavigationLink[] = [
   {
     label: 'Dashboard',
-    icon: 'i-heroicons-presentation-chart-line-solid',
+    icon: ICONS.dashboard,
     to: '/dashboard',
   },
   {
@@ -30,5 +30,25 @@ export const NAVIGATION_LINKS: VerticalNavigationLink[] = [
     label: 'Notificaciones',
     icon: ICONS.notification,
     to: '/notifications',
+  },
+  {
+    label: 'OTA',
+    icon: ICONS.OTA,
+    to: '/wip/OTA',
+    badge: {
+      label: 'WIP',
+      color: 'primary',
+      variant: 'soft',
+    },
+  },
+  {
+    label: 'Pregunta a la IA',
+    icon: ICONS.IA,
+    to: '/wip/IA',
+    badge: {
+      label: 'WIP',
+      color: 'primary',
+      variant: 'soft',
+    },
   },
 ] as const

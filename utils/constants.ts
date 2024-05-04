@@ -51,4 +51,8 @@ export const ICONS = {
   message: 'i-material-symbols-chat-paste-go-outline',
   notification: 'i-heroicons-bell',
   test: 'i-heroicons-play',
+  OTA: 'i-heroicons-cloud-arrow-up',
+  home: 'i-heroicons-home',
+  dashboard: 'i-heroicons-presentation-chart-line-solid',
+  IA: 'i-mdi-robot-confused',
 } as const

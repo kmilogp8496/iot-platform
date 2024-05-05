@@ -39,7 +39,7 @@ const sensorConfigurationTableColumns = useTableColumns<SensorConfiguration>([
   {
     key: 'variable.name',
     label: 'Variable',
-    transform: value => `${value.variable.name} (${value.variable.unit})`,
+    transform: value => `${value.variable.name} ${value.variable.unit ? `(${value.variable.unit})` : ''}`,
   },
   {
     key: 'location.name',
@@ -65,7 +65,7 @@ const actuatorConfigurationTableColumns = useTableColumns<ActuatorConfiguration>
   {
     key: 'variable.name',
     label: 'Variable',
-    transform: value => `${value.variable.name} (${value.variable.unit})`,
+    transform: value => `${value.variable.name} ${value.variable.unit ? `(${value.variable.unit})` : ''}`,
   },
   {
     key: 'location.name',
@@ -91,7 +91,7 @@ async function onCopyToClipboard() {
   if (!sensorConfigurationsData || !sensorActuatorsData || !sensor.data.value)
     return
 
-  const text = generateSensorFile(sensorConfigurationsData.results, sensor.data.value)
+  const text = generateSensorFile(sensorConfigurationsData.results, sensorActuatorsData.results, sensor.data.value)
 
   copy(text, {
     title: 'Copiado al portapapeles',
@@ -109,7 +109,7 @@ async function onCopyToClipboard() {
       <PageTitle :title="`Configuración de ${sensor.data.value?.name ?? ''}`" />
       <BaseSpacer />
       <UTooltip
-        text="Copiar PlatformSensor.h al portapapeles"
+        text="Copiar Environment.h al portapapeles"
       >
         <UButton
           icon="material-symbols:content-copy"

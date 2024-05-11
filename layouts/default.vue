@@ -3,7 +3,9 @@ import * as Sentry from '@sentry/vue'
 
 const { loggedIn, clear, user } = useUserSession()
 
-if (loggedIn.value && user.value) {
+const { public: { sentry: { dsn } } } = useRuntimeConfig()
+
+if (loggedIn.value && user.value && dsn) {
   Sentry.setUser({
     email: user.value.email,
     id: user.value.id,

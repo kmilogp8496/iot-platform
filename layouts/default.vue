@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { setUser } from '@sentry/vue'
+import * as Sentry from '@sentry/vue'
 
 const { loggedIn, clear, user } = useUserSession()
 
 if (loggedIn.value && user.value) {
-  setUser({
+  Sentry.setUser({
     email: user.value.email,
     id: user.value.id,
   })

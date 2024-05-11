@@ -9,7 +9,7 @@ export default defineNitroPlugin((nitro) => {
       return
     }
     event.context.requestTimestamp = Date.now()
-    logger.info(`[REQUEST]  ${event.context.requestTimestamp} \t ${event.method} ${event.path}`)
+    logger.info(`[REQUEST]  ${event.context.requestTimestamp} \t\t ${event.method} ${event.path}`)
   })
 
   nitro.hooks.hook('afterResponse', async (event) => {

@@ -24,7 +24,7 @@ export default defineNuxtConfig({
         environment: process.env.NUXT_SENTRY_ENVIRONMENT,
       },
       studio: {
-        tokens: process.env.NUXT_PUBLIC_STUDIO_TOKENs,
+        tokens: process.env.NUXT_PUBLIC_STUDIO_TOKENS,
       },
     },
   },

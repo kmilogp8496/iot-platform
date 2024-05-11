@@ -1,4 +1,4 @@
-import { init, browserTracingIntegration, replayIntegration } from '@sentry/vue'
+import * as Sentry from '@sentry/vue'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const router = useRouter()
@@ -8,13 +8,13 @@ export default defineNuxtPlugin((nuxtApp) => {
     return
   }
 
-  init({
+  Sentry.init({
     app: nuxtApp.vueApp,
     dsn: sentry.dsn,
     environment: sentry.environment,
     integrations: [
-      browserTracingIntegration({ router }),
-      replayIntegration({
+      Sentry.browserTracingIntegration({ router }),
+      Sentry.replayIntegration({
         maskAllText: false,
         blockAllMedia: false,
       }),

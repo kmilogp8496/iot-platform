@@ -55,6 +55,7 @@ jobs:
           NUXT_SENTRY_DSN="${{ secrets.NUXT_SENTRY_DSN }}" \
           NUXT_SENTRY_SERVER_DSN="${{ secrets.NUXT_SENTRY_SERVER_DSN }}" \
           NUXT_SENTRY_ENVIRONMENT="${{ env.NUXT_SENTRY_ENVIRONMENT }}" \
+          NUXT_PUBLIC_STUDIO_TOKENS="${{ env.NUXT_PUBLIC_STUDIO_TOKENS }}" \
           pnpm build
 
       - name: Upload artifact

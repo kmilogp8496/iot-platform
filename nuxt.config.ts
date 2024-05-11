@@ -23,6 +23,9 @@ export default defineNuxtConfig({
         serverDsn: process.env.NUXT_SENTRY_SERVER_DSN,
         environment: process.env.NUXT_SENTRY_ENVIRONMENT,
       },
+      studio: {
+        tokens: process.env.NUXT_PUBLIC_STUDIO_TOKENs,
+      },
     },
   },
   modules: [
@@ -32,6 +35,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxt/fonts',
     '@nuxt/eslint',
+    '@nuxthq/studio',
   ],
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },

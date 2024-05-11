@@ -33,6 +33,7 @@
   "devDependencies": {
     "@nuxt/eslint": "^0.3.12",
     "@nuxt/fonts": "^0.7.0",
+    "@nuxthq/studio": "^1.0.15",
     "@vueuse/core": "^10.9.0",
     "@vueuse/nuxt": "^10.9.0",
     "drizzle-kit": "^0.21.1",

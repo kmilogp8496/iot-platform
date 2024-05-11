@@ -1,16 +1,5 @@
 <script lang="ts" setup>
-import * as Sentry from '@sentry/vue'
-
 const { loggedIn, clear, user } = useUserSession()
-
-const { public: { sentry: { dsn } } } = useRuntimeConfig()
-
-if (loggedIn.value && user.value && dsn) {
-  Sentry.setUser({
-    email: user.value.email,
-    id: user.value.id,
-  })
-}
 
 async function onLogout() {
   await clear()

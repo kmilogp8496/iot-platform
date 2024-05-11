@@ -1,15 +1,16 @@
 import { createConsola } from 'consola'
 
 export default defineNitroPlugin((nitro) => {
-  const logger = createConsola({})
+  const logger = createConsola()
   nitro.hooks.hook('request', async (event) => {
     event.context.requestTimestamp = Date.now()
-    logger.info(`[REQUEST] \t ${event.context.requestTimestamp}\t ${event.method} ${event.path}`)
+    logger.info(`[REQUEST]  ${event.context.requestTimestamp} \t\t ${event.method} ${event.path}`)
   })
 
   nitro.hooks.hook('afterResponse', async (event) => {
     const logLevel = event.node.res.statusCode >= 400 ? 'error' : 'info'
+    const duration = Date.now() - event.context.requestTimestamp
 
-    logger[logLevel](`[RESPONSE] \t ${event.context.requestTimestamp}\t ${event.node.res.statusCode} ${event.path}`)
+    logger[logLevel](`[RESPONSE] ${event.context.requestTimestamp} ${duration} ms\t ${event.node.res.statusCode} ${event.path}`)
   })
 })

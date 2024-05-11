@@ -54,7 +54,7 @@ jobs:
           NUXT_AI_CLIENT_ID="${{ secrets.NUXT_AI_CLIENT_ID }}" \
           NUXT_SENTRY_DSN="${{ secrets.NUXT_SENTRY_DSN }}" \
           NUXT_SENTRY_SERVER_DSN="${{ secrets.NUXT_SENTRY_SERVER_DSN }}" \
-          NUXT_SENTRY_ENVIRONMENT="${{ secrets.NUXT_SENTRY_ENVIRONMENT }}" \
+          NUXT_SENTRY_ENVIRONMENT="${{ env.NUXT_SENTRY_ENVIRONMENT }}" \
           pnpm build
 
       - name: Upload artifact

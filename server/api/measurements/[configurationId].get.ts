@@ -43,7 +43,7 @@ interface InfluxResponsePoint {
   variableID: string
 }
 
-export default defineCachedEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
   const { user } = await requireUserSession(event)
   const readClient = useInfluxReadClient()
   const config = useRuntimeConfig()

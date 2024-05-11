@@ -17,6 +17,13 @@ export default defineNuxtConfig({
     },
     aiApiKey: process.env.NUXT_AI_API_KEY,
     aiClientId: process.env.NUXT_AI_CLIENT_ID,
+    public: {
+      sentry: {
+        dsn: process.env.NUXT_SENTRY_DSN,
+        serverDsn: process.env.NUXT_SENTRY_SERVER_DSN,
+        environment: process.env.NUXT_SENTRY_ENVIRONMENT,
+      },
+    },
   },
   modules: [
     '@nuxt/content',

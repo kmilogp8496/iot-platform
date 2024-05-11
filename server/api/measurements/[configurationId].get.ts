@@ -58,6 +58,8 @@ export default defineCachedEventHandler(async (event) => {
 
   const configuration = (await db.select({
     id: SensorsConfigurations.id,
+    lastValue: SensorsConfigurations.lastValue,
+    updatedAt: SensorsConfigurations.updatedAt,
   })
     .from(SensorsConfigurations)
     .where(
@@ -80,12 +82,12 @@ export default defineCachedEventHandler(async (event) => {
 
   const rows = readClient.iterateRows(fluxQuery)
 
-  const result: Pick<InfluxResponsePoint, '_value' | '_time'>[] = []
+  const results: Pick<InfluxResponsePoint, '_value' | '_time'>[] = []
 
   for await (const row of rows) {
     const tableObject = row.tableMeta.toObject(row.values) as InfluxResponsePoint
-    result.push(objectPick(tableObject, ['_value', '_time']))
+    results.push(objectPick(tableObject, ['_value', '_time']))
   }
 
-  return result
+  return { results, lastValue: configuration.lastValue, updatedAt: configuration.updatedAt }
 })

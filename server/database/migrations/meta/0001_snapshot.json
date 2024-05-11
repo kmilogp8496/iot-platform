@@ -1,10 +1,8 @@
 {
-  "id": "6bd5a562-31bf-4b52-8db5-41387eee8119",
-  "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "5",
-  "dialect": "pg",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "projects": {
+    "public.projects": {
       "name": "projects",
       "schema": "",
       "columns": {
@@ -52,7 +50,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "users": {
+    "public.users": {
       "name": "users",
       "schema": "",
       "columns": {
@@ -94,14 +92,14 @@
       "uniqueConstraints": {
         "users_email_unique": {
           "name": "users_email_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "email"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "usersToProject": {
+    "public.usersToProject": {
       "name": "usersToProject",
       "schema": "",
       "columns": {
@@ -123,28 +121,28 @@
         "usersToProject_user_id_users_id_fk": {
           "name": "usersToProject_user_id_users_id_fk",
           "tableFrom": "usersToProject",
-          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "usersToProject_project_id_projects_id_fk": {
           "name": "usersToProject_project_id_projects_id_fk",
           "tableFrom": "usersToProject",
-          "tableTo": "projects",
           "columnsFrom": [
             "project_id"
           ],
+          "tableTo": "projects",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -162,8 +160,10 @@
   "enums": {},
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "6bd5a562-31bf-4b52-8db5-41387eee8119",
+  "prevId": "00000000-0000-0000-0000-000000000000"
 }

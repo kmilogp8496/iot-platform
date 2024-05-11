@@ -169,6 +169,20 @@
       "when": 1714685197558,
       "tag": "0023_common_fabian_cortez",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "5",
+      "when": 1715421283629,
+      "tag": "0024_curious_bug",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "6",
+      "when": 1715422039011,
+      "tag": "0025_tiresome_mole_man",
+      "breakpoints": true
     }
   ]
 }

@@ -13,7 +13,7 @@ export const NAVIGATION_LINKS: VerticalNavigationLink[] = [
   },
   {
     label: 'Sensores',
-    icon: 'i-cbi-motion-sensor-temperature',
+    icon: ICONS.sensors,
     to: '/sensors',
   },
   {

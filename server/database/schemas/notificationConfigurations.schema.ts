@@ -11,7 +11,7 @@ export const NotificationConfigurations = pgTable('notificationConfigurations', 
   notification: integer('notification').notNull().references(() => Notifications.id, { onDelete: 'cascade' }),
   sensorConfiguration: integer('sensor_configuration').notNull().references(() => SensorsConfigurations.id),
   sign: notificationSignEnum('sign').notNull(),
-  threshold: numeric('threshold', { precision: 100 }).notNull(),
+  threshold: numeric('threshold', { precision: 10, scale: 2 }).notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 }, tb => ({

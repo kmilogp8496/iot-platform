@@ -1,10 +1,8 @@
 {
-  "id": "eb59bc03-17fd-447b-9876-69a8e35d7650",
-  "prevId": "391f4dc9-4e86-4e41-9db9-cfcfdb596e51",
-  "version": "5",
-  "dialect": "pg",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "locations": {
+    "public.locations": {
       "name": "locations",
       "schema": "",
       "columns": {
@@ -58,34 +56,34 @@
         "locations_project_projects_id_fk": {
           "name": "locations_project_projects_id_fk",
           "tableFrom": "locations",
-          "tableTo": "projects",
           "columnsFrom": [
             "project"
           ],
+          "tableTo": "projects",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "locations_parent_location_locations_id_fk": {
           "name": "locations_parent_location_locations_id_fk",
           "tableFrom": "locations",
-          "tableTo": "locations",
           "columnsFrom": [
             "parent_location"
           ],
+          "tableTo": "locations",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "projects": {
+    "public.projects": {
       "name": "projects",
       "schema": "",
       "columns": {
@@ -133,7 +131,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "sensors": {
+    "public.sensors": {
       "name": "sensors",
       "schema": "",
       "columns": {
@@ -187,21 +185,21 @@
         "sensors_project_projects_id_fk": {
           "name": "sensors_project_projects_id_fk",
           "tableFrom": "sensors",
-          "tableTo": "projects",
           "columnsFrom": [
             "project"
           ],
+          "tableTo": "projects",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "users": {
+    "public.users": {
       "name": "users",
       "schema": "",
       "columns": {
@@ -243,14 +241,14 @@
       "uniqueConstraints": {
         "users_email_unique": {
           "name": "users_email_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "email"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "usersToProject": {
+    "public.usersToProject": {
       "name": "usersToProject",
       "schema": "",
       "columns": {
@@ -272,28 +270,28 @@
         "usersToProject_user_id_users_id_fk": {
           "name": "usersToProject_user_id_users_id_fk",
           "tableFrom": "usersToProject",
-          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "usersToProject_project_id_projects_id_fk": {
           "name": "usersToProject_project_id_projects_id_fk",
           "tableFrom": "usersToProject",
-          "tableTo": "projects",
           "columnsFrom": [
             "project_id"
           ],
+          "tableTo": "projects",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -307,7 +305,7 @@
       },
       "uniqueConstraints": {}
     },
-    "variables": {
+    "public.variables": {
       "name": "variables",
       "schema": "",
       "columns": {
@@ -365,8 +363,10 @@
   "enums": {},
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "eb59bc03-17fd-447b-9876-69a8e35d7650",
+  "prevId": "391f4dc9-4e86-4e41-9db9-cfcfdb596e51"
 }

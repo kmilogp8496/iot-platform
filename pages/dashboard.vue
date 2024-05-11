@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useRouteQuery } from '@vueuse/router'
 import type { NotNull } from '~/utils/typing'
 
 const title = ref('Dashboard')
@@ -10,7 +11,9 @@ useHead({
 const session = useUserSession()
 const projects = await useFetch('/api/projects')
 
-const project = ref(projects.data.value?.results[0]?.id)
+const project = useRouteQuery('project', projects.data.value?.results[0]?.id, {
+  transform: Number,
+})
 
 export type SensorConfigurationByProject = InferResponse<NotNull<typeof sensorsConfigurations>>[number]
 

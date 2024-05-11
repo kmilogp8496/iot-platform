@@ -11,11 +11,11 @@ export const SensorsConfigurations = pgTable('sensorsConfigurations', {
   variable: serial('variable_id').notNull().references(() => variables.id),
   location: serial('location_id').notNull().references(() => Locations.id),
   createdBy: serial('created_by').notNull().references(() => users.id),
-  lastValue: numeric('last_value', { precision: 100, scale: 0 }),
+  lastValue: numeric('last_value', { precision: 10, scale: 2 }),
   name: text('name').notNull(),
   description: text('description').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow().$onUpdateFn(() => new Date()),
   deletedAt: timestamp('deleted_at'),
 }, tb => ({
   sensorsConfigurationNameIdUnique: unique().on(tb.sensor, tb.name, tb.location, tb.variable),

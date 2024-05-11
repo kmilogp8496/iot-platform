@@ -1,63 +1,67 @@
 {
-  "id": "00000000-0000-0000-0000-000000000000",
-  "prevId": "",
-  "version": "5",
-  "dialect": "pg",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {},
   "enums": {
-    "key_status": {
+    "public.key_status": {
       "name": "key_status",
-      "values": {
-        "expired": "expired",
-        "invalid": "invalid",
-        "valid": "valid",
-        "default": "default"
-      }
+      "schema": "public",
+      "values": [
+        "expired",
+        "invalid",
+        "valid",
+        "default"
+      ]
     },
-    "key_type": {
+    "public.key_type": {
       "name": "key_type",
-      "values": {
-        "stream_xchacha20": "stream_xchacha20",
-        "secretstream": "secretstream",
-        "secretbox": "secretbox",
-        "kdf": "kdf",
-        "generichash": "generichash",
-        "shorthash": "shorthash",
-        "auth": "auth",
-        "hmacsha256": "hmacsha256",
-        "hmacsha512": "hmacsha512",
-        "aead-det": "aead-det",
-        "aead-ietf": "aead-ietf"
-      }
+      "schema": "public",
+      "values": [
+        "stream_xchacha20",
+        "secretstream",
+        "secretbox",
+        "kdf",
+        "generichash",
+        "shorthash",
+        "auth",
+        "hmacsha256",
+        "hmacsha512",
+        "aead-det",
+        "aead-ietf"
+      ]
     },
-    "factor_status": {
+    "public.factor_status": {
       "name": "factor_status",
-      "values": {
-        "verified": "verified",
-        "unverified": "unverified"
-      }
+      "schema": "public",
+      "values": [
+        "verified",
+        "unverified"
+      ]
     },
-    "factor_type": {
+    "public.factor_type": {
       "name": "factor_type",
-      "values": {
-        "webauthn": "webauthn",
-        "totp": "totp"
-      }
+      "schema": "public",
+      "values": [
+        "webauthn",
+        "totp"
+      ]
     },
-    "aal_level": {
+    "public.aal_level": {
       "name": "aal_level",
-      "values": {
-        "aal3": "aal3",
-        "aal2": "aal2",
-        "aal1": "aal1"
-      }
+      "schema": "public",
+      "values": [
+        "aal3",
+        "aal2",
+        "aal1"
+      ]
     },
-    "code_challenge_method": {
+    "public.code_challenge_method": {
       "name": "code_challenge_method",
-      "values": {
-        "plain": "plain",
-        "s256": "s256"
-      }
+      "schema": "public",
+      "values": [
+        "plain",
+        "s256"
+      ]
     }
   },
   "schemas": {},
@@ -65,5 +69,7 @@
     "schemas": {},
     "tables": {},
     "columns": {}
-  }
+  },
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": ""
 }

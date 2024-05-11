@@ -1,10 +1,8 @@
 {
-  "id": "d79e29f1-4679-4003-8e6a-f32a2080cafe",
-  "prevId": "fde763a6-5ee7-46e6-8bf4-8d0430a581d0",
-  "version": "5",
-  "dialect": "pg",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "actuatorConfigurations": {
+    "public.actuatorConfigurations": {
       "name": "actuatorConfigurations",
       "schema": "",
       "columns": {
@@ -70,56 +68,56 @@
         "actuatorConfigurations_sensor_sensors_id_fk": {
           "name": "actuatorConfigurations_sensor_sensors_id_fk",
           "tableFrom": "actuatorConfigurations",
-          "tableTo": "sensors",
           "columnsFrom": [
             "sensor"
           ],
+          "tableTo": "sensors",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "actuatorConfigurations_sensor_configuration_sensorsConfigurations_id_fk": {
           "name": "actuatorConfigurations_sensor_configuration_sensorsConfigurations_id_fk",
           "tableFrom": "actuatorConfigurations",
-          "tableTo": "sensorsConfigurations",
           "columnsFrom": [
             "sensor_configuration"
           ],
+          "tableTo": "sensorsConfigurations",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "actuatorConfigurations_created_by_users_id_fk": {
           "name": "actuatorConfigurations_created_by_users_id_fk",
           "tableFrom": "actuatorConfigurations",
-          "tableTo": "users",
           "columnsFrom": [
             "created_by"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "actuatorConfigurations_sensor_sensor_configuration_unique": {
           "name": "actuatorConfigurations_sensor_sensor_configuration_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "sensor",
             "sensor_configuration"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "locations": {
+    "public.locations": {
       "name": "locations",
       "schema": "",
       "columns": {
@@ -173,34 +171,34 @@
         "locations_project_projects_id_fk": {
           "name": "locations_project_projects_id_fk",
           "tableFrom": "locations",
-          "tableTo": "projects",
           "columnsFrom": [
             "project"
           ],
+          "tableTo": "projects",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "locations_parent_location_locations_id_fk": {
           "name": "locations_parent_location_locations_id_fk",
           "tableFrom": "locations",
-          "tableTo": "locations",
           "columnsFrom": [
             "parent_location"
           ],
+          "tableTo": "locations",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "notificationConfigurations": {
+    "public.notificationConfigurations": {
       "name": "notificationConfigurations",
       "schema": "",
       "columns": {
@@ -254,43 +252,43 @@
         "notificationConfigurations_notification_notifications_id_fk": {
           "name": "notificationConfigurations_notification_notifications_id_fk",
           "tableFrom": "notificationConfigurations",
-          "tableTo": "notifications",
           "columnsFrom": [
             "notification"
           ],
+          "tableTo": "notifications",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "notificationConfigurations_sensor_configuration_sensorsConfigurations_id_fk": {
           "name": "notificationConfigurations_sensor_configuration_sensorsConfigurations_id_fk",
           "tableFrom": "notificationConfigurations",
-          "tableTo": "sensorsConfigurations",
           "columnsFrom": [
             "sensor_configuration"
           ],
+          "tableTo": "sensorsConfigurations",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "notificationConfigurations_notification_sensor_configuration_unique": {
           "name": "notificationConfigurations_notification_sensor_configuration_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "notification",
             "sensor_configuration"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "notifications": {
+    "public.notifications": {
       "name": "notifications",
       "schema": "",
       "columns": {
@@ -363,21 +361,21 @@
         "notifications_created_by_users_id_fk": {
           "name": "notifications_created_by_users_id_fk",
           "tableFrom": "notifications",
-          "tableTo": "users",
           "columnsFrom": [
             "created_by"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "projects": {
+    "public.projects": {
       "name": "projects",
       "schema": "",
       "columns": {
@@ -431,21 +429,21 @@
         "projects_created_by_users_id_fk": {
           "name": "projects_created_by_users_id_fk",
           "tableFrom": "projects",
-          "tableTo": "users",
           "columnsFrom": [
             "created_by"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "sensors": {
+    "public.sensors": {
       "name": "sensors",
       "schema": "",
       "columns": {
@@ -519,34 +517,34 @@
         "sensors_project_projects_id_fk": {
           "name": "sensors_project_projects_id_fk",
           "tableFrom": "sensors",
-          "tableTo": "projects",
           "columnsFrom": [
             "project"
           ],
+          "tableTo": "projects",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "sensors_created_by_users_id_fk": {
           "name": "sensors_created_by_users_id_fk",
           "tableFrom": "sensors",
-          "tableTo": "users",
           "columnsFrom": [
             "created_by"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "sensorsConfigurations": {
+    "public.sensorsConfigurations": {
       "name": "sensorsConfigurations",
       "schema": "",
       "columns": {
@@ -624,71 +622,71 @@
         "sensorsConfigurations_sensor_id_sensors_id_fk": {
           "name": "sensorsConfigurations_sensor_id_sensors_id_fk",
           "tableFrom": "sensorsConfigurations",
-          "tableTo": "sensors",
           "columnsFrom": [
             "sensor_id"
           ],
+          "tableTo": "sensors",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "sensorsConfigurations_variable_id_variables_id_fk": {
           "name": "sensorsConfigurations_variable_id_variables_id_fk",
           "tableFrom": "sensorsConfigurations",
-          "tableTo": "variables",
           "columnsFrom": [
             "variable_id"
           ],
+          "tableTo": "variables",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "sensorsConfigurations_location_id_locations_id_fk": {
           "name": "sensorsConfigurations_location_id_locations_id_fk",
           "tableFrom": "sensorsConfigurations",
-          "tableTo": "locations",
           "columnsFrom": [
             "location_id"
           ],
+          "tableTo": "locations",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "sensorsConfigurations_created_by_users_id_fk": {
           "name": "sensorsConfigurations_created_by_users_id_fk",
           "tableFrom": "sensorsConfigurations",
-          "tableTo": "users",
           "columnsFrom": [
             "created_by"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "sensorsConfigurations_sensor_id_name_location_id_variable_id_unique": {
           "name": "sensorsConfigurations_sensor_id_name_location_id_variable_id_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "sensor_id",
             "name",
             "location_id",
             "variable_id"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "users": {
+    "public.users": {
       "name": "users",
       "schema": "",
       "columns": {
@@ -730,14 +728,14 @@
       "uniqueConstraints": {
         "users_email_unique": {
           "name": "users_email_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "email"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "usersToProject": {
+    "public.usersToProject": {
       "name": "usersToProject",
       "schema": "",
       "columns": {
@@ -759,28 +757,28 @@
         "usersToProject_user_id_users_id_fk": {
           "name": "usersToProject_user_id_users_id_fk",
           "tableFrom": "usersToProject",
-          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "usersToProject_project_id_projects_id_fk": {
           "name": "usersToProject_project_id_projects_id_fk",
           "tableFrom": "usersToProject",
-          "tableTo": "projects",
           "columnsFrom": [
             "project_id"
           ],
+          "tableTo": "projects",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {
@@ -794,7 +792,7 @@
       },
       "uniqueConstraints": {}
     },
-    "variables": {
+    "public.variables": {
       "name": "variables",
       "schema": "",
       "columns": {
@@ -854,15 +852,15 @@
         "variables_project_projects_id_fk": {
           "name": "variables_project_projects_id_fk",
           "tableFrom": "variables",
-          "tableTo": "projects",
           "columnsFrom": [
             "project"
           ],
+          "tableTo": "projects",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -870,38 +868,43 @@
     }
   },
   "enums": {
-    "sign": {
+    "public.sign": {
       "name": "sign",
-      "values": {
-        "gte": "gte",
-        "lte": "lte",
-        "eq": "eq",
-        "neq": "neq",
-        "gt": "gt",
-        "lt": "lt"
-      }
+      "schema": "public",
+      "values": [
+        "gte",
+        "lte",
+        "eq",
+        "neq",
+        "gt",
+        "lt"
+      ]
     },
-    "notification_level": {
+    "public.notification_level": {
       "name": "notification_level",
-      "values": {
-        "info": "info",
-        "warning": "warning",
-        "error": "error"
-      }
+      "schema": "public",
+      "values": [
+        "info",
+        "warning",
+        "error"
+      ]
     },
-    "notification_type": {
+    "public.notification_type": {
       "name": "notification_type",
-      "values": {
-        "slack": "slack",
-        "discord": "discord",
-        "http": "http"
-      }
+      "schema": "public",
+      "values": [
+        "slack",
+        "discord",
+        "http"
+      ]
     }
   },
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "d79e29f1-4679-4003-8e6a-f32a2080cafe",
+  "prevId": "fde763a6-5ee7-46e6-8bf4-8d0430a581d0"
 }

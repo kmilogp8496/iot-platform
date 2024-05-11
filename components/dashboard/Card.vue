@@ -47,7 +47,7 @@ function tickFormat(d: number) {
 type DataPoint = UnwrapRef<typeof computedData>[number]
 
 const computedData = computed(() => {
-  return data.data.value?.map(d => ({
+  return data.data.value?.results.map(d => ({
     y: d._value,
     x: new Date(d._time).valueOf(),
     tooltip: `${d._value.toFixed(2)} ${props.configuration.variable.unit} (${new Date(d._time).toLocaleString()})`,
@@ -57,13 +57,13 @@ const computedData = computed(() => {
 const YLabel = computed(() => props.configuration.variable.unit ? `${props.configuration.variable.name} (${props.configuration.variable.unit})` : props.configuration.variable.name)
 
 const currentValue = computed(() => {
-  const last = computedData.value.at(-1)
-  const beforeLast = computedData.value.at(-2)
+  let last = data.data.value?.lastValue ?? null
+  const beforeLast = computedData.value.at(-2) ?? null
 
-  if (!last || !beforeLast)
+  if (null === last || null === beforeLast || !data.data.value?.updatedAt)
     return null
 
-  const diff = last.y - beforeLast.y
+  const diff = parseFloat(last) - beforeLast.y
 
   let icon: string | null = null
   switch (true) {
@@ -77,16 +77,15 @@ const currentValue = computed(() => {
       icon = null
       break
   }
-  let value = last.y.toFixed(2)
 
   if (props.configuration.variable.unit) {
-    value += ` (${props.configuration.variable.unit})`
+    last += ` (${props.configuration.variable.unit})`
   }
 
   return {
-    value,
+    value: last,
     icon,
-    ago: useTimeAgo(last.x, TIME_AGO_DEFAULT_MESSAGES),
+    ago: useTimeAgo(data.data.value.updatedAt, TIME_AGO_DEFAULT_MESSAGES),
   }
 })
 
@@ -145,7 +144,6 @@ const onHelpRequest = async () => {
         <div class="font-extralight text-base sm:text-lg flex justify-between items-center">
           {{ YLabel }} en {{ configuration.location.name }}
           <div
-            v-if="currentValue"
             class="inline-flex items-center gap-2"
           >
             <UButton
@@ -155,7 +153,7 @@ const onHelpRequest = async () => {
               trailing-icon="i-heroicons:arrow-path"
               @click="data.refresh()"
             >
-              <template v-if="currentValue.value">
+              <template v-if="currentValue">
                 ({{ currentValue.ago.value }})
               </template>
             </UButton>
@@ -203,9 +201,8 @@ const onHelpRequest = async () => {
     />
 
     <template #footer>
-      <div class="flex gap-4">
+      <div class="flex gap-2">
         <UTooltip
-          class="mr-auto"
           text="Identificar patrones de la gráfica mediante asistente"
         >
           <UButton
@@ -216,6 +213,14 @@ const onHelpRequest = async () => {
             @click="onHelpRequest"
           />
         </UTooltip>
+        <UButton
+          class="mr-auto"
+          size="sm"
+          variant="ghost"
+          :icon="ICONS.sensorConfiguration"
+          :loading="helpRequest.status.value === 'pending'"
+          :to="`/sensors/${props.configuration.sensor.id}`"
+        />
         <div class="inline-flex items-center gap-4 text-xs">
           Desde hace:
           <USelectMenu
@@ -232,7 +237,7 @@ const onHelpRequest = async () => {
             icon="i-mdi-file-download-outline"
             @click="onGenerateCsv"
           >
-            Descargar datos
+            CSV
           </UButton>
         </div>
       </div>

@@ -1,0 +1,1 @@
+ALTER TABLE "sensorsConfigurations" ALTER COLUMN "last_value" SET DATA TYPE numeric(10, 2);

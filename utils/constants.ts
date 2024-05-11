@@ -16,7 +16,7 @@ export const TIME_AGO_DEFAULT_MESSAGES = {
       ? past
         ? 'último mes'
         : 'próximo mes'
-      : `${n} mes${n > 1 ? 's' : ''}`,
+      : `${n} mes${n > 1 ? 'es' : ''}`,
     year: (n: any, past: boolean) => n === 1
       ? past
         ? 'último año'
@@ -55,4 +55,5 @@ export const ICONS = {
   home: 'i-heroicons-home',
   dashboard: 'i-heroicons-presentation-chart-line-solid',
   IA: 'i-mdi-robot-confused',
+  sensors: 'i-cbi-motion-sensor-temperature',
 } as const

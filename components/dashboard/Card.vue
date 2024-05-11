@@ -132,12 +132,11 @@ const onHelpRequest = async () => {
         <div class="text-lg sm:text-xl font-bold flex items-center justify-between">
           {{ computedTitle }}
           <div
-            v-if="currentValue"
             class="font-medium text-gray-700 dark:text-gray-300"
           >
-            {{ currentValue.value }} <UIcon
-              v-if="currentValue.icon"
-              :name="currentValue.icon"
+            {{ data.data.value?.lastValue }} <UIcon
+              v-if="currentValue?.icon"
+              :name="currentValue?.icon"
             />
           </div>
         </div>

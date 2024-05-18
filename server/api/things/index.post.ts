@@ -16,7 +16,6 @@ export const ThingsPostBodySchema = z.record(
 )
 
 export default defineEventHandler(async (event) => {
-  console.log(new Date().toLocaleTimeString(), 'THINGS POST /things')
   const session = await requireEventPermission(event, [
     ['CREATE', 'thingsData'],
   ])

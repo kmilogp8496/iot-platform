@@ -37,6 +37,7 @@ export default defineWebSocketHandler({
   },
   async message(peer, message) {
     const text = message.text()
+    console.log('[ws] message', peer, text)
     if (text.includes('ping')) {
       peer.send('pong')
       return

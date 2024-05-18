@@ -18,11 +18,11 @@
     "@influxdata/influxdb-client": "^1.33.2",
     "@nuxt/content": "^2.12.1",
     "@nuxt/ui": "^2.16.0",
-    "@sentry/node": "^7.114.0",
-    "@sentry/profiling-node": "^7.114.0",
-    "@sentry/vue": "^7.114.0",
-    "@unovis/ts": "^1.4.0",
-    "@unovis/vue": "^1.4.0",
+    "@sentry/node": "^7.116.0",
+    "@sentry/profiling-node": "^7.116.0",
+    "@sentry/vue": "^7.116.0",
+    "@unovis/ts": "^1.4.1",
+    "@unovis/vue": "^1.4.1",
     "@vueuse/router": "^10.9.0",
     "drizzle-orm": "^0.30.10",
     "drizzle-zod": "^0.5.1",
@@ -31,18 +31,18 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^0.3.12",
+    "@nuxt/eslint": "^0.3.13",
     "@nuxt/fonts": "^0.7.0",
-    "@nuxthq/studio": "^1.0.15",
+    "@nuxthq/studio": "^1.1.0",
     "@vueuse/core": "^10.9.0",
     "@vueuse/nuxt": "^10.9.0",
-    "drizzle-kit": "^0.21.1",
+    "drizzle-kit": "^0.21.2",
     "nuxt": "^3.11.2",
     "nuxt-auth-utils": "^0.0.24",
     "pg": "^8.11.5",
     "typescript": "^5.4.5",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2",
-    "vue-tsc": "^2.0.17"
+    "vue-tsc": "^2.0.19"
   }
 }

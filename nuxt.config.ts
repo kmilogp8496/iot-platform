@@ -57,5 +57,11 @@ export default defineNuxtConfig({
     experimental: {
       websocket: true,
     },
+    prerender: {
+      routes: [
+        '/home',
+        '/auth/login',
+      ],
+    },
   },
 })
